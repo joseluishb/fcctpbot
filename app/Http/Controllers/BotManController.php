@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Conversations\SearchingStudentConversation;
 use BotMan\BotMan\BotMan;
 use BotMan\BotMan\Messages\Conversations\Conversation;
 use BotMan\BotMan\Messages\Incoming\Answer;
@@ -17,7 +18,7 @@ class BotManController extends Controller
             $bot->reply('Pucha, No me han programado para entender tu mensaje');
         });
 
-        $botman->hears('Hola Botman', function (BotMan $bot) {
+        $botman->hears('Hola', function (BotMan $bot) {
             $bot->reply('Hola xixo(a)');
 
             $bot->ask('Como te llamas?', function (Answer $answer, Conversation $bot) {
@@ -25,7 +26,9 @@ class BotManController extends Controller
             });
         });
 
-
+        $botman->hears('Soy alumno', function (BotMan $bot) {
+            $bot->startConversation(new SearchingStudentConversation());
+        });
 
         $botman->listen();
     }
