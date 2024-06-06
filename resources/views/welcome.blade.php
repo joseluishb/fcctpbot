@@ -168,5 +168,22 @@
                 </div>
             </div>
         </div>
+
+        <script>
+            var botmanWidget = {
+                title: 'Chat demo',
+                //introMessage: 'Hola, que hay?',
+                mainColor: '#dd3333',
+                bubbleBackground: '#fff',
+                headerTextColor: '#ffffff',
+                placeholderText: 'Escribe un mensaje..',
+                bubbleAvatarUrl: 'https://avatars.githubusercontent.com/u/9806620?v=4',
+                aboutLink: 'https://hube.pe',
+                aboutText: 'Desarrollado por hube'
+            }
+        </script>
+        <script src='https://cdn.jsdelivr.net/npm/botman-web-widget@0/build/js/widget.js'></script>
     </body>
+
+
 </html>
