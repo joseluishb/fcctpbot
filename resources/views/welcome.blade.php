@@ -165,22 +165,44 @@
                     <footer class="py-16 text-center text-sm text-black dark:text-white/70">
                         Laravel v{{ Illuminate\Foundation\Application::VERSION }} (PHP v{{ PHP_VERSION }})
                     </footer>
+
+                            <a
+            style="color: #000"
+            href="#"
+            onclick="demo();"
+        >
+        Iniciar chat
+        </a>
                 </div>
             </div>
         </div>
 
+
+
         <script>
+            console.log('All assets are loaded');
+
+
+
+            function demo() {
+                //botmanChatWidget.sayAsBot('Hola soy el bot Kokoldman. En que puedo ayudarte?')
+                botmanChatWidget.whisper('Mi doc')
+            }
+
+
             var botmanWidget = {
                 title: 'Chat demo',
-                //introMessage: 'Hola, que hay?',
+                //introMessage: '¡Hola! 🤓 Soy el ASISTENTE VIRTUAL de la FCCTP, estoy muy contento de poder ayudarte 🙂',
                 mainColor: '#dd3333',
                 bubbleBackground: '#fff',
                 headerTextColor: '#ffffff',
                 placeholderText: 'Escribe un mensaje..',
                 bubbleAvatarUrl: 'https://avatars.githubusercontent.com/u/9806620?v=4',
                 aboutLink: 'https://hube.pe',
-                aboutText: 'Desarrollado por hube'
+                aboutText: 'Desarrollado por hube',
+
             }
+
         </script>
         <script src='https://cdn.jsdelivr.net/npm/botman-web-widget@0/build/js/widget.js'></script>
     </body>
