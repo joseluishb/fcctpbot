@@ -192,7 +192,7 @@
 
             var botmanWidget = {
                 title: 'Chat demo',
-                //introMessage: '¡Hola! 🤓 Soy el ASISTENTE VIRTUAL de la FCCTP, estoy muy contento de poder ayudarte 🙂',
+                introMessage: '¡Hola!  Soy el ASISTENTE VIRTUAL de la FCCTP, antes de poder ayudarte ',
                 mainColor: '#dd3333',
                 bubbleBackground: '#fff',
                 headerTextColor: '#ffffff',
