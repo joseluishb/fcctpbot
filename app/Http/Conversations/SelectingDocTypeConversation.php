@@ -39,9 +39,6 @@ class SelectingDocTypeConversation extends Conversation
     }
 
 
-
-
-
     public function askForDocumentNumber0()
     {
         $documentTypeName = $this->documentType == 'dni' ? 'DNI' : 'CE';
@@ -96,7 +93,7 @@ class SelectingDocTypeConversation extends Conversation
 
         $this->say($message);*/
 
-        $questionText = 'Selecciona una opción:';
+        $questionText = 'Selecciona una opción:<br>';
         foreach ($options as $key => $option) {
             $questionText .= ($key + 1) . ". " . $option . "<br>";
         }
