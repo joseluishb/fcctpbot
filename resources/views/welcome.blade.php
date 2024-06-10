@@ -12,7 +12,7 @@
 
         <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp,container-queries"></script>
 
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/botman-web-widget@0/build/assets/css/chat.min.css">
+    {{-- <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/botman-web-widget@0/build/assets/css/chat.min.css"> --}}
     <style>
         body {
             background-image: none;
@@ -59,6 +59,7 @@
 
 
             var botmanWidget = {
+
                 title: 'Chat demo',
                 introMessage: '¡Hola!  Soy el ASISTENTE VIRTUAL de la FCCTP, este chatbot está orientado en ayudarte para la matrícula del proceso 2024-2.',
                 mainColor: '#dd3333',
@@ -66,16 +67,11 @@
                 headerTextColor: '#ffffff',
                 placeholderText: 'Escribe un mensaje..',
                 bubbleAvatarUrl: 'https://botman.io/img/logo.png',
+                bubbleBackground:'#c02026',
                 aboutLink: 'https://hube.pe',
                 aboutText: 'Desarrollado por hube',
                 alwaysUseFloatingButton: !0,
-                customStyles: {
-                    css: `
-                        body {
-                            background-image: none !important;
-                        }
-                    `
-                }
+
             }
 
 
@@ -90,7 +86,7 @@
         window.onload = function() {
                 checkBotmanWidgetReady(function() {
                     demo();
-                    document.querySelector('#botmanWidgetRoot').style.backgroundImage = 'none';
+                    document.getElementById('chatBotManFrame').style.backgroundImage = 'none';
                 });
 
         };
