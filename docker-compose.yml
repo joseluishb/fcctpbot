@@ -23,6 +23,6 @@ services:
       MYSQL_PASSWORD: '12456'
       # for postgres you can pass in similar env as for mysql but with PGSQL_ prefix
 
-    command: /bin/sh -c "chmod -R 775 /var/www/html/storage && chown -R www-data:www-data /var/www/html/storage && supervisord -n && npm run dev"
+    command: /bin/sh -c "chmod -R 775 /var/www/html/storage && chown -R www-data:www-data /var/www/html/storage && supervisord -n && npm run dev && git config --global user.email 'joseluishube@gmail.com' && git config --global user.name 'José Luis H'"
 volumes:
   db_data: {}
