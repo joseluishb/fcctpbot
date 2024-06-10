@@ -54,8 +54,10 @@ class MenuOptionSeeder extends Seeder
      */
     protected function crearOpcion($descripcion, $opcion_menu_id = null)
     {
+        $contenido = ($opcion_menu_id === 8) ? '<strong>Recepción de solicitudes extemporáneas a través de la plataforma:</strong><br>Del miércoles 15 de mayo al viernes 28 de junio' : '--';
         MenuOption::create([
             'descripcion' => $descripcion,
+            'contenido' => $contenido,
             'menu_option_id' => $opcion_menu_id,
             'tipo_accion' => 'menu',
             'codper' => '2024-2',

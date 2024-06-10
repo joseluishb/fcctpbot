@@ -2,6 +2,7 @@
 
 namespace App\Http\Conversations;
 
+use App\Models\MenuOption;
 use App\Models\SapM\Cliente;
 use BotMan\BotMan\Messages\Conversations\Conversation;
 use BotMan\BotMan\Messages\Incoming\Answer;
@@ -89,9 +90,9 @@ class SelectingDocTypeConversation extends Conversation
 
     public function showOptions($studentName)
     {
-        $this->say("Bienvenido alumno: $studentName");
+        $this->say("Bienvenido alumno(a): $studentName");
 
-        $options = [
+        /*$options = [
             'Matrícula de cursos',
             'Reserva de matrícula',
             'Reactualización de matrícula (SI DEJASTE DE ESTUDIAR UNO O MÁS CICLOS)',
@@ -99,31 +100,74 @@ class SelectingDocTypeConversation extends Conversation
             'Deficiencia Académica',
             'Soporte informático',
             'Consulta Académica',
-        ];
+        ];*/
 
-        /*
-        $message = "Selecciona una opción:<br>";
-        foreach ($options as $key => $option) {
-            $message .= ($key + 1) . ". " . $option . "<br>";
-        }
-
-        $this->say($message);*/
-
+        $options = MenuOption::whereNull('menu_option_id')->get(['id', 'descripcion']);
         $questionText = 'Selecciona una opción:<br>';
-        foreach ($options as $key => $option) {
-            $questionText .= ($key + 1) . ". " . $option . "<br>";
+        foreach ($options as $key => $opcion) {
+            $questionText .= ($key + 1) . ". " . $opcion->descripcion . "<br>";
         }
 
         $question = Question::create($questionText)
             ->fallback('No puedo procesar tu solicitud')
             ->callbackId('select_option');
 
-        $this->ask($question, function (Answer $answer) use ($options) {
-            $optionIndex = (int) $answer->getText();
-            $selectedOption = $options[$optionIndex - 1];
-            $this->say('Has seleccionado: ' . $selectedOption);
+        $this->ask($question, function (Answer $answer) use ($options, $studentName) {
+            $optionIndex = (int) $answer->getText() - 1;
+
+            if ($optionIndex >= 0 && $optionIndex < $options->count()) {
+                $selectedOption = $options[$optionIndex];
+                $this->say('Has seleccionado: ' . $selectedOption->descripcion);
+
+                // Aquí puedes llamar a otro método para manejar la opción seleccionada
+                $this->handleSelectedOption($selectedOption->id, $studentName);
+            } else {
+                $this->say('Selección inválida. Por favor, intenta de nuevo.');
+                $this->repeat();
+            }
         });
     }
+
+    protected function handleSelectedOption($optionId, $studentName)
+    {
+        $subOpciones = MenuOption::where('menu_option_id', $optionId)->get(['id', 'descripcion', 'contenido']);
+
+        if ($subOpciones->isEmpty()) {
+            $this->say('No hay sub-opciones disponibles.');
+            return;
+        }
+
+        $questionText = 'Selecciona una sub-opción:<br>';
+        foreach ($subOpciones as $key => $subOpcion) {
+            $questionText .= ($key + 1) . ". " . $subOpcion->descripcion . "<br>";
+        }
+        $questionText .= ($subOpciones->count() + 1) . ". Regresar al menú anterior<br>";
+
+        $question = Question::create($questionText)
+            ->fallback('No puedo procesar tu solicitud')
+            ->callbackId('select_sub_option');
+
+        $this->ask($question, function (Answer $answer) use ($subOpciones, $studentName) {
+            $subOptionIndex = (int) $answer->getText() - 1;
+
+            if ($subOptionIndex == $subOpciones->count()) {
+                $this->showOptions($studentName);
+            } elseif ($subOptionIndex >= 0 && $subOptionIndex < $subOpciones->count()) {
+                $selectedSubOption = $subOpciones[$subOptionIndex];
+                $this->say('Has seleccionado: ' . $selectedSubOption->descripcion);
+
+                // Continuar el flujo de la conversación aquí
+
+
+                $this->say($selectedSubOption->contenido);
+
+            } else {
+                $this->say('Selección inválida. Por favor, intenta de nuevo.');
+                $this->repeat();
+            }
+        });
+    }
+
     protected function validateDocumentNumber($documentNumber)
     {
         if ($this->documentType === 'dni') {
