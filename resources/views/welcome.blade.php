@@ -61,12 +61,13 @@
             var botmanWidget = {
 
                 title: 'Chat demo',
-                introMessage: '¡Hola!  Soy el ASISTENTE VIRTUAL de la FCCTP, este chatbot está orientado en ayudarte para la matrícula del proceso 2024-2.',
+                introMessage: '¡Hola! Soy el Asistente Virtual de la FCCTP 🤖. Estoy aquí para ayudarte con el proceso de matrícula 2024-2.',
                 mainColor: '#dd3333',
                 bubbleBackground: '#fff',
                 headerTextColor: '#ffffff',
                 placeholderText: 'Escribe un mensaje..',
-                bubbleAvatarUrl: 'https://botman.io/img/logo.png',
+                //bubbleAvatarUrl: 'https://botman.io/img/logo.png',
+                bubbleAvatarUrl: 'https://avatars.githubusercontent.com/u/46945071?v=4',
                 bubbleBackground:'#c02026',
                 aboutLink: 'https://hube.pe',
                 aboutText: 'Desarrollado por hube',

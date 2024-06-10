@@ -2,6 +2,7 @@
 
 namespace App\Http\Conversations;
 
+use App\Models\SapM\Cliente;
 use BotMan\BotMan\Messages\Conversations\Conversation;
 use BotMan\BotMan\Messages\Incoming\Answer;
 use BotMan\BotMan\Messages\Outgoing\Actions\Button;
@@ -70,7 +71,14 @@ class SelectingDocTypeConversation extends Conversation
             // Luego, muestra las opciones correspondientes según el documento ingresado
             $documentNumber = $answer->getText();
             if ($this->validateDocumentNumber($documentNumber)) {
-                $this->showOptions('Juan Solano');
+                $cliente = Cliente::where('dni', $documentNumber)->first();
+                if($cliente) {
+                    $nom = $cliente->nom1;
+                    $this->showOptions($nom);
+                }else {
+                    $this->repeat('No encontramos. Por favor intenta de nuevo o escribenos a sap_fcctp@usmp.pe reportando el problema.');
+                }
+
             } else {
                 $this->repeat('Número de documento inválido. Por favor intenta de nuevo.');
             }
