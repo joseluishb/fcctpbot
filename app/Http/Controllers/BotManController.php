@@ -19,25 +19,28 @@ class BotManController extends Controller
             $bot->startConversation(new SelectingDocTypeConversation());
         });
 
-        $botman->fallback(function ($bot) {
-            $bot->reply('Pucha, No me han programado para entender tu mensaje');
+
+        $botman->hears('hola', function (BotMan $bot) {
+            $bot->reply('Hola, cuéntame, ¿en qué te ayudo?');
         });
 
-        $botman->hears('Hola', function (BotMan $bot) {
-            $bot->reply('Hola xixo(a)');
-
-            $bot->ask('Como te llamas?', function (Answer $answer, Conversation $bot) {
-                $bot->say('Encantado de conocerte, ' . $answer->getText());
-            });
+        $botman->hears('gracias', function (BotMan $bot) {
+            $bot->reply('Siempre estaré aquí para tus consultas 🙌.');
         });
 
         $botman->hears('Soy alumno', function (BotMan $bot) {
             $bot->startConversation(new SearchingStudentConversation());
         });
 
-        $botman->hears('Mi doc', function (BotMan $bot) {
+        // $botman->hears('(.*)', function (BotMan $bot) {
+        //     $bot->startConversation(new SelectingDocTypeConversation());
+        // });
+
+        $botman->fallback(function ($bot) {
+            //$bot->reply('Pucha, No me han programado para entender tu mensaje');
             $bot->startConversation(new SelectingDocTypeConversation());
         });
+
 
         $botman->listen();
     }

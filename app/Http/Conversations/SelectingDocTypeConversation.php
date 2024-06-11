@@ -19,10 +19,11 @@ class SelectingDocTypeConversation extends Conversation
      */
     public function run() : void
     {
+
         $this->askForDocumentType();
     }
 
-    public function askForDocumentNumber0()
+    /*public function askForDocumentNumber0()
     {
         $documentTypeName = $this->documentType == 'dni' ? 'DNI' : 'CE';
         $question = Question::create("Ingresa tu $documentTypeName:")
@@ -38,11 +39,11 @@ class SelectingDocTypeConversation extends Conversation
                 $this->repeat();
             }
         });
-    }
+    }*/
 
     public function askForDocumentType()
     {
-        $question = Question::create('¿Qué tipo de documento tienes?')
+        $question = Question::create('Antes de ayudarte, señala tu tipo de documento por favor')
             ->fallback('No puedo ayudarte con eso')
             ->callbackId('ask_document_type')
             ->addButtons([
@@ -66,10 +67,6 @@ class SelectingDocTypeConversation extends Conversation
 
         $this->ask($documentText, function (Answer $answer) {
 
-
-            // Aquí procesa la respuesta del usuario (el número de documento)
-            // Puedes utilizar $answer->getText() para obtener el texto ingresado
-            // Luego, muestra las opciones correspondientes según el documento ingresado
             $documentNumber = $answer->getText();
             if ($this->validateDocumentNumber($documentNumber)) {
                 $cliente = Cliente::where('dni', $documentNumber)->first();
@@ -90,7 +87,7 @@ class SelectingDocTypeConversation extends Conversation
 
     public function showOptions($studentName)
     {
-        $this->say("Bienvenido alumno(a): $studentName");
+        $this->say("Hola {$studentName}!");
 
         /*$options = [
             'Matrícula de cursos',
@@ -103,7 +100,7 @@ class SelectingDocTypeConversation extends Conversation
         ];*/
 
         $options = MenuOption::whereNull('menu_option_id')->get(['id', 'descripcion']);
-        $questionText = 'Selecciona una opción:<br>';
+        $questionText = '<strong>Elige una opción (escribe el número):</strong><br><br>';
         foreach ($options as $key => $opcion) {
             $questionText .= ($key + 1) . ". " . $opcion->descripcion . "<br>";
         }
@@ -119,7 +116,7 @@ class SelectingDocTypeConversation extends Conversation
                 $selectedOption = $options[$optionIndex];
                 $this->say('Has seleccionado: ' . $selectedOption->descripcion);
 
-                // Aquí puedes llamar a otro método para manejar la opción seleccionada
+                // Manejo de la opción seleccionada
                 $this->handleSelectedOption($selectedOption->id, $studentName);
             } else {
                 $this->say('Selección inválida. Por favor, intenta de nuevo.');
@@ -137,7 +134,13 @@ class SelectingDocTypeConversation extends Conversation
             return;
         }
 
-        $questionText = 'Selecciona una sub-opción:<br>';
+        $this->showSubOptions($subOpciones, $studentName);
+    }
+
+
+    protected function showSubOptions($subOpciones, $studentName)
+    {
+        $questionText = '<strong>Elige una opción escribiendo su número:</strong><br><br>';
         foreach ($subOpciones as $key => $subOpcion) {
             $questionText .= ($key + 1) . ". " . $subOpcion->descripcion . "<br>";
         }
@@ -160,8 +163,7 @@ class SelectingDocTypeConversation extends Conversation
                 $this->say($selectedSubOption->contenido);
 
                 // Preguntar si está satisfecho
-                $this->askSatisfaction();
-
+                $this->askSatisfaction($subOpciones, $studentName);
             } else {
                 $this->say('Selección inválida. Por favor, intenta de nuevo.');
                 $this->repeat();
@@ -169,20 +171,23 @@ class SelectingDocTypeConversation extends Conversation
         });
     }
 
-    protected function askSatisfaction()
+    protected function askSatisfaction($subOpciones, $studentName)
     {
         $question = Question::create('¿Estás satisfecho(a) con mi respuesta?')
             ->addButtons([
                 Button::create('Sí')->value('yes'),
                 Button::create('No')->value('no'),
+                Button::create('Regresar al menú anterior')->value('menu'),
             ]);
 
-        $this->ask($question, function (Answer $answer) {
+        $this->ask($question, function (Answer $answer) use ($subOpciones, $studentName) {
             if ($answer->isInteractiveMessageReply()) {
                 if ($answer->getValue() === 'yes') {
                     $this->say('¡Gracias! Me alegra saber que estás satisfecho(a).');
-                } else {
+                } elseif ($answer->getValue() === 'no') {
                     $this->say('Lamento escuchar eso. Por favor, dime cómo puedo mejorar.');
+                } elseif ($answer->getValue() === 'menu') {
+                    $this->showSubOptions($subOpciones, $studentName);
                 }
             } else {
                 $this->say('Por favor, selecciona una opción.');

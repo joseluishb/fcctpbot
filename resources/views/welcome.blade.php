@@ -54,14 +54,14 @@
             function demo() {
                 console.log('Exec whisper Say: Mi doc');
                 //botmanChatWidget.sayAsBot('Hola soy el bot Kokoldman. En que puedo ayudarte?')
-                botmanChatWidget.whisper('Mi doc')
+                ///botmanChatWidget.whisper('Mi doc')
             }
 
 
             var botmanWidget = {
 
                 title: 'Chat demo',
-                introMessage: '¡Hola! Soy el Asistente Virtual de la FCCTP 🤖. Estoy aquí para ayudarte con el proceso de matrícula 2024-2.',
+                introMessage: '¡Hola! Soy el Asistente Virtual de la FCCTP 🤖. Estoy aquí para ayudarte con el proceso de matrícula 2024-2. <p>¿En qué puedo asistirte hoy? 😄</p>',
                 mainColor: '#dd3333',
                 bubbleBackground: '#fff',
                 headerTextColor: '#ffffff',
@@ -87,7 +87,7 @@
         window.onload = function() {
                 checkBotmanWidgetReady(function() {
                     demo();
-                    document.getElementById('chatBotManFrame').style.backgroundImage = 'none';
+                    //document.getElementById('chatBotManFrame').style.backgroundImage = 'none'; //bad
                 });
 
         };
