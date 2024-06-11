@@ -157,12 +157,35 @@ class SelectingDocTypeConversation extends Conversation
                 $this->say('Has seleccionado: ' . $selectedSubOption->descripcion);
 
                 // Continuar el flujo de la conversación aquí
-
-
                 $this->say($selectedSubOption->contenido);
+
+                // Preguntar si está satisfecho
+                $this->askSatisfaction();
 
             } else {
                 $this->say('Selección inválida. Por favor, intenta de nuevo.');
+                $this->repeat();
+            }
+        });
+    }
+
+    protected function askSatisfaction()
+    {
+        $question = Question::create('¿Estás satisfecho(a) con mi respuesta?')
+            ->addButtons([
+                Button::create('Sí')->value('yes'),
+                Button::create('No')->value('no'),
+            ]);
+
+        $this->ask($question, function (Answer $answer) {
+            if ($answer->isInteractiveMessageReply()) {
+                if ($answer->getValue() === 'yes') {
+                    $this->say('¡Gracias! Me alegra saber que estás satisfecho(a).');
+                } else {
+                    $this->say('Lamento escuchar eso. Por favor, dime cómo puedo mejorar.');
+                }
+            } else {
+                $this->say('Por favor, selecciona una opción.');
                 $this->repeat();
             }
         });
