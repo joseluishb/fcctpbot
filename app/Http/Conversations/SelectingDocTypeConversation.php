@@ -74,7 +74,8 @@ class SelectingDocTypeConversation extends Conversation
                     $nom = $cliente->nom1;
                     $this->showOptions($nom);
                 }else {
-                    $this->repeat('No encontramos. Por favor intenta de nuevo o escribenos a sap_fcctp@usmp.pe reportando el problema.');
+                    $this->askIfNewStudent();
+                    //$this->repeat('No encontramos. Por favor intenta de nuevo o escribenos a sap_fcctp@usmp.pe reportando el problema.');
                 }
 
             } else {
@@ -207,4 +208,45 @@ class SelectingDocTypeConversation extends Conversation
         return false;
     }
 
+    public function askForStudentType()
+    {
+        $question = Question::create('Antes de ayudarte, señala tu tipo de documento por favor')
+            ->fallback('No puedo ayudarte con eso')
+            ->callbackId('ask_document_type')
+            ->addButtons([
+                Button::create('DNI')->value('dni'),
+                Button::create('CE')->value('ce'),
+            ]);
+
+        $this->ask($question, function (Answer $answer) {
+            if ($answer->isInteractiveMessageReply()) {
+                $this->documentType = $answer->getValue();
+                $this->askForDocumentNumber();
+            } else {
+                $this->repeat('Por favor selecciona una opción válida.');
+            }
+        });
+    }
+
+    public function askIfNewStudent()
+    {
+        $question = Question::create('¿Eres un alumno ingresante?')
+            ->fallback('Unable to ask if new student')
+            ->callbackId('ask_if_new_student')
+            ->addButtons([
+                Button::create('Sí')->value('yes'),
+                Button::create('No')->value('no'),
+            ]);
+
+        $this->ask($question, function (Answer $answer) {
+            if ($answer->isInteractiveMessageReply()) {
+                if ($answer->getValue() === 'yes') {
+                    $this->say('Información importante que debes de saber previo al día de tu matrícula..');
+                } elseif ($answer->getValue() === 'no') {
+                    $this->say('Más info.. posible traslado interno.. no pertenece a fcctp..');
+                }
+
+            }
+        });
+    }
 }
