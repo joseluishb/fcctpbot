@@ -15,9 +15,11 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('menu_option_id')->nullable();
             $table->string('descripcion', 255);
-            $table->enum('tipo_accion', ['menu', 'informacion']);
-            $table->text('contenido')->nullable();
-            $table->char('codper', 8);
+            $table->text('respuesta')->nullable();
+            $table->integer('orden')->nullable();
+            $table->boolean('requiere_proceso')->default(false);
+            $table->json('condiciones_proceso')->nullable();
+            $table->boolean('muestra_pantalla')->default(true);
             $table->foreign('menu_option_id')->references('id')->on('menu_options')->onDelete('cascade');
             $table->boolean('active')->default(true);
             $table->timestamps();

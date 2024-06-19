@@ -81,25 +81,12 @@ class SelectingDocTypeConversation extends Conversation
             } else {
                 $this->repeat('Número de documento inválido. Por favor intenta de nuevo.');
             }
-
-
         });
     }
 
     public function showOptions($studentName)
     {
         $this->say("Hola {$studentName}!");
-
-        /*$options = [
-            'Matrícula de cursos',
-            'Reserva de matrícula',
-            'Reactualización de matrícula (SI DEJASTE DE ESTUDIAR UNO O MÁS CICLOS)',
-            'Convalidación de asignaturas',
-            'Deficiencia Académica',
-            'Soporte informático',
-            'Consulta Académica',
-        ];*/
-
         $options = MenuOption::whereNull('menu_option_id')->get(['id', 'descripcion']);
         $questionText = '<strong>Elige una opción (escribe el número):</strong><br><br>';
         foreach ($options as $key => $opcion) {
@@ -128,7 +115,7 @@ class SelectingDocTypeConversation extends Conversation
 
     protected function handleSelectedOption($optionId, $studentName)
     {
-        $subOpciones = MenuOption::where('menu_option_id', $optionId)->get(['id', 'descripcion', 'contenido']);
+        $subOpciones = MenuOption::where('menu_option_id', $optionId)->get(['id', 'descripcion', 'respuesta']);
 
         if ($subOpciones->isEmpty()) {
             $this->say('No hay sub-opciones disponibles.');
@@ -161,7 +148,8 @@ class SelectingDocTypeConversation extends Conversation
                 $this->say('Has seleccionado: ' . $selectedSubOption->descripcion);
 
                 // Continuar el flujo de la conversación aquí
-                $this->say($selectedSubOption->contenido);
+                $this->say($selectedSubOption->respuesta);
+
 
                 // Preguntar si está satisfecho
                 $this->askSatisfaction($subOpciones, $studentName);
