@@ -148,11 +148,27 @@ class SelectingDocTypeConversation extends Conversation
                 $this->say('Has seleccionado: ' . $selectedSubOption->descripcion);
 
                 // Continuar el flujo de la conversación aquí
-                $this->say($selectedSubOption->respuesta);
-
-
+                //$this->say($selectedSubOption->respuesta);
                 // Preguntar si está satisfecho
-                $this->askSatisfaction($subOpciones, $studentName);
+                //$this->askSatisfaction($subOpciones, $studentName);
+                // Verificar si hay más sub-opciones
+                $moreSubOptions = MenuOption::where('menu_option_id', $selectedSubOption->id)->get(['id', 'descripcion', 'respuesta']);
+
+
+                if ($selectedSubOption->respuesta && trim($selectedSubOption->respuesta) !== '') {
+                    // No hay más sub-opciones, mostrar la respuesta final
+                    $this->say($selectedSubOption->respuesta);
+                }
+
+                if ($moreSubOptions->isEmpty()) {
+
+
+                    // Preguntar si está satisfecho
+                    $this->askSatisfaction($subOpciones, $studentName);
+                } else {
+                    // Hay más sub-opciones, mostrar el siguiente nivel de sub-opciones
+                    $this->showSubOptions($moreSubOptions, $studentName);
+                }
             } else {
                 $this->say('Selección inválida. Por favor, intenta de nuevo.');
                 $this->repeat();
