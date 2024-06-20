@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Conversations\SearchingStudentConversation;
 use App\Http\Conversations\SelectingDocTypeConversation;
+use App\Services\ConditionEvaluatorService;
 use BotMan\BotMan\BotMan;
 use BotMan\BotMan\Messages\Conversations\Conversation;
 use BotMan\BotMan\Messages\Incoming\Answer;
@@ -16,7 +17,8 @@ class BotManController extends Controller
         $botman = app('botman');
 
         $botman->hears('start_conversation', function (BotMan $bot) {
-            $bot->startConversation(new SelectingDocTypeConversation());
+            $conditionEvaluatorService = new ConditionEvaluatorService();
+            $bot->startConversation(new SelectingDocTypeConversation($conditionEvaluatorService));
         });
 
 
@@ -38,7 +40,8 @@ class BotManController extends Controller
 
         $botman->fallback(function ($bot) {
             //$bot->reply('Pucha, No me han programado para entender tu mensaje');
-            $bot->startConversation(new SelectingDocTypeConversation());
+            $conditionEvaluatorService = new ConditionEvaluatorService();
+            $bot->startConversation(new SelectingDocTypeConversation($conditionEvaluatorService));
         });
 
 

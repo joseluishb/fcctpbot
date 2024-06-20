@@ -4,6 +4,7 @@ namespace App\Http\Conversations;
 
 use App\Models\MenuOption;
 use App\Models\SapM\Cliente;
+use App\Services\ConditionEvaluatorService;
 use BotMan\BotMan\Messages\Conversations\Conversation;
 use BotMan\BotMan\Messages\Incoming\Answer;
 use BotMan\BotMan\Messages\Outgoing\Actions\Button;
@@ -14,14 +15,21 @@ class SelectingDocTypeConversation extends Conversation
 {
 
     protected $documentType;
+    protected $conditionEvaluator;
+
+    public function __construct(ConditionEvaluatorService $conditionEvaluator)
+    {
+        $this->conditionEvaluator = $conditionEvaluator;
+    }
 
     /**
      */
     public function run() : void
     {
-
         $this->askForDocumentType();
     }
+
+
 
     /*public function askForDocumentNumber0()
     {
@@ -115,7 +123,7 @@ class SelectingDocTypeConversation extends Conversation
 
     protected function handleSelectedOption($optionId, $studentName)
     {
-        $subOpciones = MenuOption::where('menu_option_id', $optionId)->get(['id', 'descripcion', 'respuesta']);
+        $subOpciones = MenuOption::where('menu_option_id', $optionId)->get(['id', 'descripcion', 'respuesta', 'condiciones_proceso']);
 
         if ($subOpciones->isEmpty()) {
             $this->say('No hay sub-opciones disponibles.');
@@ -152,7 +160,7 @@ class SelectingDocTypeConversation extends Conversation
                 // Preguntar si está satisfecho
                 //$this->askSatisfaction($subOpciones, $studentName);
                 // Verificar si hay más sub-opciones
-                $moreSubOptions = MenuOption::where('menu_option_id', $selectedSubOption->id)->get(['id', 'descripcion', 'respuesta']);
+                $moreSubOptions = MenuOption::where('menu_option_id', $selectedSubOption->id)->get(['id', 'descripcion', 'respuesta', 'condiciones_proceso']);
 
 
                 if ($selectedSubOption->respuesta && trim($selectedSubOption->respuesta) !== '') {
@@ -160,9 +168,22 @@ class SelectingDocTypeConversation extends Conversation
                     $this->say($selectedSubOption->respuesta);
                 }
 
+
+                if ($selectedSubOption->condiciones_proceso && trim($selectedSubOption->condiciones_proceso) !== '') {
+                    $codEsc = '01';
+                    $ciclo = 9;
+
+                    $nextOptionId = $this->conditionEvaluator->evaluateConditions($selectedSubOption->condiciones_proceso, $codEsc, $ciclo);
+                    $moreSubOptions = MenuOption::where('menu_option_id', $nextOptionId)->get(['id', 'descripcion', 'respuesta', 'condiciones_proceso']);
+
+                    //$nextOptionId = 'aa';
+                    $this->say('nextopt-' .$nextOptionId);
+                    //$this->showSubOptions($moreSubOptions, $studentName);
+
+                }
+
+
                 if ($moreSubOptions->isEmpty()) {
-
-
                     // Preguntar si está satisfecho
                     $this->askSatisfaction($subOpciones, $studentName);
                 } else {
