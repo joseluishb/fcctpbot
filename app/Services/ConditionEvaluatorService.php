@@ -39,13 +39,11 @@ class ConditionEvaluatorService
                     if (is_array($value)) {
                         if (!($ciclo >= (int)$value[0] && $ciclo <= (int)$value[1])) {
                             $allRulesMet = false;
-                            dd($ciclo, $value[0], $value[1]);
                             break;
                         }
                     } else {
                         if ($ciclo != $value) {
                             $allRulesMet = false;
-                            dd('ciclo <> value');
                             break;
                         }
                     }
