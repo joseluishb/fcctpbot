@@ -21,3 +21,7 @@ Route::get('/cliente', function () {
 Route::get('/demo', function () {
     return view('demo');
 });
+
+Route::get('/landing', function () {
+    return view('landing');
+});
