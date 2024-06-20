@@ -98,7 +98,8 @@ class SelectingDocTypeConversation extends Conversation
         $options = MenuOption::whereNull('menu_option_id')->get(['id', 'descripcion']);
         $questionText = '<strong>Elige una opción (escribe el número):</strong><br><br>';
         foreach ($options as $key => $opcion) {
-            $questionText .= ($key + 1) . ". " . $opcion->descripcion . "<br>";
+            $description = $this->formatOptionDescription($opcion->descripcion);
+            $questionText .= ($key + 1) . ". " . $description . "<br>";
         }
 
         $question = Question::create($questionText)
@@ -123,7 +124,7 @@ class SelectingDocTypeConversation extends Conversation
 
     protected function handleSelectedOption($optionId, $studentName)
     {
-        $subOpciones = MenuOption::where('menu_option_id', $optionId)->get(['id', 'descripcion', 'respuesta', 'condiciones_proceso']);
+        $subOpciones = MenuOption::where('menu_option_id', $optionId)->where('muestra_pantalla', 1)->get(['id', 'descripcion', 'respuesta', 'condiciones_proceso']);
 
         if ($subOpciones->isEmpty()) {
             $this->say('No hay sub-opciones disponibles.');
@@ -138,7 +139,8 @@ class SelectingDocTypeConversation extends Conversation
     {
         $questionText = '<strong>Elige una opción escribiendo su número:</strong><br><br>';
         foreach ($subOpciones as $key => $subOpcion) {
-            $questionText .= ($key + 1) . ". " . $subOpcion->descripcion . "<br>";
+            $description = $this->formatOptionDescription($subOpcion->descripcion);
+            $questionText .= ($key + 1) . ". " . $description . "<br>";
         }
         $questionText .= ($subOpciones->count() + 1) . ". Regresar al menú anterior<br>";
 
@@ -153,14 +155,16 @@ class SelectingDocTypeConversation extends Conversation
                 $this->showOptions($studentName);
             } elseif ($subOptionIndex >= 0 && $subOptionIndex < $subOpciones->count()) {
                 $selectedSubOption = $subOpciones[$subOptionIndex];
-                $this->say('Has seleccionado: ' . $selectedSubOption->descripcion);
+
+                $description = $selectedSubOption->descripcion;
+                $this->say('Has seleccionado: ' . $description);
 
                 // Continuar el flujo de la conversación aquí
                 //$this->say($selectedSubOption->respuesta);
                 // Preguntar si está satisfecho
                 //$this->askSatisfaction($subOpciones, $studentName);
                 // Verificar si hay más sub-opciones
-                $moreSubOptions = MenuOption::where('menu_option_id', $selectedSubOption->id)->get(['id', 'descripcion', 'respuesta', 'condiciones_proceso']);
+                $moreSubOptions = MenuOption::where('menu_option_id', $selectedSubOption->id)->where('muestra_pantalla', 1)->get(['id', 'descripcion', 'respuesta', 'condiciones_proceso']);
 
 
                 if ($selectedSubOption->respuesta && trim($selectedSubOption->respuesta) !== '') {
@@ -174,10 +178,13 @@ class SelectingDocTypeConversation extends Conversation
                     $ciclo = 9;
 
                     $nextOptionId = $this->conditionEvaluator->evaluateConditions($selectedSubOption->condiciones_proceso, $codEsc, $ciclo);
-                    $moreSubOptions = MenuOption::where('menu_option_id', $nextOptionId)->get(['id', 'descripcion', 'respuesta', 'condiciones_proceso']);
+                    $moreSubOptions = MenuOption::where('menu_option_id', $nextOptionId)->where('muestra_pantalla', 1)->get(['id', 'descripcion', 'respuesta', 'condiciones_proceso']);
 
                     //$nextOptionId = 'aa';
-                    $this->say('nextopt-' .$nextOptionId);
+                    //$this->say('nextopt-' .$nextOptionId);
+
+                    $selectedNextSubOption = MenuOption::find($nextOptionId);
+                    $this->say($selectedNextSubOption->respuesta);
                     //$this->showSubOptions($moreSubOptions, $studentName);
 
                 }
@@ -273,5 +280,10 @@ class SelectingDocTypeConversation extends Conversation
 
             }
         });
+    }
+
+    public function formatOptionDescription($description)
+    {
+        return preg_replace('/^\d+(\.\d+)*\.\s*/', '', $description);
     }
 }
