@@ -123,7 +123,7 @@ class SelectingDocTypeConversation extends Conversation
 
     protected function handleSelectedOption($optionId, $studentName)
     {
-        $subOpciones = MenuOption::where('menu_option_id', $optionId)->get(['id', 'descripcion', 'respuesta', 'condiciones_proceso']);
+        $subOpciones = MenuOption::where('menu_option_id', $optionId)->where('muestra_pantalla', 1)->get(['id', 'descripcion', 'respuesta', 'condiciones_proceso']);
 
         if ($subOpciones->isEmpty()) {
             $this->say('No hay sub-opciones disponibles.');
@@ -160,7 +160,7 @@ class SelectingDocTypeConversation extends Conversation
                 // Preguntar si está satisfecho
                 //$this->askSatisfaction($subOpciones, $studentName);
                 // Verificar si hay más sub-opciones
-                $moreSubOptions = MenuOption::where('menu_option_id', $selectedSubOption->id)->get(['id', 'descripcion', 'respuesta', 'condiciones_proceso']);
+                $moreSubOptions = MenuOption::where('menu_option_id', $selectedSubOption->id)->where('muestra_pantalla', 1)->get(['id', 'descripcion', 'respuesta', 'condiciones_proceso']);
 
 
                 if ($selectedSubOption->respuesta && trim($selectedSubOption->respuesta) !== '') {
@@ -174,10 +174,13 @@ class SelectingDocTypeConversation extends Conversation
                     $ciclo = 9;
 
                     $nextOptionId = $this->conditionEvaluator->evaluateConditions($selectedSubOption->condiciones_proceso, $codEsc, $ciclo);
-                    $moreSubOptions = MenuOption::where('menu_option_id', $nextOptionId)->get(['id', 'descripcion', 'respuesta', 'condiciones_proceso']);
+                    $moreSubOptions = MenuOption::where('menu_option_id', $nextOptionId)->where('muestra_pantalla', 1)->get(['id', 'descripcion', 'respuesta', 'condiciones_proceso']);
 
                     //$nextOptionId = 'aa';
-                    $this->say('nextopt-' .$nextOptionId);
+                    //$this->say('nextopt-' .$nextOptionId);
+
+                    $selectedNextSubOption = MenuOption::find($nextOptionId);
+                    $this->say($selectedNextSubOption->respuesta);
                     //$this->showSubOptions($moreSubOptions, $studentName);
 
                 }
