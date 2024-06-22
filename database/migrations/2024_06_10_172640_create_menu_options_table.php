@@ -14,9 +14,9 @@ return new class extends Migration
         Schema::create('menu_options', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('menu_option_id')->nullable();
-            $table->string('descripcion', 255);
+            $table->string('desc_opcion', 255);
             $table->text('respuesta')->nullable();
-            $table->integer('orden')->nullable();
+            $table->integer('num_opcion')->nullable();
             $table->boolean('requiere_proceso')->default(false);
             $table->json('condiciones_proceso')->nullable();
             $table->boolean('muestra_pantalla')->default(true);
