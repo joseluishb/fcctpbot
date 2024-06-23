@@ -13,15 +13,18 @@ return new class extends Migration
     {
         Schema::create('menu_options', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('menu_option_id')->nullable();
+            $table->integer('nivel')->nullable();
+            $table->unsignedBigInteger('parent_id')->nullable();
+            $table->char('id_proceso', 50)->nullable();
             $table->string('desc_opcion', 255);
             $table->text('respuesta')->nullable();
             $table->integer('num_opcion')->nullable();
-            $table->boolean('requiere_proceso')->default(false);
-            $table->json('condiciones_proceso')->nullable();
-            $table->boolean('muestra_pantalla')->default(true);
-            $table->foreign('menu_option_id')->references('id')->on('menu_options')->onDelete('cascade');
+            $table->foreign('parent_id')->references('id')->on('menu_options')->onDelete('cascade');
+            $table->integer('menu_nivel_volver')->nullable();
+            $table->boolean('ind_volver')->default(true)->nullable();
+            $table->boolean('ind_fin')->default(true)->nullable();
             $table->boolean('active')->default(true);
+            $table->text('proceso')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
