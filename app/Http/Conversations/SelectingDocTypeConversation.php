@@ -14,12 +14,14 @@ use BotMan\BotMan\Messages\Outgoing\Question;
 class SelectingDocTypeConversation extends Conversation
 {
 
+    protected $botman;
     protected $documentType;
     protected $conditionEvaluator;
 
-    public function __construct(ConditionEvaluatorService $conditionEvaluator)
+    public function __construct(ConditionEvaluatorService $conditionEvaluator, $botman)
     {
         $this->conditionEvaluator = $conditionEvaluator;
+        $this->botman = $botman;
     }
 
     /**
@@ -98,7 +100,7 @@ class SelectingDocTypeConversation extends Conversation
     public function showOptions($clienteTempMat)
     {
         $this->say("Hola {$clienteTempMat->alumno}!");
-        $options = MenuOption::whereNull('menu_option_id')->get(['id', 'desc_opcion']);
+        $options = MenuOption::whereNull('parent_id')->get(['id', 'desc_opcion']);
         $questionText = '<strong>Elige una opción (escribe el número):</strong><br><br>';
         foreach ($options as $key => $opcion) {
             $description = $this->formatOptionDescription($opcion->desc_opcion);
@@ -127,7 +129,7 @@ class SelectingDocTypeConversation extends Conversation
 
     protected function handleSelectedOption($optionId, $clienteTempMat)
     {
-        $subOpciones = MenuOption::where('menu_option_id', $optionId)->where('muestra_pantalla', 1)->get(['id', 'desc_opcion', 'respuesta', 'condiciones_proceso']);
+        $subOpciones = MenuOption::where('parent_id', $optionId)->get(['id', 'parent_id', 'desc_opcion', 'respuesta']);
 
         if ($subOpciones->isEmpty()) {
             $this->say('No hay sub-opciones disponibles.');
@@ -155,47 +157,58 @@ class SelectingDocTypeConversation extends Conversation
             $subOptionIndex = (int) $answer->getText() - 1;
 
             if ($subOptionIndex == $subOpciones->count()) {
-                $this->showOptions($clienteTempMat);
+                $lastOoptionParenId = $this->botman->userStorage()->get('parent_id');
+                $lastSavedOption = MenuOption::find($lastOoptionParenId);
+
+                if($lastSavedOption && $lastSavedOption->parent_id) {
+
+                    $this->botman->userStorage()->save([
+                        'parent_id' => $lastSavedOption->parent_id
+                    ]);
+
+                    $backSubOptions = MenuOption::where([
+                        'parent_id' => $lastSavedOption->parent_id,
+                        'active' => 1,
+                    ])->get(['id', 'parent_id', 'desc_opcion', 'respuesta']);
+                    $this->showSubOptions($backSubOptions, $clienteTempMat);
+                }else{
+                    $this->showOptions($clienteTempMat);
+                }
+
             } elseif ($subOptionIndex >= 0 && $subOptionIndex < $subOpciones->count()) {
                 $selectedSubOption = $subOpciones[$subOptionIndex];
 
                 $description = $selectedSubOption->desc_opcion;
                 $this->say('Has seleccionado: ' . $description);
 
-                // Continuar el flujo de la conversación aquí
-                //$this->say($selectedSubOption->respuesta);
-                // Preguntar si está satisfecho
-                //$this->askSatisfaction($subOpciones, $studentName);
-                // Verificar si hay más sub-opciones
-                $moreSubOptions = MenuOption::where('menu_option_id', $selectedSubOption->id)->where('muestra_pantalla', 1)->get(['id', 'desc_opcion', 'respuesta', 'condiciones_proceso']);
+                $this->botman->userStorage()->save([
+                    'parent_id' => $selectedSubOption->id
+                ]);
 
+                $moreSubOptions = MenuOption::where([
+                        'parent_id' => $selectedSubOption->id,
+                        'active' => 1,
+                    ])->get(['id', 'parent_id', 'desc_opcion', 'respuesta']);
 
                 if ($selectedSubOption->respuesta && trim($selectedSubOption->respuesta) !== '') {
-                    // No hay más sub-opciones, mostrar la respuesta final
                     $this->say($selectedSubOption->respuesta);
                 }
 
-
-                if ($selectedSubOption->condiciones_proceso && trim($selectedSubOption->condiciones_proceso) !== '') {
+                if ($selectedSubOption->optionRoute) {
+                    $optionRoute = $selectedSubOption->optionRoute->condiciones;
                     $codEsc = $clienteTempMat->cod_esc;
                     $ciclo = (int)$clienteTempMat->ciclo;
 
-
-                    $nextOptionId = $this->conditionEvaluator->evaluateConditions($selectedSubOption->condiciones_proceso, $codEsc, $ciclo);
+                    $nextOptionId = $this->conditionEvaluator->evaluateConditions($optionRoute, $codEsc, $ciclo);
                     //dd($nextOptionId);
-                    $moreSubOptions = MenuOption::where('menu_option_id', $nextOptionId)->where('muestra_pantalla', 1)->get(['id', 'desc_opcion', 'respuesta', 'condiciones_proceso']);
-
-                    //$nextOptionId = 'aa';
-                    //$this->say('nextopt-' .$nextOptionId);
+                    $moreSubOptions = MenuOption::where('parent_id', $nextOptionId)
+                        ->get(['id', 'parent_id', 'desc_opcion', 'respuesta']);
 
                     $selectedNextSubOption = MenuOption::find($nextOptionId);
                     if ($selectedNextSubOption->respuesta && trim($selectedNextSubOption->respuesta) !== '') {
                         $this->say($selectedNextSubOption->respuesta);
                     }
-                    //$this->showSubOptions($moreSubOptions, $studentName);
-
                 }
-
 
                 if ($moreSubOptions->isEmpty()) {
                     // Preguntar si está satisfecho

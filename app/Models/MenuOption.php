@@ -7,5 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class MenuOption extends Model
 {
-    use HasFactory;
+    public function optionRoute()
+    {
+        return $this->hasOne(OptionCondition::class, 'menu_option_id');
+    }
 }
