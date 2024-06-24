@@ -31,26 +31,6 @@ class SelectingDocTypeConversation extends Conversation
         $this->askForDocumentType();
     }
 
-
-
-    /*public function askForDocumentNumber0()
-    {
-        $documentTypeName = $this->documentType == 'dni' ? 'DNI' : 'CE';
-        $question = Question::create("Ingresa tu $documentTypeName:")
-            ->fallback('No puedo ayudarte con eso');
-
-        $this->ask($question, function (Answer $answer) {
-            if ($answer->getText() !== null) {
-                $documentNumber = $answer->getText();
-                // Aquí puedes procesar el número de documento según el tipo seleccionado
-                $this->say('Gracias por proporcionar tu número de documento.');
-            } else {
-                $this->say('Por favor, ingresa un número de documento válido.');
-                $this->repeat();
-            }
-        });
-    }*/
-
     public function askForDocumentType()
     {
         $question = Question::create('Antes de ayudarte, señala tu tipo de documento por favor')
@@ -148,10 +128,12 @@ class SelectingDocTypeConversation extends Conversation
             $questionText .= ($key + 1) . ". " . $description . "<br>";
         }
         $questionText .= ($subOpciones->count() + 1) . ". Regresar al menú anterior<br>";
+        $questionText .= ($subOpciones->count() + 2) . ". Finalizar atención<br>";
 
         $question = Question::create($questionText)
             ->fallback('No puedo procesar tu solicitud')
             ->callbackId('select_sub_option');
+
 
         $this->ask($question, function (Answer $answer) use ($subOpciones, $clienteTempMat) {
             $subOptionIndex = (int) $answer->getText() - 1;
@@ -175,6 +157,9 @@ class SelectingDocTypeConversation extends Conversation
                     $this->showOptions($clienteTempMat);
                 }
 
+            } elseif ($subOptionIndex == $subOpciones->count() + 1) {
+                $this->say('Gracias por usar nuestro servicio. ¡Hasta luego!');
+
             } elseif ($subOptionIndex >= 0 && $subOptionIndex < $subOpciones->count()) {
                 $selectedSubOption = $subOpciones[$subOptionIndex];
 
@@ -190,8 +175,11 @@ class SelectingDocTypeConversation extends Conversation
                         'active' => 1,
                     ])->get(['id', 'parent_id', 'desc_opcion', 'respuesta']);
 
+
+
                 if ($selectedSubOption->respuesta && trim($selectedSubOption->respuesta) !== '') {
                     $this->say($selectedSubOption->respuesta);
+
                 }
 
                 if ($selectedSubOption->optionRoute) {
@@ -207,6 +195,7 @@ class SelectingDocTypeConversation extends Conversation
                     $selectedNextSubOption = MenuOption::find($nextOptionId);
                     if ($selectedNextSubOption->respuesta && trim($selectedNextSubOption->respuesta) !== '') {
                         $this->say($selectedNextSubOption->respuesta);
+
                     }
                 }
 
@@ -216,6 +205,8 @@ class SelectingDocTypeConversation extends Conversation
                 } else {
                     // Hay más sub-opciones, mostrar el siguiente nivel de sub-opciones
                     $this->showSubOptions($moreSubOptions, $clienteTempMat);
+
+
                 }
             } else {
                 $this->say('Selección inválida. Por favor, intenta de nuevo.');
