@@ -15,9 +15,19 @@
         @vite(['resources/css/app.scss', 'resources/js/app.js'])
         <script src="https://cdn.tiny.cloud/1/nxbh8939vu50anif746swrf8qmh8wqb8iwb165a0iidgv6zk/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
 
+        <script>
+        tinymce.init({
+            selector: 'textarea#myeditorinstance', // Replace this CSS selector to match the placeholder element for TinyMCE
+            plugins: 'code table lists',
+            toolbar: 'undo redo | blocks | bold italic | alignleft aligncenter alignright | indent outdent | bullist numlist | code | table'
+        });
+        </script>
+
         @livewireStyles
     </head>
     <body class="font-sans antialiased">
+
+
         <div class="min-h-screen bg-gray-100">
             @include('layouts.navigation')
 
