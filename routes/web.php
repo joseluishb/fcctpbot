@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\BotManController;
 use App\Http\Controllers\ProfileController;
+
+
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -26,5 +28,8 @@ Route::get('/landing', function () {
 Route::get('/demo', function () {
     return view('demo');
 });
+
+Route::get('/admin/menu-options/{parentId?}', \App\Livewire\Admin\MenuOptions::class)->name('menu-options');
+
 
 require __DIR__.'/auth.php';

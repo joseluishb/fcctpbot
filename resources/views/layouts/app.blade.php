@@ -13,6 +13,8 @@
 
         <!-- Scripts -->
         @vite(['resources/css/app.scss', 'resources/js/app.js'])
+        <script src="https://cdn.tiny.cloud/1/nxbh8939vu50anif746swrf8qmh8wqb8iwb165a0iidgv6zk/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
+
         @livewireStyles
     </head>
     <body class="font-sans antialiased">
@@ -34,5 +36,6 @@
             </main>
         </div>
         @livewireScripts
+        @stack('scripts')
     </body>
 </html>
