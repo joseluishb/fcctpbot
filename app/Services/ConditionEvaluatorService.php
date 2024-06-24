@@ -2,6 +2,8 @@
 
 namespace App\Services;
 
+use App\Models\SapM\TempMatricula;
+
 class ConditionEvaluatorService
 {
     /**
@@ -15,7 +17,6 @@ class ConditionEvaluatorService
     public function evaluateConditions($conditionsJson, $codEsc, $ciclo)
     {
         $conditions = json_decode($conditionsJson, true);
-
 
         if (!isset($conditions['conditions'])) {
             return null;
@@ -56,5 +57,10 @@ class ConditionEvaluatorService
         }
 
         return null;
+    }
+
+    public function getClienteTempMatricula($nroDoc)
+    {
+        return TempMatricula::where('dni', $nroDoc)->where('estado', '1')->first();
     }
 }

@@ -18,7 +18,7 @@ class BotManController extends Controller
 
         $botman->hears('start_conversation', function (BotMan $bot) {
             $conditionEvaluatorService = new ConditionEvaluatorService();
-            $bot->startConversation(new SelectingDocTypeConversation($conditionEvaluatorService));
+            $bot->startConversation(new SelectingDocTypeConversation($conditionEvaluatorService, $bot));
         });
 
 
@@ -38,10 +38,10 @@ class BotManController extends Controller
         //     $bot->startConversation(new SelectingDocTypeConversation());
         // });
 
-        $botman->fallback(function ($bot) {
+        $botman->fallback(function (BotMan $bot) {
             //$bot->reply('Pucha, No me han programado para entender tu mensaje');
             $conditionEvaluatorService = new ConditionEvaluatorService();
-            $bot->startConversation(new SelectingDocTypeConversation($conditionEvaluatorService));
+            $bot->startConversation(new SelectingDocTypeConversation($conditionEvaluatorService, $bot));
         });
 
 

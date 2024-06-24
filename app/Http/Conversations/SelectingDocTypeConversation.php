@@ -14,12 +14,14 @@ use BotMan\BotMan\Messages\Outgoing\Question;
 class SelectingDocTypeConversation extends Conversation
 {
 
+    protected $botman;
     protected $documentType;
     protected $conditionEvaluator;
 
-    public function __construct(ConditionEvaluatorService $conditionEvaluator)
+    public function __construct(ConditionEvaluatorService $conditionEvaluator, $botman)
     {
         $this->conditionEvaluator = $conditionEvaluator;
+        $this->botman = $botman;
     }
 
     /**
@@ -76,11 +78,14 @@ class SelectingDocTypeConversation extends Conversation
         $this->ask($documentText, function (Answer $answer) {
 
             $documentNumber = $answer->getText();
+
             if ($this->validateDocumentNumber($documentNumber)) {
-                $cliente = Cliente::where('dni', $documentNumber)->first();
-                if($cliente) {
-                    $nom = $cliente->nom1;
-                    $this->showOptions($nom);
+
+                $clienteTempMat = $this->conditionEvaluator->getClienteTempMatricula($documentNumber);
+
+
+                if($clienteTempMat) {
+                    $this->showOptions($clienteTempMat);
                 }else {
                     $this->askIfNewStudent();
                     //$this->repeat('No encontramos. Por favor intenta de nuevo o escribenos a sap_fcctp@usmp.pe reportando el problema.');
@@ -92,13 +97,13 @@ class SelectingDocTypeConversation extends Conversation
         });
     }
 
-    public function showOptions($studentName)
+    public function showOptions($clienteTempMat)
     {
-        $this->say("Hola {$studentName}!");
-        $options = MenuOption::whereNull('menu_option_id')->get(['id', 'descripcion']);
+        $this->say("Hola {$clienteTempMat->alumno}!");
+        $options = MenuOption::whereNull('parent_id')->get(['id', 'desc_opcion']);
         $questionText = '<strong>Elige una opción (escribe el número):</strong><br><br>';
         foreach ($options as $key => $opcion) {
-            $description = $this->formatOptionDescription($opcion->descripcion);
+            $description = $this->formatOptionDescription($opcion->desc_opcion);
             $questionText .= ($key + 1) . ". " . $description . "<br>";
         }
 
@@ -106,15 +111,15 @@ class SelectingDocTypeConversation extends Conversation
             ->fallback('No puedo procesar tu solicitud')
             ->callbackId('select_option');
 
-        $this->ask($question, function (Answer $answer) use ($options, $studentName) {
+        $this->ask($question, function (Answer $answer) use ($options, $clienteTempMat) {
             $optionIndex = (int) $answer->getText() - 1;
 
             if ($optionIndex >= 0 && $optionIndex < $options->count()) {
                 $selectedOption = $options[$optionIndex];
-                $this->say('Has seleccionado: ' . $selectedOption->descripcion);
+                $this->say('Has seleccionado: ' . $selectedOption->desc_opcion);
 
                 // Manejo de la opción seleccionada
-                $this->handleSelectedOption($selectedOption->id, $studentName);
+                $this->handleSelectedOption($selectedOption->id, $clienteTempMat);
             } else {
                 $this->say('Selección inválida. Por favor, intenta de nuevo.');
                 $this->repeat();
@@ -122,24 +127,24 @@ class SelectingDocTypeConversation extends Conversation
         });
     }
 
-    protected function handleSelectedOption($optionId, $studentName)
+    protected function handleSelectedOption($optionId, $clienteTempMat)
     {
-        $subOpciones = MenuOption::where('menu_option_id', $optionId)->where('muestra_pantalla', 1)->get(['id', 'descripcion', 'respuesta', 'condiciones_proceso']);
+        $subOpciones = MenuOption::where('parent_id', $optionId)->get(['id', 'parent_id', 'desc_opcion', 'respuesta']);
 
         if ($subOpciones->isEmpty()) {
             $this->say('No hay sub-opciones disponibles.');
             return;
         }
 
-        $this->showSubOptions($subOpciones, $studentName);
+        $this->showSubOptions($subOpciones, $clienteTempMat);
     }
 
 
-    protected function showSubOptions($subOpciones, $studentName)
+    protected function showSubOptions($subOpciones, $clienteTempMat)
     {
         $questionText = '<strong>Elige una opción escribiendo su número:</strong><br><br>';
         foreach ($subOpciones as $key => $subOpcion) {
-            $description = $this->formatOptionDescription($subOpcion->descripcion);
+            $description = $this->formatOptionDescription($subOpcion->desc_opcion);
             $questionText .= ($key + 1) . ". " . $description . "<br>";
         }
         $questionText .= ($subOpciones->count() + 1) . ". Regresar al menú anterior<br>";
@@ -148,54 +153,69 @@ class SelectingDocTypeConversation extends Conversation
             ->fallback('No puedo procesar tu solicitud')
             ->callbackId('select_sub_option');
 
-        $this->ask($question, function (Answer $answer) use ($subOpciones, $studentName) {
+        $this->ask($question, function (Answer $answer) use ($subOpciones, $clienteTempMat) {
             $subOptionIndex = (int) $answer->getText() - 1;
 
             if ($subOptionIndex == $subOpciones->count()) {
-                $this->showOptions($studentName);
+                $lastOoptionParenId = $this->botman->userStorage()->get('parent_id');
+                $lastSavedOption = MenuOption::find($lastOoptionParenId);
+
+                if($lastSavedOption && $lastSavedOption->parent_id) {
+
+                    $this->botman->userStorage()->save([
+                        'parent_id' => $lastSavedOption->parent_id
+                    ]);
+
+                    $backSubOptions = MenuOption::where([
+                        'parent_id' => $lastSavedOption->parent_id,
+                        'active' => 1,
+                    ])->get(['id', 'parent_id', 'desc_opcion', 'respuesta']);
+                    $this->showSubOptions($backSubOptions, $clienteTempMat);
+                }else{
+                    $this->showOptions($clienteTempMat);
+                }
+
             } elseif ($subOptionIndex >= 0 && $subOptionIndex < $subOpciones->count()) {
                 $selectedSubOption = $subOpciones[$subOptionIndex];
 
-                $description = $selectedSubOption->descripcion;
+                $description = $selectedSubOption->desc_opcion;
                 $this->say('Has seleccionado: ' . $description);
 
-                // Continuar el flujo de la conversación aquí
-                //$this->say($selectedSubOption->respuesta);
-                // Preguntar si está satisfecho
-                //$this->askSatisfaction($subOpciones, $studentName);
-                // Verificar si hay más sub-opciones
-                $moreSubOptions = MenuOption::where('menu_option_id', $selectedSubOption->id)->where('muestra_pantalla', 1)->get(['id', 'descripcion', 'respuesta', 'condiciones_proceso']);
+                $this->botman->userStorage()->save([
+                    'parent_id' => $selectedSubOption->id
+                ]);
 
+                $moreSubOptions = MenuOption::where([
+                        'parent_id' => $selectedSubOption->id,
+                        'active' => 1,
+                    ])->get(['id', 'parent_id', 'desc_opcion', 'respuesta']);
 
                 if ($selectedSubOption->respuesta && trim($selectedSubOption->respuesta) !== '') {
-                    // No hay más sub-opciones, mostrar la respuesta final
                     $this->say($selectedSubOption->respuesta);
                 }
 
+                if ($selectedSubOption->optionRoute) {
+                    $optionRoute = $selectedSubOption->optionRoute->condiciones;
+                    $codEsc = $clienteTempMat->cod_esc;
+                    $ciclo = (int)$clienteTempMat->ciclo;
 
-                if ($selectedSubOption->condiciones_proceso && trim($selectedSubOption->condiciones_proceso) !== '') {
-                    $codEsc = '01';
-                    $ciclo = 9;
-
-                    $nextOptionId = $this->conditionEvaluator->evaluateConditions($selectedSubOption->condiciones_proceso, $codEsc, $ciclo);
-                    $moreSubOptions = MenuOption::where('menu_option_id', $nextOptionId)->where('muestra_pantalla', 1)->get(['id', 'descripcion', 'respuesta', 'condiciones_proceso']);
-
-                    //$nextOptionId = 'aa';
-                    //$this->say('nextopt-' .$nextOptionId);
+                    $nextOptionId = $this->conditionEvaluator->evaluateConditions($optionRoute, $codEsc, $ciclo);
+                    //dd($nextOptionId);
+                    $moreSubOptions = MenuOption::where('parent_id', $nextOptionId)
+                        ->get(['id', 'parent_id', 'desc_opcion', 'respuesta']);
 
                     $selectedNextSubOption = MenuOption::find($nextOptionId);
-                    $this->say($selectedNextSubOption->respuesta);
-                    //$this->showSubOptions($moreSubOptions, $studentName);
-
+                    if ($selectedNextSubOption->respuesta && trim($selectedNextSubOption->respuesta) !== '') {
+                        $this->say($selectedNextSubOption->respuesta);
+                    }
                 }
-
 
                 if ($moreSubOptions->isEmpty()) {
                     // Preguntar si está satisfecho
-                    $this->askSatisfaction($subOpciones, $studentName);
+                    $this->askSatisfaction($subOpciones, $clienteTempMat);
                 } else {
                     // Hay más sub-opciones, mostrar el siguiente nivel de sub-opciones
-                    $this->showSubOptions($moreSubOptions, $studentName);
+                    $this->showSubOptions($moreSubOptions, $clienteTempMat);
                 }
             } else {
                 $this->say('Selección inválida. Por favor, intenta de nuevo.');
@@ -204,7 +224,7 @@ class SelectingDocTypeConversation extends Conversation
         });
     }
 
-    protected function askSatisfaction($subOpciones, $studentName)
+    protected function askSatisfaction($subOpciones, $clienteTempMat)
     {
         $question = Question::create('¿Estás satisfecho(a) con mi respuesta?')
             ->addButtons([
@@ -213,14 +233,14 @@ class SelectingDocTypeConversation extends Conversation
                 Button::create('Regresar al menú anterior')->value('menu'),
             ]);
 
-        $this->ask($question, function (Answer $answer) use ($subOpciones, $studentName) {
+        $this->ask($question, function (Answer $answer) use ($subOpciones, $clienteTempMat) {
             if ($answer->isInteractiveMessageReply()) {
                 if ($answer->getValue() === 'yes') {
                     $this->say('¡Gracias! Me alegra saber que estás satisfecho(a).');
                 } elseif ($answer->getValue() === 'no') {
                     $this->say('Lamento escuchar eso. Por favor, dime cómo puedo mejorar.');
                 } elseif ($answer->getValue() === 'menu') {
-                    $this->showSubOptions($subOpciones, $studentName);
+                    $this->showSubOptions($subOpciones, $clienteTempMat);
                 }
             } else {
                 $this->say('Por favor, selecciona una opción.');

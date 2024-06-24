@@ -89,10 +89,10 @@ class MenuOptionSeeder extends Seeder
     protected function crearOpcion($descripcion, $parentId = null, $respuesta = null)
     {
         return MenuOption::create([
-            'descripcion' => $descripcion,
+            'desc_opcion' => $descripcion,
             'menu_option_id' => $parentId,
             'active' => true,
-            'orden' => MenuOption::where('menu_option_id', $parentId)->count() + 1,
+            'num_opcion' => MenuOption::where('menu_option_id', $parentId)->count() + 1,
             'respuesta' => $respuesta
         ]);
     }
