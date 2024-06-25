@@ -1,0 +1,41 @@
+/* ckeditor.css */
+
+/* Estilo para las listas sin viñetas */
+.ck-content ul,
+.ck-content ol {
+    list-style-type: none; /* Eliminar viñetas y numeración por defecto */
+    margin-left: 0; /* Eliminar el margen izquierdo por defecto */
+    padding-left: 0; /* Eliminar el padding izquierdo por defecto */
+}
+
+/* Estilo para viñetas */
+.ck-content ul > li {
+    display: flex; /* Utilizar flexbox para alinear ítem y bullet */
+    align-items: flex-start; /* Alinear bullet con el inicio del texto */
+}
+
+.ck-content ul > li::before {
+    content: '\2022'; /* Código Unicode para viñeta (•) */
+    color: #374151; /* Color del ícono de viñeta */
+    font-size: 0.75rem; /* Tamaño del ícono de viñeta */
+    margin-right: 0.5rem; /* Espacio entre el ícono de viñeta y el texto */
+}
+
+/* Estilo para números de lista */
+.ck-content ol > li {
+    counter-increment: list-item; /* Incrementar el contador de la lista */
+    margin-bottom: 0.5rem; /* Espacio entre ítems de la lista */
+    display: flex; /* Utilizar flexbox para alinear ítem y número */
+    align-items: flex-start; /* Alinear número con el inicio del texto */
+}
+
+.ck-content ol > li::before {
+    content: counter(list-item) '.'; /* Formato de numeración (1., 2., etc.) */
+    color: #374151; /* Color del número de lista */
+    font-size: 0.75rem; /* Tamaño del número de lista */
+    margin-right: 0.5rem; /* Espacio entre el número de lista y el texto */
+}
+
+.ck-content a {
+    text-decoration: underline;
+}

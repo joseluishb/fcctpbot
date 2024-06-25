@@ -1,12 +1,21 @@
+import defaultTheme from 'tailwindcss/defaultTheme';
+import forms from '@tailwindcss/forms';
+
 /** @type {import('tailwindcss').Config} */
-module.exports = {
+export default {
     content: [
-        "./resources/views/**/*.blade.php", // Archivos Blade de Laravel
-        "./resources/js/**/*.js", // Archivos JavaScript (para Alpine.js)
-        "./resources/views/livewire/**/*.blade.php", // Archivos Blade de Livewire
+        './vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php',
+        './storage/framework/views/*.php',
+        './resources/views/**/*.blade.php',
     ],
+
     theme: {
-        extend: {},
+        extend: {
+            fontFamily: {
+                sans: ['Figtree', ...defaultTheme.fontFamily.sans],
+            },
+        },
     },
-    plugins: [],
+
+    plugins: [forms],
 };
