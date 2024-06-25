@@ -13,15 +13,9 @@
 
         <!-- Scripts -->
         @vite(['resources/css/app.scss', 'resources/js/app.js'])
-        <script src="https://cdn.tiny.cloud/1/nxbh8939vu50anif746swrf8qmh8wqb8iwb165a0iidgv6zk/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
 
-        <script>
-        tinymce.init({
-            selector: 'textarea#myeditorinstance', // Replace this CSS selector to match the placeholder element for TinyMCE
-            plugins: 'code table lists',
-            toolbar: 'undo redo | blocks | bold italic | alignleft aligncenter alignright | indent outdent | bullist numlist | code | table'
-        });
-        </script>
+        <link href="{{ asset('assets/css/ckeditor.css') }}" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
         @livewireStyles
     </head>
@@ -43,9 +37,11 @@
             <!-- Page Content -->
             <main>
                 {{ $slot }}
+
             </main>
         </div>
         @livewireScripts
         @stack('scripts')
+
     </body>
 </html>

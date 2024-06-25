@@ -14,12 +14,14 @@ use Illuminate\View\View;
 
 class RegisteredUserController extends Controller
 {
+
     /**
      * Display the registration view.
      */
-    public function create(): View
+    public function create(): RedirectResponse //View
     {
-        return view('auth.register');
+        return redirect(route('menu-options', absolute: false));
+        //return view('auth.register');
     }
 
     /**

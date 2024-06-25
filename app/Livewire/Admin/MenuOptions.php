@@ -14,6 +14,8 @@ class MenuOptions extends Component
     public $respuesta;
     public $isModalOpen = false;
 
+    public $message;
+
     protected $rules = [
         'desc_opcion' => 'required',
         'respuesta' => 'required',
@@ -58,7 +60,9 @@ class MenuOptions extends Component
         $this->menuOptionId = $id;
         $this->desc_opcion = $menuOption->desc_opcion;
         $this->respuesta = $menuOption->respuesta;
+
         $this->openModal();
+
     }
 
     public function update()
@@ -85,11 +89,13 @@ class MenuOptions extends Component
     public function openModal()
     {
         $this->isModalOpen = true;
+        $this->dispatch('oopenModal');
     }
 
     public function closeModal()
     {
         $this->isModalOpen = false;
+
     }
 
     private function resetForm()
@@ -99,13 +105,5 @@ class MenuOptions extends Component
         $this->respuesta = '';
     }
 
-    public function updated($field)
-    {
-        $this->validateOnly($field);
-    }
 
-    public function updatedRespuesta($value)
-    {
-        $this->dispatch('respuestaUpdated', $value);
-    }
 }

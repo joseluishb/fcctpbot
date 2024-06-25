@@ -11,16 +11,16 @@
 
                     <div class="-mx-4 overflow-x-auto">
                         <div class="flex justify-between items-center mb-4">
-                            <h2 class="text-2xl">Opciones</h2>
+                            <a href="{{ url('landing') }}" target="_blank" class="px-4 py-2"><i class="fas fa-robot mr-2"></i> Ir al bot</a>
                             <div>
                                 @if($currentParentId)
-                                    <button wire:click="goBack" class="bg-gray-500 text-white px-4 py-2 rounded">Retroceder un nivel</button>
+                                    <a href="#" wire:click="goBack" class="px-4 py-2"><i class="fas fa-arrow-left mr-2"></i> Retroceder un nivel</a>
                                 @endif
                             </div>
                         </div>
 
                         @if (session()->has('message'))
-                            <div class="bg-green-500 text-white px-4 py-2 rounded mb-4">
+                            <div class="bg-green-500 text-white px-4 py-2 rounded mb-4" id="sessionMessage">
                                 {{ session('message') }}
                             </div>
                         @endif
@@ -57,14 +57,14 @@
                                                 {{ $menuOption->desc_opcion }}
                                             </td>
                                             <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                                {{ $menuOption->respuesta }}
+                                                {!! $menuOption->respuesta !!}
                                             </td>
-                                            <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                            <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm" style="width: 250px;">
                                                 <button wire:click="edit({{ $menuOption->id }})"
-                                                    class="bg-yellow-500 text-white px-4 py-2 rounded">Editar</button>
+                                                    class="bg-red-700 text-white  hover:bg-red-800 px-4 py-2 rounded text-center text-white font-light transition-colors duration-300 ease-in-out">Editar</button>
                                                 @if ($menuOption->hasSubOptions($menuOption->id))
                                                     <button wire:click="setParent({{ $menuOption->id }})"
-                                                        class="bg-green-500 text-white px-4 py-2 rounded">Sub-opciones</button>
+                                                        class="bg-gray-700 text-white px-4 py-2 rounded">Sub-opciones</button>
                                                 @endif
                                             </td>
                                         </tr>
@@ -77,7 +77,7 @@
                 {{-- Modal para editar --}}
                 @if($isModalOpen)
                     <div class="fixed inset-0 flex items-center justify-center bg-gray-500 bg-opacity-75">
-                        <div class="bg-white p-8 w-full max-w-4xl mx-4 rounded-lg shadow-lg">
+                        <div class="bg-white p-8 w-full max-w-2xl mx-4 rounded-lg shadow-lg">
                             <h3 class="text-lg font-semibold mb-4">Editar Opción de Menú</h3>
                             <form wire:submit.prevent="update">
                                 <div class="mb-4">
@@ -90,33 +90,86 @@
                                 <div class="mb-4">
                                     <label class="block text-sm font-medium text-gray-700">Respuesta</label>
 
-                                    <textarea id="myeditorinstance">Hello, World!</textarea>
 
-
-                                    <textarea wire:model.defer="respuesta" id="respuesta"
+                                    <div wire:ignore>
+                                    <textarea wire:model.defer="respuesta" id="ckeditor_respuesta"
                                         class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
                                     </textarea>
+                                    </div>
                                         @error('respuesta')
                                         <span class="text-red-500 text-sm">{{ $message }}</span>
                                         @enderror
+
                                 </div>
                                 <div class="flex justify-end">
                                     <button type="button" wire:click="closeModal"
                                         class="px-4 py-2 text-gray-500 bg-gray-200 rounded mr-2">Cancelar</button>
                                     <button type="submit"
-                                        class="px-4 py-2 text-white bg-blue-500 rounded">Guardar
+                                        class="px-4 py-2 text-white bg-red-700 text-white  hover:bg-red-800 rounded">Guardar
                                         Cambios</button>
                                 </div>
                             </form>
                         </div>
                     </div>
+
+
                 @endif
 
             </div>
         </div>
     </div>
+
 </div>
 
-@push('scripts')
 
+
+@push('scripts')
+<script src="https://cdn.ckeditor.com/ckeditor5/41.4.2/classic/ckeditor.js"></script>
+
+<script>
+    document.addEventListener('livewire:init', function () {
+        console.log('oooo');
+        Livewire.on('oopenModal', () => {
+            setTimeout(() => {
+
+                    ClassicEditor
+                        .create(document.querySelector('#ckeditor_respuesta'), {
+                            toolbar: {
+                                items: [
+                                    'undo',
+                                    'redo',
+                                    '|',
+                                    'bold',
+                                    'italic',
+                                    '|',
+                                    'link',
+                                    'bulletedList',
+                                    'numberedList',
+                                    '|',
+                                    'emoji'
+                                    // Más íconos aquí según sea necesario
+                                ]
+                            },
+                            contentCss: [
+                                '{{ asset('assets/css/ckedirtor.css') }}', // Reemplaza con la ruta correcta a tu archivo CSS
+                                            'https://cdn.jsdelivr.net/npm/tailwindcss@3.4.4/dist/tailwind.min.css' // Tailwind CSS
+
+                            ]
+                        })
+                        //.create(document.querySelector('#ckeditor_respuesta'))
+                        .then(editor => {
+                            editor.model.document.on('change:data', () => {
+                                @this.set('respuesta', editor.getData());
+                            });
+                        })
+                        .catch(error => {
+                            console.error(error);
+                        });
+
+            }, 100); // Ajusta el tiempo de espera según sea necesario
+        });
+
+
+    });
+</script>
 @endpush
