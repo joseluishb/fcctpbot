@@ -11,7 +11,7 @@
 
                     <div class="-mx-4 overflow-x-auto">
                         <div class="flex justify-between items-center mb-4">
-                            <a href="{{ url('landing') }}" target="_blank" class="px-4 py-2"><i class="fas fa-robot mr-2"></i> Ir al bot</a>
+                            <a href="{{ url('landing') }}" target="_blank" class="px-4 py-2"><i class="fas fa-robot mr-2"></i> Ir al landing/chatbot</a>
                             <div>
                                 @if($currentParentId)
                                     <a href="#" wire:click="goBack" class="px-4 py-2"><i class="fas fa-arrow-left mr-2"></i> Retroceder un nivel</a>
@@ -35,7 +35,7 @@
                                         </th>
                                         <th scope="col"
                                             class="px-5 py-3 bg-gray-200 text-gray-600 uppercase text-sm leading-normal text-left border-b border-gray-200">
-                                            Pregunta
+                                            Opción
                                         </th>
                                         <th scope="col"
                                             class="px-5 py-3 bg-gray-200 text-gray-600 uppercase text-sm leading-normal text-left border-b border-gray-200">
@@ -78,10 +78,10 @@
                 @if($isModalOpen)
                     <div class="fixed inset-0 flex items-center justify-center bg-gray-500 bg-opacity-75">
                         <div class="bg-white p-8 w-full max-w-2xl mx-4 rounded-lg shadow-lg">
-                            <h3 class="text-lg font-semibold mb-4">Editar Opción de Menú</h3>
+                            <h3 class="text-lg font-semibold mb-4">Editar opción de chatbot</h3>
                             <form wire:submit.prevent="update">
                                 <div class="mb-4">
-                                    <label class="block text-sm font-medium text-gray-700">Descripción</label>
+                                    <label class="block text-sm font-medium text-gray-700">Opción</label>
                                     <input wire:model.defer="desc_opcion" type="text"
                                         class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
                                     @error('desc_opcion') <span
@@ -124,7 +124,8 @@
 
 
 @push('scripts')
-<script src="https://cdn.ckeditor.com/ckeditor5/41.4.2/classic/ckeditor.js"></script>
+<script src="{{ asset('assets/js/ckeditor.js') }}"></script>
+{{-- <script src="https://cdn.ckeditor.com/ckeditor5/41.4.2/classic/ckeditor.js"></script> --}}
 
 <script>
     document.addEventListener('livewire:init', function () {
@@ -134,8 +135,10 @@
 
                     ClassicEditor
                         .create(document.querySelector('#ckeditor_respuesta'), {
+                            extraPlugins: [ 'SourceEditing' ],
                             toolbar: {
                                 items: [
+                                    'sourceEditing', '|',
                                     'undo',
                                     'redo',
                                     '|',
@@ -145,8 +148,7 @@
                                     'link',
                                     'bulletedList',
                                     'numberedList',
-                                    '|',
-                                    'emoji'
+                                    '|'
                                     // Más íconos aquí según sea necesario
                                 ]
                             },
