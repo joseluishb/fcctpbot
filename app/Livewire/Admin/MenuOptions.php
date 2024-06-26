@@ -36,7 +36,7 @@ class MenuOptions extends Component
 
     public function getMenuOptions($parentId)
     {
-        return MenuOption::where('parent_id', $parentId)->orderBy('num_opcion')->get();
+        return MenuOption::where('parent_id', $parentId)->orderBy('id_proceso')->get();
     }
 
     public function setParent($id)

@@ -15,7 +15,7 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         // User::factory(10)->create();
-        /*
+
         User::create([
             'name' => 'OTI FCCTP',
             'email' => 'oti_fcctp@usmp.pe',
@@ -27,7 +27,7 @@ class DatabaseSeeder extends Seeder
             'email' => 'ucalidad_fcctp@usmp.pe',
             'password' => Hash::make('Isometrik24')
         ]);
-        */
+
 
         User::create([
             'name' => 'UNIDAD DE COMUNICACIÓN ESTRATÉGICA',

@@ -31,7 +31,11 @@
                                     <tr>
                                         <th scope="col"
                                             class="px-5 py-3 bg-gray-200 text-gray-600 uppercase text-sm leading-normal text-left border-b border-gray-200">
-                                            Referencia
+                                            Ref.
+                                        </th>
+                                        <th scope="col"
+                                            class="px-5 py-3 bg-gray-200 text-gray-600 uppercase text-sm leading-normal text-left border-b border-gray-200">
+                                            Escuela
                                         </th>
                                         <th scope="col"
                                             class="px-5 py-3 bg-gray-200 text-gray-600 uppercase text-sm leading-normal text-left border-b border-gray-200">
@@ -52,6 +56,9 @@
                                         <tr wire:key="tr_option_{{ $menuOption->id }}">
                                             <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                                                 {{ $menuOption->id_proceso }}
+                                            </td>
+                                            <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                                {{ $menuOption->acronym_esc }}
                                             </td>
                                             <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                                                 {{ $menuOption->desc_opcion }}
