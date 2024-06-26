@@ -26,7 +26,7 @@ class UpdateMenuBotParentIds extends Command
      */
     public function handle()
     {
-        $this->updateLevel(1);
+        $this->updateLevel(0);
         $this->info('Parent IDs updated successfully.');
     }
 

@@ -17,7 +17,10 @@ return new class extends Migration
             $table->unsignedBigInteger('parent_id')->nullable();
             $table->char('id_proceso', 50)->nullable();
             $table->string('desc_opcion', 255);
+            $table->string('db_opcion', 255)->nullable();
+            $table->char('acronym_esc', 2)->nullable();
             $table->text('respuesta')->nullable();
+            $table->text('instructivo')->nullable();
             $table->integer('num_opcion')->nullable();
             $table->foreign('parent_id')->references('id')->on('menu_options')->onDelete('cascade');
             $table->integer('menu_nivel_volver')->nullable();
