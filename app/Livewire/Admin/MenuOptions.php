@@ -7,12 +7,15 @@ use App\Models\MenuOption;
 
 class MenuOptions extends Component
 {
-    ///public $menuOptions;
+    public $isModalOpen = false;
     public $currentParentId = null;
     public $menuOptionId;
     public $desc_opcion;
     public $respuesta;
-    public $isModalOpen = false;
+    public $instructivo;
+    public $is_system_option;
+    public $executes_system_process;
+
 
     public $message;
 
@@ -30,7 +33,7 @@ class MenuOptions extends Component
     public function render()
     {
         $menuOptions = $this->getMenuOptions($this->currentParentId);
-        //dd($menuOptions);
+
         return view('livewire.admin.menu-options')->with(['menu_options' => $menuOptions]);
     }
 
@@ -60,8 +63,12 @@ class MenuOptions extends Component
         $this->menuOptionId = $id;
         $this->desc_opcion = $menuOption->desc_opcion;
         $this->respuesta = $menuOption->respuesta;
+        $this->instructivo = $menuOption->instructivo;
+        $this->is_system_option = $menuOption->is_system_option;
+        $this->executes_system_process = $menuOption->executes_system_process;
 
         $this->openModal();
+
 
     }
 

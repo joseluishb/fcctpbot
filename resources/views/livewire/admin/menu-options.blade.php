@@ -25,7 +25,7 @@
                             </div>
                         @endif
 
-                        <div class="inline-block min-w-full shadow rounded-lg overflow-hidden">
+                        <div class="inline-block min-w-full shadow rounded-lg ">
                             <table class="min-w-full leading-normal">
                                 <thead>
                                     <tr>
@@ -35,7 +35,7 @@
                                         </th>
                                         <th scope="col"
                                             class="px-5 py-3 bg-gray-200 text-gray-600 uppercase text-sm leading-normal text-left border-b border-gray-200">
-                                            Escuela
+
                                         </th>
                                         <th scope="col"
                                             class="px-5 py-3 bg-gray-200 text-gray-600 uppercase text-sm leading-normal text-left border-b border-gray-200">
@@ -60,8 +60,13 @@
                                             <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                                                 {{ $menuOption->acronym_esc }}
                                             </td>
-                                            <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                            <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm relative">
                                                 {{ $menuOption->desc_opcion }}
+
+                                                <p class="italic relative">
+                                                    {!! $menuOption->executes_system_process ? '<a href="javascript:" class="relative group"><i class="fas fa-exclamation-circle"></i> Ejecuta proceso interno<span class="absolute left-1/2 transform -translate-x-1/2 bottom-full mb-2 w-48 p-2 text-sm text-white bg-black rounded opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-500">' . $menuOption->exec_system_process_instructions . '</span></a>': '' !!}
+                                                    {{ $menuOption->is_system_option ? 'Opción para proceso interno': '' }}
+                                                </p>
                                             </td>
                                             <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                                                 {!! $menuOption->respuesta !!}
@@ -106,7 +111,12 @@
                                         @error('respuesta')
                                         <span class="text-red-500 text-sm">{{ $message }}</span>
                                         @enderror
-
+                                </div>
+                                <div class="mb-4">
+                                    <div class="bg-blue-100 border-t border-b border-blue-500 text-blue-700 px-4 py-3" role="alert">
+                                        <p class="font-bold">Instrucciones de respuesta</p>
+                                        <p class="text-sm italic">{{ ($instructivo != '') ? $instructivo : 'Sin instrucciones' }}</p>
+                                    </div>
                                 </div>
                                 <div class="flex justify-end">
                                     <button type="button" wire:click="closeModal"

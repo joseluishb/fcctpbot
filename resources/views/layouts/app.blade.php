@@ -16,6 +16,11 @@
 
         <link href="{{ asset('assets/css/ckeditor.css') }}" rel="stylesheet">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+        <style>
+            .tooltip:hover .tooltiptext {
+                opacity: 1;
+            }
+        </style>
 
         @livewireStyles
     </head>
