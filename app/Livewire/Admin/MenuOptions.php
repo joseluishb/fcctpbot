@@ -2,12 +2,14 @@
 
 namespace App\Livewire\Admin;
 
+use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 use App\Models\MenuOption;
 
 class MenuOptions extends Component
 {
     public $isModalOpen = false;
+    public $isModalOpenOptionRoot = false;
     public $currentParentId = null;
     public $menuOptionId;
     public $desc_opcion;
@@ -68,8 +70,6 @@ class MenuOptions extends Component
         $this->executes_system_process = $menuOption->executes_system_process;
 
         $this->openModal();
-
-
     }
 
     public function update()
@@ -102,7 +102,11 @@ class MenuOptions extends Component
     public function closeModal()
     {
         $this->isModalOpen = false;
+    }
 
+    public function closeModalDiagram()
+    {
+        $this->isModalOpenOptionRoot = false;
     }
 
     private function resetForm()
@@ -112,5 +116,75 @@ class MenuOptions extends Component
         $this->respuesta = '';
     }
 
+    public function showTreeDiagram($id)
+    {
+
+        // Obtener los datos del árbol de opciones de menú
+        $menuData = $this->getMenuOptionsTree($id);
+
+        // Convertir a JSON
+        //$menuJson = json_encode($menuData);
+        $menuJson = json_encode($menuData, JSON_PRETTY_PRINT);
+
+        $this->isModalOpenOptionRoot = true;
+
+
+
+        $this->dispatch('ooopenModal', ['menuJson' => $menuJson]);
+    }
+
+    public function getMenuOptionsTree($rootId)
+    {
+        $sql = "
+        WITH RECURSIVE AllChildren AS (
+            SELECT
+                id,
+                parent_id,
+                desc_opcion
+            FROM
+                menu_options
+            WHERE
+                id = :rootId
+
+            UNION ALL
+
+            SELECT
+                child.id,
+                child.parent_id,
+                child.desc_opcion
+            FROM
+                menu_options child
+            INNER JOIN AllChildren parent ON
+                child.parent_id = parent.id
+        )
+
+        SELECT
+            id,
+            parent_id as parent,
+            desc_opcion as name
+        FROM
+            AllChildren;
+      ";
+
+        $menuData = DB::select($sql, ['rootId' => $rootId]);
+
+        $menuFormatted = [];
+        foreach ($menuData as $item) {
+            if ($item->parent === null) {
+                $menuFormatted[] = [
+                    'key' => $item->id,
+                    'name' => $item->name,
+                ];
+            } else {
+                $menuFormatted[] = [
+                    'key' => $item->id,
+                    'parent' => $item->parent,
+                    'name' => $item->name,
+                ];
+            }
+        }
+
+        return $menuFormatted;
+    }
 
 }

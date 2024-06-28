@@ -31,6 +31,10 @@
                                     <tr>
                                         <th scope="col"
                                             class="px-5 py-3 bg-gray-200 text-gray-600 uppercase text-sm leading-normal text-left border-b border-gray-200">
+                                            ID
+                                        </th>
+                                        <th scope="col"
+                                            class="px-5 py-3 bg-gray-200 text-gray-600 uppercase text-sm leading-normal text-left border-b border-gray-200">
                                             Ref.
                                         </th>
                                         <th scope="col"
@@ -55,6 +59,9 @@
                                     @foreach($menu_options as $menuOption)
                                         <tr wire:key="tr_option_{{ $menuOption->id }}">
                                             <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                                {{ $menuOption->id }}
+                                            </td>
+                                            <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                                                 {{ $menuOption->id_proceso }}
                                             </td>
                                             <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
@@ -71,13 +78,15 @@
                                             <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                                                 {!! $menuOption->respuesta !!}
                                             </td>
-                                            <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm" style="width: 250px;">
+                                            <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm" style="width: 290px;">
                                                 <button wire:click="edit({{ $menuOption->id }})"
                                                     class="bg-red-700 text-white  hover:bg-red-800 px-4 py-2 rounded text-center text-white font-light transition-colors duration-300 ease-in-out">Editar</button>
                                                 @if ($menuOption->hasSubOptions($menuOption->id))
                                                     <button wire:click="setParent({{ $menuOption->id }})"
-                                                        class="bg-gray-700 text-white px-4 py-2 rounded">Sub-opciones</button>
+                                                        class="bg-gray-700 text-white  hover:bg-gray-800 px-4 py-2 rounded text-center text-white font-light transition-colors duration-300 ease-in-out">Sub-opciones</button>
                                                 @endif
+                                                <button wire:click="showTreeDiagram({{ $menuOption->id }})"
+                                                    class="bg-gray-700 text-white  hover:bg-gray-800 px-4 py-2 rounded text-center text-white font-light transition-colors duration-300 ease-in-out"><i class="fas fa-project-diagram"></i></button>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -85,6 +94,8 @@
                             </table>
                         </div>
                     </div>
+
+
 
                 {{-- Modal para editar --}}
                 @if($isModalOpen)
@@ -128,13 +139,49 @@
                             </form>
                         </div>
                     </div>
-
-
                 @endif
+
+                {{-- Modal para ver el diagrama de las sub-opciones del option padre --}}
+                @if($isModalOpenOptionRoot)
+                    {{-- <div class="fixed inset-0 flex items-center justify-center bg-gray-500 bg-opacity-75">
+                        <div class="bg-white p-8 w-full max-w-2xl mx-4 rounded-lg shadow-lg">
+                            <h3 class="text-lg font-semibold mb-4">Root</h3>
+
+                            <div class="mermaid" id="menu-diagram">
+                                <!-- Aquí se inyectará el diagrama de Mermaid -->
+                            </div>
+                        </div>
+                    </div> --}}
+
+                    <div class="fixed inset-0 flex items-center justify-center bg-gray-500 bg-opacity-75">
+                        <div class="bg-white w-full max-w-screen-xl mx-auto rounded-lg shadow-lg">
+                            <div class="flex flex-col h-full">
+
+                                <div class="bg-white px-4 py-2 flex justify-between items-center rounded-t-lg">
+
+                                    <h3 class="text-lg font-semibold mb-4">Vista diagrama</h3>
+                                    <button class="text-gray-600 hover:text-gray-800 focus:outline-none" wire:click="closeModalDiagram">
+                                        <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                                        </svg>
+                                    </button>
+                                </div>
+                                <div class="mermaid flex-1 p-8">
+                                    <!-- Aquí se inyectará el diagrama de Mermaid -->
+                                    <div id="menu-diagram" class="h-full" >
+                                        <!-- Contenido del diagrama -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                @endif
+
 
             </div>
         </div>
     </div>
+
 
 </div>
 
@@ -146,7 +193,7 @@
 
 <script>
     document.addEventListener('livewire:init', function () {
-        console.log('oooo');
+        console.log('oooohhhhh');
         Livewire.on('oopenModal', () => {
             setTimeout(() => {
 
@@ -185,10 +232,31 @@
                             console.error(error);
                         });
 
-            }, 100); // Ajusta el tiempo de espera según sea necesario
+            }, 100);
         });
 
 
+    });
+</script>
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        Livewire.on('ooopenModal', (event) => {
+            let menuJson = event[0].menuJson;
+
+            if (!Array.isArray(menuJson)) {
+                menuJson = JSON.parse(menuJson); // Convertir a array si es un objeto JSON
+            }
+
+
+
+            setTimeout(() => {
+                console.log(menuJson );
+
+                renderMermaidDiagram(menuJson, 'menu-diagram');
+            }, 100);
+        });
     });
 </script>
 @endpush
