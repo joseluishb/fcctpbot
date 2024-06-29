@@ -36,7 +36,11 @@ class MenuOptions extends Component
     {
         $menuOptions = $this->getMenuOptions($this->currentParentId);
 
-        return view('livewire.admin.menu-options')->with(['menu_options' => $menuOptions]);
+        $parentName = $this->currentParentId ? MenuOption::find($this->currentParentId)->desc_opcion : null;
+
+
+
+        return view('livewire.admin.menu-options')->with(['menu_options' => $menuOptions, 'parent_name' => $parentName]);
     }
 
     public function getMenuOptions($parentId)

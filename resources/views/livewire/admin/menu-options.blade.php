@@ -25,6 +25,13 @@
                             </div>
                         @endif
 
+                        <div class="flex justify-between items-center mb-4">
+                            @if ($parent_name)
+                                Opción padre: {{ $parent_name }}
+                            @endif
+                        </div>
+
+
                         <div class="inline-block min-w-full shadow rounded-lg ">
                             <table class="min-w-full leading-normal">
                                 <thead>
@@ -48,6 +55,10 @@
                                         <th scope="col"
                                             class="px-5 py-3 bg-gray-200 text-gray-600 uppercase text-sm leading-normal text-left border-b border-gray-200">
                                             Respuesta
+                                        </th>
+                                        <th scope="col"
+                                            class="px-5 py-3 bg-gray-200 text-gray-600 uppercase text-sm leading-normal text-left border-b border-gray-200">
+                                            Instrucciones
                                         </th>
                                         <th scope="col"
                                             class="px-5 py-3 bg-gray-200 text-gray-600 uppercase text-sm leading-normal text-left border-b border-gray-200">
@@ -76,7 +87,14 @@
                                                 </p>
                                             </td>
                                             <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                                @if($menuOption->requires_response)
+                                                    <i class="fas fa-comment-dots"></i>
+                                                @endif
                                                 {!! $menuOption->respuesta !!}
+
+                                            </td>
+                                            <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                                <span style="font-size: 12px;">{!! $menuOption->instructivo !!}</span>
                                             </td>
                                             <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm" style="width: 290px;">
                                                 <button wire:click="edit({{ $menuOption->id }})"
