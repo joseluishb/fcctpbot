@@ -23,9 +23,7 @@ class ConditionEvaluatorService
         }
 
         foreach ($conditions['conditions'] as $condition) {
-
             $allRulesMet = true;
-
 
             foreach ($condition['rules'] as $rule) {
                 $field = $rule['field'];
@@ -59,8 +57,41 @@ class ConditionEvaluatorService
         return null;
     }
 
+
+    public function execInternalProcess($optionForExecProcess, $clienteTempMat)
+    {
+        $optionRoute = $optionForExecProcess->condiciones;
+
+        $conditions = json_decode($optionRoute, true);
+
+        if (!isset($conditions['action'])) {
+            return null;
+        }
+
+        if ($conditions['action'] === 'FORNEXTOPTIONID' ) {
+            $codEsc = $clienteTempMat->cod_esc;
+            $ciclo = (int) $clienteTempMat->ciclo;
+
+            $nextOptionId = $this->evaluateConditions($optionRoute, $codEsc, $ciclo);
+            return [$conditions['action'], $nextOptionId];
+        }
+
+        if ($conditions['action'] === 'GETAVERAGE') {
+            $codEsc = $clienteTempMat->cod_esc;
+            $promSem = $clienteTempMat->prom_sem;
+
+            return [$conditions['action'], $promSem];
+        }
+
+
+    }
+
+
+
     public function getClienteTempMatricula($nroDoc)
     {
         return TempMatricula::where('dni', $nroDoc)->where('estado', '1')->first();
     }
+
+
 }

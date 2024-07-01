@@ -9,6 +9,7 @@ use BotMan\BotMan\Messages\Conversations\Conversation;
 use BotMan\BotMan\Messages\Incoming\Answer;
 use BotMan\BotMan\Messages\Outgoing\Actions\Button;
 use BotMan\BotMan\Messages\Outgoing\Question;
+use Illuminate\Support\Facades\Log;
 
 
 class SelectingDocTypeConversation extends Conversation
@@ -80,7 +81,7 @@ class SelectingDocTypeConversation extends Conversation
     public function showOptions($clienteTempMat)
     {
         $this->say("Hola {$clienteTempMat->alumno}!");
-        $options = MenuOption::whereNull('parent_id')->get(['id', 'desc_opcion']);
+        $options = MenuOption::whereNull('parent_id')->where('active', 1)->get(['id', 'desc_opcion']);
         $questionText = '<strong>Elige una opción (escribe el número):</strong><br><br>';
         foreach ($options as $key => $opcion) {
             $description = $this->formatOptionDescription($opcion->desc_opcion);
@@ -140,6 +141,9 @@ class SelectingDocTypeConversation extends Conversation
 
             if ($subOptionIndex == $subOpciones->count()) {
                 $lastOoptionParenId = $this->botman->userStorage()->get('parent_id');
+
+                Log::info('BackSubOptions getting parent_id', ['back_parent_id' => $lastOoptionParenId]);
+
                 $lastSavedOption = MenuOption::find($lastOoptionParenId);
 
                 if($lastSavedOption && $lastSavedOption->parent_id) {
@@ -148,11 +152,15 @@ class SelectingDocTypeConversation extends Conversation
                         'parent_id' => $lastSavedOption->parent_id
                     ]);
 
+                    Log::info('BackSubOptions for parent_id', ['back_parent_id' => $lastSavedOption->parent_id]);
+
                     $backSubOptions = MenuOption::where([
                         'parent_id' => $lastSavedOption->parent_id,
                         'active' => 1,
                     ])->get(['id', 'parent_id', 'desc_opcion', 'respuesta']);
+
                     $this->showSubOptions($backSubOptions, $clienteTempMat);
+
                 }else{
                     $this->showOptions($clienteTempMat);
                 }
@@ -160,7 +168,7 @@ class SelectingDocTypeConversation extends Conversation
             } elseif ($subOptionIndex == $subOpciones->count() + 1) {
                 $this->say('Gracias por usar nuestro servicio. ¡Hasta luego!');
 
-            } elseif ($subOptionIndex >= 0 && $subOptionIndex < $subOpciones->count()) {
+            } elseif ( $subOptionIndex >= 0 && $subOptionIndex < $subOpciones->count() ) {
                 $selectedSubOption = $subOpciones[$subOptionIndex];
 
                 $description = $selectedSubOption->desc_opcion;
@@ -170,32 +178,34 @@ class SelectingDocTypeConversation extends Conversation
                     'parent_id' => $selectedSubOption->id
                 ]);
 
+                Log::info('SelectedSubOption for parent_id', ['id' => $selectedSubOption->id]);
+
                 $moreSubOptions = MenuOption::where([
-                        'parent_id' => $selectedSubOption->id,
-                        'active' => 1,
-                    ])->get(['id', 'parent_id', 'desc_opcion', 'respuesta']);
-
-
+                                                'parent_id' => $selectedSubOption->id,
+                                                'is_system_option' => 0,
+                                                'active' => 1,
+                                            ])->get(['id', 'parent_id', 'desc_opcion', 'respuesta', 'active']);
 
                 if ($selectedSubOption->respuesta && trim($selectedSubOption->respuesta) !== '') {
                     $this->say($selectedSubOption->respuesta);
-
                 }
 
-                if ($selectedSubOption->optionRoute) {
-                    $optionRoute = $selectedSubOption->optionRoute->condiciones;
-                    $codEsc = $clienteTempMat->cod_esc;
-                    $ciclo = (int)$clienteTempMat->ciclo;
+                if ( $selectedSubOption->optionRoute ) {
+                    $nextOption = $this->conditionEvaluator->execInternalProcess($selectedSubOption->optionRoute, $clienteTempMat);
+                    $nextOptionId = $nextOption[1];
+                    $action = $nextOption[0];
 
-                    $nextOptionId = $this->conditionEvaluator->evaluateConditions($optionRoute, $codEsc, $ciclo);
-                    //dd($nextOptionId);
-                    $moreSubOptions = MenuOption::where('parent_id', $nextOptionId)
-                        ->get(['id', 'parent_id', 'desc_opcion', 'respuesta']);
+                    if( $action === 'FORNEXTOPTIONID' ) {
+                        $moreSubOptions = MenuOption::where([
+                            'parent_id' => $nextOptionId,
+                            'is_system_option' => 0,
+                            'active' => 1,
+                        ])->get(['id', 'parent_id', 'desc_opcion', 'respuesta', 'active']);
 
-                    $selectedNextSubOption = MenuOption::find($nextOptionId);
-                    if ($selectedNextSubOption->respuesta && trim($selectedNextSubOption->respuesta) !== '') {
-                        $this->say($selectedNextSubOption->respuesta);
-
+                        $selectedNextSubOption = MenuOption::find($nextOptionId);
+                        if ($selectedNextSubOption->respuesta && trim($selectedNextSubOption->respuesta) !== '') {
+                            $this->say($selectedNextSubOption->respuesta);
+                        }
                     }
                 }
 
@@ -205,8 +215,6 @@ class SelectingDocTypeConversation extends Conversation
                 } else {
                     // Hay más sub-opciones, mostrar el siguiente nivel de sub-opciones
                     $this->showSubOptions($moreSubOptions, $clienteTempMat);
-
-
                 }
             } else {
                 $this->say('Selección inválida. Por favor, intenta de nuevo.');
@@ -221,7 +229,7 @@ class SelectingDocTypeConversation extends Conversation
             ->addButtons([
                 Button::create('Sí')->value('yes'),
                 Button::create('No')->value('no'),
-                Button::create('Regresar al menú anterior')->value('menu'),
+               # Button::create('Regresar al menú anterior')->value('menu'),
             ]);
 
         $this->ask($question, function (Answer $answer) use ($subOpciones, $clienteTempMat) {
