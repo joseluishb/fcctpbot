@@ -195,6 +195,8 @@ class SelectingDocTypeConversation extends Conversation
                     $nextOptionId = $nextOption[1];
                     $action = $nextOption[0];
 
+                    $selectedNextSubOption = MenuOption::find($nextOptionId);
+
                     if( $action === 'FORNEXTOPTIONID' ) {
                         $moreSubOptions = MenuOption::where([
                             'parent_id' => $nextOptionId,
@@ -202,7 +204,13 @@ class SelectingDocTypeConversation extends Conversation
                             'active' => 1,
                         ])->get(['id', 'parent_id', 'desc_opcion', 'respuesta', 'active']);
 
-                        $selectedNextSubOption = MenuOption::find($nextOptionId);
+
+                        if ($selectedNextSubOption->respuesta && trim($selectedNextSubOption->respuesta) !== '') {
+                            $this->say($selectedNextSubOption->respuesta);
+                        }
+                    }
+
+                    if ($action === 'FORREPLYEXTEMP') {
                         if ($selectedNextSubOption->respuesta && trim($selectedNextSubOption->respuesta) !== '') {
                             $this->say($selectedNextSubOption->respuesta);
                         }
