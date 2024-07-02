@@ -93,6 +93,15 @@ class ConditionEvaluatorService
             $nextOptionId = $this->getReplyForMatExtemporanea($optionRoute, $codEsc);
             return [$conditions['action'], $nextOptionId];
         }
+
+        if ($conditions['action'] === 'FORAMPLMATRICULA') {
+            $ampCred = $clienteTempMat->amp_cred;
+
+            $nextOptionId = $this->getEvalForAmpliacionCreditos($optionRoute, $ampCred);
+
+            return [$conditions['action'], $nextOptionId];
+        }
+
     }
 
     public function getReplyForMatExtemporanea($conditionsJson, $codEsc)
@@ -140,6 +149,37 @@ class ConditionEvaluatorService
         return null;
     }
 
+    public function getEvalForAmpliacionCreditos($conditionsJson, $ampCred)
+    {
+        $conditions = json_decode($conditionsJson, true);
+
+        if (!isset($conditions['conditions'])) {
+            return null;
+        }
+
+
+        foreach ($conditions['conditions'] as $condition) {
+            $allRulesMet = true;
+
+            foreach ($condition['rules'] as $rule) {
+                $field = $rule['field'];
+                $value = $rule['value'];
+
+                if ($field === 'amp_cred') {
+                    if ($ampCred != $value) {
+                        $allRulesMet = false;
+                        break;
+                    }
+                }
+            }
+
+            if ($allRulesMet) {
+                return $condition['next_option_id'];
+            }
+        }
+
+        return null;
+    }
 
 
 

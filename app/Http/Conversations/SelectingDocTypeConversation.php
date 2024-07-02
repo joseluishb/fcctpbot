@@ -197,7 +197,7 @@ class SelectingDocTypeConversation extends Conversation
 
                     $selectedNextSubOption = MenuOption::find($nextOptionId);
 
-                    if( $action === 'FORNEXTOPTIONID' ) {
+                    if( $action === 'FORNEXTOPTIONID' || $action === 'FORAMPLMATRICULA' ) {
                         $moreSubOptions = MenuOption::where([
                             'parent_id' => $nextOptionId,
                             'is_system_option' => 0,
@@ -215,6 +215,8 @@ class SelectingDocTypeConversation extends Conversation
                             $this->say($selectedNextSubOption->respuesta);
                         }
                     }
+
+
                 }
 
                 if ($moreSubOptions->isEmpty()) {
