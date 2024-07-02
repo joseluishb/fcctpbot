@@ -29,6 +29,7 @@ class SelectingDocTypeConversation extends Conversation
      */
     public function run() : void
     {
+        $this->bot->typesAndWaits(2);
         $this->askForDocumentType();
     }
 
@@ -42,7 +43,11 @@ class SelectingDocTypeConversation extends Conversation
                 Button::create('CE')->value('ce'),
             ]);
 
+
+
         $this->ask($question, function (Answer $answer) {
+            $this->bot->typesAndWaits(1);
+
             if ($answer->isInteractiveMessageReply()) {
                 $this->documentType = $answer->getValue();
                 $this->askForDocumentNumber();
@@ -55,10 +60,12 @@ class SelectingDocTypeConversation extends Conversation
     public function askForDocumentNumber()
     {
         $documentText = $this->documentType === 'dni' ? 'Ingresa tu DNI' : 'Ingresa tu CE';
+        $this->bot->typesAndWaits(1);
 
         $this->ask($documentText, function (Answer $answer) {
 
             $documentNumber = $answer->getText();
+            $this->bot->typesAndWaits(1);
 
             if ($this->validateDocumentNumber($documentNumber)) {
 
@@ -80,6 +87,7 @@ class SelectingDocTypeConversation extends Conversation
 
     public function showOptions($clienteTempMat)
     {
+        $this->bot->typesAndWaits(2);
         $this->say("Hola {$clienteTempMat->alumno}!");
         $options = MenuOption::whereNull('parent_id')->where('active', 1)->get(['id', 'desc_opcion', 'respuesta']);
         $questionText = '<strong>Elige una opción (escribe el número):</strong><br><br>';
@@ -97,6 +105,8 @@ class SelectingDocTypeConversation extends Conversation
 
             if ($optionIndex >= 0 && $optionIndex < $options->count()) {
                 $selectedOption = $options[$optionIndex];
+
+                $this->bot->typesAndWaits(1);
                 $this->say('Has seleccionado: ' . $selectedOption->desc_opcion);
 
                 if ($selectedOption->respuesta && trim($selectedOption->respuesta) !== '') {
@@ -106,6 +116,8 @@ class SelectingDocTypeConversation extends Conversation
                 // Manejo de la opción seleccionada
                 $this->handleSelectedOption($selectedOption->id, $clienteTempMat);
             } else {
+
+                $this->bot->typesAndWaits(1);
                 $this->say('Selección inválida. Por favor, intenta de nuevo.');
                 $this->repeat();
             }
@@ -170,12 +182,15 @@ class SelectingDocTypeConversation extends Conversation
                 }
 
             } elseif ($subOptionIndex == $subOpciones->count() + 1) {
+                $this->bot->typesAndWaits(2);
                 $this->say('Gracias por usar nuestro servicio. ¡Hasta luego!');
 
             } elseif ( $subOptionIndex >= 0 && $subOptionIndex < $subOpciones->count() ) {
                 $selectedSubOption = $subOpciones[$subOptionIndex];
 
                 $description = $selectedSubOption->desc_opcion;
+
+                $this->bot->typesAndWaits(1);
                 $this->say('Has seleccionado: ' . $description);
 
                 $this->botman->userStorage()->save([
@@ -191,6 +206,7 @@ class SelectingDocTypeConversation extends Conversation
                                             ])->get(['id', 'parent_id', 'desc_opcion', 'respuesta', 'active']);
 
                 if ($selectedSubOption->respuesta && trim($selectedSubOption->respuesta) !== '') {
+                    $this->bot->typesAndWaits(1);
                     $this->say($selectedSubOption->respuesta);
                 }
 
@@ -210,12 +226,14 @@ class SelectingDocTypeConversation extends Conversation
 
 
                         if ($selectedNextSubOption->respuesta && trim($selectedNextSubOption->respuesta) !== '') {
+                            $this->bot->typesAndWaits(1);
                             $this->say($selectedNextSubOption->respuesta);
                         }
                     }
 
                     if ($action === 'FORREPLYEXTEMP') {
                         if ($selectedNextSubOption->respuesta && trim($selectedNextSubOption->respuesta) !== '') {
+                            $this->bot->typesAndWaits(1);
                             $this->say($selectedNextSubOption->respuesta);
                         }
                     }
@@ -231,6 +249,7 @@ class SelectingDocTypeConversation extends Conversation
                     $this->showSubOptions($moreSubOptions, $clienteTempMat);
                 }
             } else {
+                $this->bot->typesAndWaits(1);
                 $this->say('Selección inválida. Por favor, intenta de nuevo.');
                 $this->repeat();
             }
@@ -249,13 +268,16 @@ class SelectingDocTypeConversation extends Conversation
         $this->ask($question, function (Answer $answer) use ($subOpciones, $clienteTempMat) {
             if ($answer->isInteractiveMessageReply()) {
                 if ($answer->getValue() === 'yes') {
+                    $this->bot->typesAndWaits(1);
                     $this->say('¡Gracias! Me alegra saber que estás satisfecho(a).');
                 } elseif ($answer->getValue() === 'no') {
+                    $this->bot->typesAndWaits(1);
                     $this->say('Lamento escuchar eso. Por favor, dime cómo puedo mejorar.');
                 } elseif ($answer->getValue() === 'menu') {
                     $this->showSubOptions($subOpciones, $clienteTempMat);
                 }
             } else {
+                $this->bot->typesAndWaits(1);
                 $this->say('Por favor, selecciona una opción.');
                 $this->repeat();
             }
@@ -306,8 +328,10 @@ class SelectingDocTypeConversation extends Conversation
         $this->ask($question, function (Answer $answer) {
             if ($answer->isInteractiveMessageReply()) {
                 if ($answer->getValue() === 'yes') {
+                    $this->bot->typesAndWaits(1);
                     $this->say('Información importante que debes de saber previo al día de tu matrícula..');
                 } elseif ($answer->getValue() === 'no') {
+                    $this->bot->typesAndWaits(1);
                     $this->say('Más info.. posible traslado interno.. no pertenece a fcctp..');
                 }
 
