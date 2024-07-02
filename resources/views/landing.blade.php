@@ -107,11 +107,11 @@
                         Servicio
                         de
                         matrícula
-                        <br>2024-II
+                        <br>
                     </h2>
                     <p
                         class="text-gray-900 font-light text-xl md:text-xl  py-4 text-center md:text-left sm:text-center">
-                        Revisa las orientaciones y soporte <br>del proceso de matrícula académica
+                        Revisa las orientaciones y soporte <br>del proceso de inscripción académica
                     </p>
                     <div
                         class="text-center md:text-left sm:text-center flex-1 xl:flex lg:flex-1 md:flex-1 sm:flex-1 gap-4 pt-4">
@@ -238,44 +238,44 @@
     </section>
 
 
-    <!-- Nuestras Asesorias -->
-    <section id="horario" class="container mx-auto px-4 my-0 lg:my-20 md:my-20 sm:my-5 ">
+    <!-- Horarios -->
+    <section id="horario" class="container mx-auto pt-10 px-4 my-0 lg:my-20 md:my-20 sm:my-5 ">
         <div class="grid lg:grid-cols-2 md:grid-cols-1 sm:grid-cols-1 grid-cols-1 gap-4">
             <div class="p-6 flex-1 content-center">
                 <div class="mx-auto text-left font-poppins mb-10">
-                    <h6 class="text-red-600 mb-0">Asignaturas y pre-requisitos por escuela </h6>
+                    <h6 class="text-red-600 mb-0">Asignaturas y prerrequisitos por escuela </h6>
                     <div class="titulo">Plan de estudios y Horarios</div>
                 </div>
                 <div
-                    class="gap-4 grid grid-cols-1 lg:sm:grid-cols-1 md:sm:grid-cols-2 sm:grid-cols-1 w-1/1 lg:w-3/4 md:w-full sm:w-full">
+                    class="gap-4 grid grid-cols-1 lg:sm:grid-cols-1 md:sm:grid-cols-2 sm:grid-cols-1 w-1/1 lg:w-4/5 md:w-full sm:w-full">
                     <!-- card 2 -->
-                    <div class="bg-gray-50 shadow-md rounded-lg p-6 w-50 border border-gray-100 mb-5">
+                    <div class="bg-gray-50 shadow-md rounded-lg p-6 w-full border border-gray-100 mb-5">
                         <div class="gap-4 content-center">
                             <div class="">
                                 <h2 class="mb-2 subtitulo">Horario de Cursos</h2>
-                                <p class="text-gray-700">Visualiza tus horarios de acuerdo a tu escuela</p>
+                                <p class="text-gray-700">Visualiza los turnos que tenemos disponibles</p>
                             </div>
-                            <div class="flex justify-left w-40 mt-4">
+                            <div class="flex justify-left w-full mt-4">
                                 <a href="https://fcctp.usmp.edu.pe/site/alumnos/servicios-academicos/horarios/"
                                     target="_blank"
-                                    class="bg-red-700 hover:bg-red-800 py-3 px-4 rounded-md text-center text-white text-base font-light transition-colors duration-300 ease-in-out w-80 cursor-pointer">
-                                    Ver Horarios<i class="fa-solid fa-chevron-right ps-4"></i>
+                                    class="bg-red-700 hover:bg-red-800 py-3 px-3 rounded-md text-center text-white text-base font-light transition-colors duration-300 ease-in-out cursor-pointer">
+                                    Horarios de cursos<i class="fa-solid fa-chevron-right ps-4"></i>
                                 </a>
                             </div>
                         </div>
                     </div>
                     <!-- card 1 -->
-                    <div class="bg-gray-50 shadow-md rounded-lg p-6 w-50 border border-gray-100 mb-5">
+                    <div class="bg-gray-50 shadow-md rounded-lg p-6 w-full border border-gray-100 mb-5">
                         <div class="gap-4 content-center">
                             <div class="">
                                 <h2 class="mb-2 subtitulo">Plan de estudios</h2>
-                                <p class="text-gray-700">conoce los cursos y pre-requisitos por escuela</p>
+                                <p class="text-gray-700">Encuentra toda la información que necesitas</p>
                             </div>
-                            <div class="flex justify-left w-40 mt-4">
+                            <div class="flex justify-left w-full mt-4">
 
                                 <a href="https://fcctp.usmp.edu.pe/micampus/planes-de-estudios/" target="_blank"
-                                    class="bg-red-700 hover:bg-red-800 py-3 px-4 rounded-md text-center text-white text-base font-light transition-colors duration-300 ease-in-out w-80 cursor-pointer">
-                                    Ver Plan<i class="fa-solid fa-chevron-right ps-4"></i>
+                                    class="bg-gray-600 hover:bg-gray-700 text-white border px-3 py-3 rounded-md font-light transition-colors duration-300 ease-in-out w-25 block  mb-2 sm:mb-4 text-center cursor-pointer">
+                                    Conoce tus planes de estudios<i class="fa-solid fa-chevron-right ps-4"></i>
                                 </a>
 
                             </div>
@@ -355,8 +355,8 @@
         </div>
     </section>
 
-    <!-- Plan -->
-    <section class="container mx-auto px-4 my-10 lg:my-20 md:my-20 sm:my-10" id="asesoria">
+    <!-- asesorias -->
+    <section class="container mx-auto px-4 pt-10 my-10 lg:my-20 md:my-20 sm:my-10" id="asesoria">
         <div class="grid lg:grid-cols-2 md:grid-cols-1 sm:grid-cols-1 grid-cols-1 gap-4">
             <div class="mx-left">
                 <img src="assets/images/foto-plan.jpg" alt=""
@@ -411,7 +411,7 @@
     </section>
 
     <!-- Servicios online -->
-    <section class="container mx-auto px-4 mb-20 lg:mb-20 md:mb-10 sm:mb-10" id="servicio">
+    <section class="container mx-auto px-4 pt-2 mb-20 lg:mb-20 md:mb-10 sm:mb-10" id="servicio">
         <div class="mx-auto text-center font-poppins my-0 lg:my-20 md:my-10 sm:my-6">
             <h6 class="text-red-600 mb-0">Trámites y consultas</h6>
             <div class="titulo">Servicios online</div>
@@ -613,6 +613,7 @@
             </div>
         </div>
     </div>
+
 
 
 
