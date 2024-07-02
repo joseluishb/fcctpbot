@@ -11,7 +11,7 @@
 
                     <div class="-mx-4 overflow-x-auto">
                         <div class="flex justify-between items-center mb-4">
-                            <a href="{{ url('landing') }}" target="_blank" class="bg-white-100 hover:bg-red-600 hover:text-white border px-4 py-3 rounded-md text-gray-500 font-light transition-colors duration-300 ease-in-out mb-2 sm:mb-4 text-center"><i class="fas fa-robot mr-2"></i> Ir al landing/chatbot</a>
+                            <a href="{{ url('2024-2') }}" target="_blank" class="bg-white-100 hover:bg-red-600 hover:text-white border px-4 py-3 rounded-md text-gray-500 font-light transition-colors duration-300 ease-in-out mb-2 sm:mb-4 text-center"><i class="fas fa-robot mr-2"></i> Ir al landing/chatbot</a>
                             <div>
                                 @if($currentParentId)
                                     <a href="#" wire:click="goBack" class="px-4 py-2"><i class="fas fa-arrow-left mr-2"></i> Retroceder un nivel</a>

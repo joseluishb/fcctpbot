@@ -23,7 +23,7 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::match(['get', 'post'], '/botman', [BotManController::class, 'handle']);
-Route::get('/landing', function () {
+Route::get('/2024-2', function () {
     return view('landing');
 });
 
