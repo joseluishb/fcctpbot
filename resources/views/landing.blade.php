@@ -631,14 +631,14 @@
 
 
             var botmanWidget = {
-
+                frameEndpoint: '/chat',
                 title: 'FCCTPBot',
                 introMessage: '¡Hola! Soy el Asistente Virtual de la FCCTP 🤖. Estoy aquí para ayudarte con el proceso de matrícula 2024-2. <p>¿En qué puedo asistirte hoy? 😄</p>',
                 mainColor: '#dd3333',
                 bubbleBackground: '#fff',
                 headerTextColor: '#ffffff',
                 placeholderText: 'Escribe un mensaje..',
-                bubbleAvatarUrl: 'https://botman.io/img/logo.png',
+                bubbleAvatarUrl: '/assets/images/icobot.png',
                 //bubbleAvatarUrl: 'https://avatars.githubusercontent.com/u/46945071?v=4',
                 //bubbleBackground:'#c02026',
                 desktopHeight: 600,
@@ -646,6 +646,7 @@
                 aboutLink: 'https://hube.pe',
                 aboutText: 'Desarrollado por OTI-FCCTP',
                 alwaysUseFloatingButton: !0,
+
 
             }
 
@@ -661,9 +662,7 @@
         window.onload = function() {
                 checkBotmanWidgetReady(function() {
                     demo();
-                    //document.getElementById('chatBotManFrame').style.backgroundImage = 'none'; //bad
                 });
-
         };
 
 

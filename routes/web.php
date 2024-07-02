@@ -31,6 +31,8 @@ Route::get('/demo', function () {
     return view('demo');
 });
 
-
+Route::get('/chat', function () {
+    return view('chat');
+});
 
 require __DIR__.'/auth.php';
