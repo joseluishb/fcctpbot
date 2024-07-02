@@ -44,12 +44,12 @@
 
                     <li><a href="#matricula"
                             class="text-gray-700 hover:text-red-500 transition-colors duration-300">Matrícula</a></li>
-                    <li><a href="#asesoria"
-                            class="text-gray-700 hover:text-red-500 transition-colors duration-300">Asesorías</a></li>
+                    <li><a href="#horario"
+                            class="text-gray-700 hover:text-red-500 transition-colors duration-300">Horarios</a></li>
                     <li><a href="#guia"
                             class="text-gray-700 hover:text-red-500 transition-colors duration-300">Guías</a></li>
-                    <li><a href="#plan" class="text-gray-700 hover:text-red-500 transition-colors duration-300">Plan de
-                            estudio</a></li>
+                    <li><a href="#asesoria"
+                            class="text-gray-700 hover:text-red-500 transition-colors duration-300">Asesorías</a></li>
                     <li><a href="#servicio"
                             class="text-gray-700 hover:text-red-500 transition-colors duration-300">Servicios
                             online</a></li>
@@ -66,20 +66,20 @@
                     class="text-left px-8 pt-3 pb-3 border-b border-t hover:bg-gray-700 hover:text-white transition-colors duration-300">
                     Matrícula</li>
             </a>
-            <a href="#asesoria" class="text-gray-700">
+            <a href="#horario" class="text-gray-700">
                 <li
                     class="text-left px-8 pt-3 pb-3 border-b hover:bg-gray-700 hover:text-white transition-colors duration-300">
-                    Asesorías</li>
+                    Horarios</li>
             </a>
             <a href="#guia" class="text-gray-700">
                 <li
                     class="text-left px-8 pt-3 pb-3 border-b hover:bg-gray-700 hover:text-white transition-colors duration-300">
                     Guías</li>
             </a>
-            <a href="#plan" class="text-gray-700">
+            <a href="#asesoria" class="text-gray-700">
                 <li
                     class="text-left px-8 pt-3 pb-3 border-b hover:bg-gray-700 hover:text-white transition-colors duration-300">
-                    Plan de estudio</li>
+                    Asesorías</li>
             </a>
             <a href="#servicio" class="text-gray-700">
                 <li
@@ -96,31 +96,35 @@
     </header>
 
     <!-- Sección slider -->
-    <section id="inicio" class="container-fluid mx-auto px-4 pt-32 custom-gradient">
+    <section id="inicio"
+        class="container-fluid mx-auto px-4 pt-32 custom-gradient lg:custom-gradient md:custom-gradient-md sm:custom-gradient-md">
         <div class="container mx-auto">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div class="px-4 pb-0 md:pb-5 sm:pb-0 flex-1 content-center">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 ">
+                <div
+                    class="px-4 pb-0 md:pb-5 sm:pb-0 flex-1 content-top xl:content-center lg:content-top md:content-top sm:content-top">
                     <h2
-                        class="text-3xl lg:text-5xl md:text-3xl sm:text-3xl font-bold font-poppins text-center md:text-left sm:text-center">
+                        class="xl:text-5xl lg:text-3xl md:text-3xl sm:text-3xl text-3xl font-bold font-poppins text-center md:text-left sm:text-center">
                         Servicio
                         de
                         matrícula
                         <br>2024-II
                     </h2>
                     <p
-                        class="text-gray-900 font-light text-xl md:text-xl  py-8 text-center md:text-left sm:text-center">
-                        Encuentra los servicios y
-                        el soporte
-                        <br>para tu
-                        proceso de
-                        matrícula
-                        académica.
+                        class="text-gray-900 font-light text-xl md:text-xl  py-4 text-center md:text-left sm:text-center">
+                        Revisa las orientaciones y soporte <br>del proceso de matrícula académica
                     </p>
-                    <div class="text-center md:text-left sm:text-center">
-                        <a href="#matricula"
-                            class="bg-red-700 hover:bg-red-800 py-3 px-4 rounded-md text-center text-white text-base font-light transition-colors duration-300 ease-in-out w-25 cursor-pointer">
-                            Más información<i class="fa-solid fa-chevron-down ps-4"></i>
-                        </a>
+                    <div
+                        class="text-center md:text-left sm:text-center flex-1 xl:flex lg:flex-1 md:flex-1 sm:flex-1 gap-4 pt-4">
+                        <div class="pb-8"><a href="#matricula"
+                                class="bg-red-700 hover:bg-red-800 py-3 px-4 rounded-md text-center text-white text-base font-light transition-colors duration-300 ease-in-out w-25 cursor-pointer">
+                                Más información<i class="fa-solid fa-chevron-down ps-4"></i>
+                            </a></div>
+                        <div><a data-fancybox href="https://www.youtube.com/watch?v=W4mM1e1JSPM"
+                                class="btn btn-danger bg-transparent hover:bg-red-700 py-3 px-4 rounded-md text-center text-gray-600 hover:text-white text-base font-md transition-colors duration-300 ease-in-out w-25 cursor-pointer border-2 border-gray-500 hover:border-red-700">
+                                Video instructivo de matrícula<i class="fa-solid fa-chevron-right ps-4"></i>
+                            </a></div>
+
+
                     </div>
                 </div>
                 <div class="p-6">
@@ -128,7 +132,7 @@
                         class="rounded-md md:rounded-3xl sm:rounded-md flex items-center justify-center relative bg-black">
                         <img src="assets/images/video_slider.jpg" alt=""
                             class="rounded-md md:rounded-3xl sm:rounded-md opacity-60 w-full h-full object-fit object-cover object-center">
-                        <a data-fancybox href="https://www.youtube.com/watch?v=A7n1_akA_Y0" class="absolute">
+                        <a data-fancybox href="https://www.youtube.com/watch?v=W4mM1e1JSPM" class="absolute">
                             <i class="fa-regular fa-circle-play text-white text-7xl"></i>
                         </a>
                     </div>
@@ -139,7 +143,7 @@
 
 
     <!-- Sección matricula -->
-    <section id="matricula" class="container mx-auto px-4 mb-6 pt-10">
+    <section id="matricula" class="container mx-auto px-4 mb-6 pt-10 ">
         <div class="mx-auto text-center font-poppins mb-10">
             <h6 class="text-red-600 mb-0">Información para matrícula</h6>
             <div class="titulo">Proceso de matrícula académica</div>
@@ -154,13 +158,11 @@
                     <div class="col-span-2">
                         <div class="xl:p-8 lg:p-5 md:p-4 sm:p-4 p-4">
                             <div class="subtitulo">Cronograma de matrícula <br>2024 - II</div>
-                            <div class="pt-2 mb-6 text-gray-700 text-base font-light">Información general
-                                para realizar
-                                tu
-                                inscripción al presente semestre</div>
+                            <div class="pt-2 mb-6 text-gray-700 text-base font-light">Información general para realizar
+                                tu inscripción al presente ciclo académico.</div>
                             <a href="https://fcctp.usmp.edu.pe/site/alumnos/servicios-academicos/registros-academicos/alumnos-pregrado/cronograma-academico-pregrado/"
                                 target="_blank"
-                                class="bg-white-100 hover:bg-red-600 hover:text-white border px-4 py-3 rounded-md text-gray-500 font-light transition-colors duration-300 ease-in-out w-25 block w-[12rem] mb-2 sm:mb-4 text-center">
+                                class="bg-gray-600 hover:bg-gray-700 text-white border px-4 py-3 rounded-md font-light transition-colors duration-300 ease-in-out w-25 block w-[12rem] mb-2 sm:mb-4 text-center">
                                 Ingresar aquí<i class="fa-solid fa-chevron-right ps-4"></i>
                             </a>
                         </div>
@@ -177,11 +179,10 @@
                         <div class="xl:p-8 lg:p-5 md:p-4 sm:p-4 p-4">
                             <div class="subtitulo">Orientación en el proceso de matrícula <br>2024-II</div>
                             <div class="pt-2 mb-6 text-gray-700 text-base font-light">Realiza tus consultas sobre
-                                asuntos académicos y no
-                                académicos.</div>
+                                motivos académicos y otros relacionados con el proceso de matrícula. </div>
                             <a href="https://forms.office.com/Pages/ResponsePage.aspx?id=7x8gmPbZaE6E9cJwUHTjQhU-ixc6PfBBlqERC-CJx11UNkdaUUlZUjFGTEQ0WVRWMzlOV1Q2UjZCSi4u"
                                 target="_blank"
-                                class="bg-white-100 hover:bg-red-600 hover:text-white border px-4 py-3 rounded-md text-gray-500 font-light transition-colors duration-300 ease-in-out w-25 block w-[12rem] mb-2 sm:mb-4 text-center">
+                                class="bg-gray-600 hover:bg-gray-700 text-white border px-4 py-3 rounded-md font-light transition-colors duration-300 ease-in-out w-25 block w-[12rem] mb-2 sm:mb-4 text-center">
                                 Ir al Formulario<i class="fa-solid fa-chevron-right ps-4"></i>
                             </a>
                         </div>
@@ -211,12 +212,23 @@
                             que cumplir los siguientes requisitos:</div>
                         <div class="py-6">
                             <ul class="list-disc pl-10">
-                                <li>Cancelar tu recibo por derecho de matrícula</li>
                                 <li>No tener deudas pendientes</li>
+                                <li>Cancelar tu recibo por derecho de matrícula</li>
                             </ul>
                         </div>
                         <div class="">
-                            Así, podrás comenzar el procedimiento de inscripción de tus cursos para el semestre 2024-I.
+                            <div class="mb-4">Además, Si:</div>
+                            <ul class="list-disc pl-10">
+                                <li>Te matriculaste en el semestre 2024-I y que no tengas impedimento alguno por sanción
+                                    disciplinaria o deficiencia académica.</li>
+                                <li>Realizaste el trámite de Reserva de matrícula para el semestre 2024-I.</li>
+                                <li>Realizaste el trámite de Retiro de ciclo del semestre 2024-I.</li>
+                                <li>Tienes Resolución de Reactualización de matrícula para el semestre 2024-II.</li>
+                                <li>Tienes Resolución de matrícula especial para el 2024-II.</li>
+                                <li>Perteneces al grupo de ingresantes 2024-II en todas las modalidades con la condición
+                                    de
+                                    admitido por la Oficina de Admisión.</li>
+                            </ul>
                         </div>
                     </div>
 
@@ -227,48 +239,49 @@
 
 
     <!-- Nuestras Asesorias -->
-    <section id="asesoria" class="container mx-auto px-4 my-0 lg:my-20 md:my-20 sm:my-5">
+    <section id="horario" class="container mx-auto px-4 my-0 lg:my-20 md:my-20 sm:my-5 ">
         <div class="grid lg:grid-cols-2 md:grid-cols-1 sm:grid-cols-1 grid-cols-1 gap-4">
             <div class="p-6 flex-1 content-center">
                 <div class="mx-auto text-left font-poppins mb-10">
-                    <h6 class="text-red-600 mb-0">Asesoría académica y de pagos</h6>
-                    <div class="titulo">Nuestras asesorías</div>
+                    <h6 class="text-red-600 mb-0">Asignaturas y pre-requisitos por escuela </h6>
+                    <div class="titulo">Plan de estudios y Horarios</div>
                 </div>
-                <div class="">
-                    <!-- card 1 -->
-                    <div class="bg-white shadow-md rounded-lg p-6 w-full border border-gray-100 mb-5">
-                        <div class="grid grid-cols-3 gap-4 items-center">
-                            <div class="md:col-span-2 sm:col-span-3 col-span-3">
-                                <h2 class="mb-2 subtitulo">Fórmula de matrícula: Alumnos de IX y X
-                                    ciclo de
-                                    Ciencias de la Comunicación</h2>
-                                <p class="text-gray-700">Elige la fórmula de inscripción según ciclo y turno, de acuerdo
-                                    a tu área de interés</p>
-                            </div>
-                            <div class="flex justify-left w-full md:col-span-1 sm:col-span-3 col-span-3">
-                                <a href="https://fcctp.usmp.edu.pe/pdf/__proceso_matricula_2024_1.pdf" target="_blank"
-                                    class="bg-white-100 hover:bg-red-600 hover:text-white border px-4 py-3 rounded-md text-gray-500 font-light transition-colors duration-300 ease-in-out w-25 block w-[12rem] mb-2 sm:mb-4 text-center">
-                                    <i class="fa-regular fa-file-lines pr-2"></i> Ver PDF
-                                </a>
-                            </div>
-                        </div>
-                    </div>
+                <div
+                    class="gap-4 grid grid-cols-1 lg:sm:grid-cols-1 md:sm:grid-cols-2 sm:grid-cols-1 w-1/1 lg:w-3/4 md:w-full sm:w-full">
                     <!-- card 2 -->
-                    <div class="bg-white shadow-md rounded-lg p-6 w-full border border-gray-100">
-                        <div class="grid grid-cols-3 gap-4 items-center">
-                            <div class="md:col-span-2 sm:col-span-3 col-span-3">
-                                <h2 class="mb-2 subtitulo">Tesorería: Asesoría de Pagos</h2>
-                                <p class="text-gray-700">Horario de atención: <br>Lunes a viernes. De 7:45 a. m. a 8:30
-                                    p. m.</p>
+                    <div class="bg-gray-50 shadow-md rounded-lg p-6 w-50 border border-gray-100 mb-5">
+                        <div class="gap-4 content-center">
+                            <div class="">
+                                <h2 class="mb-2 subtitulo">Horario de Cursos</h2>
+                                <p class="text-gray-700">Visualiza tus horarios de acuerdo a tu escuela</p>
                             </div>
-                            <div class="flex justify-left w-full md:col-span-1 sm:col-span-3 col-span-3">
-                                <a href="https://api.whatsapp.com/send?phone=51983157357" target="_blank"
-                                    class="bg-white-100 hover:bg-green-600 hover:text-white border px-4 py-3 rounded-md text-gray-500 font-light transition-colors duration-300 ease-in-out w-25 block w-[12rem] mb-2 sm:mb-4 text-center">
-                                    <i class="fa-brands fa-whatsapp pr-2 text-xl"></i> WhatsApp
+                            <div class="flex justify-left w-40 mt-4">
+                                <a href="https://fcctp.usmp.edu.pe/site/alumnos/servicios-academicos/horarios/"
+                                    target="_blank"
+                                    class="bg-red-700 hover:bg-red-800 py-3 px-4 rounded-md text-center text-white text-base font-light transition-colors duration-300 ease-in-out w-80 cursor-pointer">
+                                    Ver Horarios<i class="fa-solid fa-chevron-right ps-4"></i>
                                 </a>
                             </div>
                         </div>
                     </div>
+                    <!-- card 1 -->
+                    <div class="bg-gray-50 shadow-md rounded-lg p-6 w-50 border border-gray-100 mb-5">
+                        <div class="gap-4 content-center">
+                            <div class="">
+                                <h2 class="mb-2 subtitulo">Plan de estudios</h2>
+                                <p class="text-gray-700">conoce los cursos y pre-requisitos por escuela</p>
+                            </div>
+                            <div class="flex justify-left w-40 mt-4">
+
+                                <a href="https://fcctp.usmp.edu.pe/micampus/planes-de-estudios/" target="_blank"
+                                    class="bg-red-700 hover:bg-red-800 py-3 px-4 rounded-md text-center text-white text-base font-light transition-colors duration-300 ease-in-out w-80 cursor-pointer">
+                                    Ver Plan<i class="fa-solid fa-chevron-right ps-4"></i>
+                                </a>
+
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
             <div class="mx-left">
@@ -280,7 +293,7 @@
 
     <!-- Guia -->
     <section class="container-fluid border border-t-gray-200 border-b-gray-200 mx-auto px-4" id="guia">
-        <div class="container mx-auto px-36 xl:px-36 lg:px-10 md:px-0 sm:px-4 px-4 py-10 lg:py-20 md:py-20 sm:py-10">
+        <div class="container mx-auto px-36 xl:px-24 lg:px-0 md:px-0 sm:px-4 px-4 py-10 lg:py-20 md:py-20 sm:py-10">
             <div class="mx-auto text-center font-poppins mb-10">
                 <h6 class="text-red-600 mb-0">Documentos informativos</h6>
                 <div class="titulo">Guía para Ingresantes</div>
@@ -297,7 +310,7 @@
                         <div class="mt-10 mb-4">
                             <a href="https://fcctp.usmp.edu.pe/pdf/guias_ingresante/2024_1/Guia_Ingresante%202024%20I_CC.pdf"
                                 target="_blank"
-                                class="bg-white-100 hover:bg-red-600 hover:text-white border px-4 py-3 rounded-md text-gray-500 transition-colors duration-300 ease-in-out">
+                                class="bg-gray-600 hover:bg-gray-700 text-white border px-4 py-3 rounded-md transition-colors duration-300 ease-in-out">
                                 Ver Documento <i class="pl-1 fa-regular fa-file-lines"></i>
                             </a>
                         </div>
@@ -314,7 +327,7 @@
                         <div class="mt-10 mb-4">
                             <a href="https://fcctp.usmp.edu.pe/pdf/guias_ingresante/2024_1/Guia_Ingresante_2024_I_TURISMO.pdf"
                                 target="_blank"
-                                class="bg-white-100 hover:bg-teal-500 hover:text-white border px-4 py-3 rounded-md text-gray-500 transition-colors duration-300 ease-in-out">
+                                class="bg-gray-600 hover:bg-gray-700 text-white border px-4 py-3 rounded-md transition-colors duration-300 ease-in-out">
                                 Ver Documento <i class="pl-1 fa-regular fa-file-lines"></i>
                             </a>
                         </div>
@@ -331,7 +344,7 @@
                         <div class="mt-10 mb-4">
                             <a href="https://fcctp.usmp.edu.pe/pdf/guias_ingresante/2024_1/Guia_Ingresante_2024_I_PSICOLOGIA.pdf"
                                 target="_blank"
-                                class="bg-white-100 hover:bg-sky-500 hover:text-white border px-4 py-3 rounded-md text-gray-500 transition-colors duration-300 ease-in-out">
+                                class="bg-gray-600 hover:bg-gray-700 text-white border px-4 py-3 rounded-md  transition-colors duration-300 ease-in-out">
                                 Ver Documento <i class="pl-1 fa-regular fa-file-lines"></i>
                             </a>
                         </div>
@@ -343,7 +356,7 @@
     </section>
 
     <!-- Plan -->
-    <section class="container mx-auto px-4 my-10 lg:my-20 md:my-20 sm:my-10" id="plan">
+    <section class="container mx-auto px-4 my-10 lg:my-20 md:my-20 sm:my-10" id="asesoria">
         <div class="grid lg:grid-cols-2 md:grid-cols-1 sm:grid-cols-1 grid-cols-1 gap-4">
             <div class="mx-left">
                 <img src="assets/images/foto-plan.jpg" alt=""
@@ -351,41 +364,45 @@
             </div>
             <div class="p-6 flex-1 content-center">
                 <div class="mx-auto text-left font-poppins mb-10">
-                    <h6 class="text-red-600 mb-0">Cursos y pre-requisitos por escuela</h6>
-                    <div class="titulo">Plan de estudios</div>
+                    <h6 class="text-red-600 mb-0">Asesoría académica y de pagos</h6>
+                    <div class="titulo">Nuestras asesorías</div>
                 </div>
-                <div class="gap-4 grid md:grid-cols-2 sm:grid-cols-1">
+                <div class="">
                     <!-- card 1 -->
-                    <div class="bg-white shadow-md rounded-lg p-6 w-50 border border-gray-100 mb-5">
-                        <div class="gap-4 flex flex-col content-center">
-                            <div class="">
-                                <h2 class="mb-2 subtitulo">Plan de estudios</h2>
-                                <p class="text-gray-700">conoce los cursos y pre-requisitos por escuela</p>
-                            </div>
-                            <div class="flex justify-center w-40 mt-0">
-
-                                <a href="https://fcctp.usmp.edu.pe/micampus/planes-de-estudios/" target="_blank"
-                                    class="bg-white-100 hover:bg-red-600 hover:text-white border px-4 py-3 rounded-md text-gray-500 font-light transition-colors duration-300 ease-in-out w-25 block w-[12rem] mb-2 sm:mb-4 text-center">
-                                    Ver Plan<i class="fa-solid fa-chevron-right ps-4"></i>
-                                </a>
-
-                            </div>
+                    <div class="bg-white shadow-md rounded-lg p-6 w-full border border-gray-100 mb-5">
+                        <div class="">
+                            <h2 class="mb-2 subtitulo">Fórmula de matrícula: Alumnos de IX y X
+                                ciclo de
+                                Ciencias de la Comunicación</h2>
+                            <p class="text-gray-700">Elige la fórmula de inscripción según ciclo y turno, de acuerdo
+                                a tu área de interés</p>
+                        </div>
+                        <div class="pt-4">
+                            <a href="https://fcctp.usmp.edu.pe/pdf/__proceso_matricula_2024_1.pdf" target="_blank"
+                                class="bg-gray-600 hover:bg-gray-700 text-white border px-4 py-3 rounded-md font-light transition-colors duration-300 ease-in-out w-25 block w-[12rem]   text-center">
+                                <i class="fa-regular fa-file-lines pr-2"></i> Ver PDF
+                            </a>
                         </div>
                     </div>
                     <!-- card 2 -->
-                    <div class="bg-white shadow-md rounded-lg p-6 w-50 border border-gray-100 mb-5">
-                        <div class="gap-4 flex flex-col content-center">
-                            <div class="">
-                                <h2 class="mb-2 subtitulo">Horario de Cursos</h2>
-                                <p class="text-gray-700">Visualiza tus horarios de acuerdo a tu escuela</p>
-                            </div>
-                            <div class="flex justify-center w-40 mt-0">
-                                <a href="https://fcctp.usmp.edu.pe/site/alumnos/servicios-academicos/horarios/"
-                                    target="_blank"
-                                    class="bg-white-100 hover:bg-red-600 hover:text-white border px-4 py-3 rounded-md text-gray-500 font-light transition-colors duration-300 ease-in-out w-25 block w-[12rem] mb-2 sm:mb-4 text-center">
-                                    Ver Horarios<i class="fa-solid fa-chevron-right ps-4"></i>
-                                </a>
-                            </div>
+                    <div class="bg-white shadow-md rounded-lg p-6 w-full border border-gray-100">
+                        <div class="">
+                            <div class="mb-2 subtitulo">Tesorería: Asesoría de Pagos</div>
+                            Horario: Lunes a viernes de 7:45 a. m. a 8:30
+                            p. m.<br>
+                            Email: tesoreriafcctp@usmp.pe<br>
+                            Teléfono: 513 6300 | Anexo: 2133<br>
+                        </div>
+                        <div class="pt-4 flex gap-4">
+                            <a href="https://api.whatsapp.com/send?phone=51983157357" target="_blank"
+                                class="bg-green-500 hover:bg-green-700 text-white border px-4 py-3 rounded-md text-gray-500 font-light transition-colors duration-300 ease-in-out w-25 block w-[12rem] text-center">
+                                <i class="fa-brands fa-whatsapp pr-2 text-xl"></i> WhatsApp
+                            </a>
+                            <a href="https://fcctp.usmp.edu.pe/tesoreria" target="_blank"
+                                class="outline-1 border-2 border-gray-400 px-4 py-3 rounded-md hover:bg-gray-600 hover:text-white hover:border-gray-500 text-gray-500 font-light transition-colors duration-300 ease-in-out w-25 block w-[12rem] text-center">
+                                <i class="fa-solid fa-link pr-2 text-xl"></i>
+                                Website
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -404,12 +421,12 @@
             <div class="w-full bg-white shadow-md rounded-lg overflow-hidden border">
                 <img class="w-full h-50 object-cover object-fit" src="assets/images/foto-reinicio.jpg" alt="">
                 <div class="px-6 mt-10 ">
-                    <h2 class="subtitulo">Reinicio de contraseña SAP</h2>
-                    <p class="text-gray-700 mt-2 mb-6">Puedes resetear tu contraseña de la intranet académica SAP para
-                        matricularte, por favor haz clic en el botón y sigue las instrucciones:</p>
+                    <h2 class="subtitulo">Actualización o renovación de contraseña SAP</h2>
+                    <p class="text-gray-700 mt-2 mb-6">Puedes actualizar o renovar tu contraseña de la Portal Académico
+                        SAP para matricularte, por favor haz clic en el botón y sigue las instrucciones.</p>
                     <div class="mb-6">
                         <a href="https://sisfcctp.usmp.edu.pe/fcapps/sapform/reseteo/index.php" target="_blank"
-                            class="bg-white-100 hover:bg-red-600 hover:text-white border px-4 py-3 rounded-md text-gray-500 font-light transition-colors duration-300 ease-in-out w-25 block w-[12rem] mb-2 sm:mb-4 text-center">
+                            class="bg-gray-600 hover:bg-gray-700 text-white border px-4 py-3 rounded-md text-gray-500 font-light transition-colors duration-300 ease-in-out w-25 block w-[12rem] mb-2 sm:mb-4 text-center">
                             Solicitar reinicio<i class="fa-solid fa-chevron-right ps-4"></i>
                         </a>
                     </div>
@@ -424,7 +441,7 @@
                         no cuentas con acceso a la bandeja de tu correo institucional, haz clic en el botón:</p>
                     <div class="mb-6">
                         <a href="https://fcctp.usmp.edu.pe/pdf/actualizacion_doc_alumno.pdf" target="_blank"
-                            class="bg-white-100 hover:bg-red-600 hover:text-white border px-4 py-3 rounded-md text-gray-500 font-light transition-colors duration-300 ease-in-out w-25 block w-[12rem] mb-2 sm:mb-4 text-center">
+                            class="bg-gray-600 hover:bg-gray-700 text-white border px-4 py-3 rounded-md text-gray-500 font-light transition-colors duration-300 ease-in-out w-25 block w-[12rem] mb-2 sm:mb-4 text-center">
                             Ver instructivo<i class="fa-solid fa-chevron-right ps-4"></i>
                         </a>
                     </div>
@@ -434,12 +451,12 @@
             <div class="w-full bg-white shadow-md rounded-lg overflow-hidden border">
                 <img class="w-full h-50 object-cover object-fit" src="assets/images/foto-sap.jpg" alt="">
                 <div class="p-6 py-8">
-                    <h2 class="subtitulo">Accede a la Plataforma SAP</h2>
+                    <h2 class="subtitulo">Portal Académico SAP</h2>
                     <p class="text-gray-700 mt-2 mb-6">Si deseas ingresar a la plataforma SAP para realizar consultas y
                         trámites académicos, puedes hacerlo haciendo clic en el siguiente botón: </p>
                     <div class="mb-6">
                         <a href="https://fioriprd.udm.hec.ondemand.com/sap/bc/ui2/flp?sap-client=400" target="_blank"
-                            class="bg-white-100 hover:bg-red-600 hover:text-white border px-4 py-3 rounded-md text-gray-500 font-light transition-colors duration-300 ease-in-out w-25 block w-[12rem] mb-2 sm:mb-4 text-center">
+                            class="bg-gray-600 hover:bg-gray-700 text-white border px-4 py-3 rounded-md text-gray-500 font-light transition-colors duration-300 ease-in-out w-25 block w-[12rem] mb-2 sm:mb-4 text-center">
                             Ingresa aquí<i class="fa-solid fa-chevron-right ps-4"></i>
                         </a>
                     </div>
@@ -463,10 +480,9 @@
                         </h3>
                         <p><i class="fa-regular fa-envelope pr-2"></i> direccion_comunicaciones@usmp.pe</p>
                         <p><i class="fa-solid fa-square-phone pr-3"></i> 513 6300</p>
-                        <p><i class="fa-regular fa-building pr-2"></i> Anexo: 2081</p>
+                        <p><i class="fa-regular fa-building pr-2"></i> Anexo: 2076, 2072</p>
                     </div>
                 </div>
-
                 <!-- area  -->
                 <div class="bg-white rounded-lg shadow-sm overflow-hidden border border-gray-200">
                     <div class="p-4 text-sm flex-1 content-center h-full text-gray-600 p-6">
@@ -474,10 +490,9 @@
                         </h3>
                         <p><i class="fa-regular fa-envelope pr-2"></i> direccion_psicologia@usmp.pe</p>
                         <p><i class="fa-solid fa-square-phone pr-3"></i> 513 6300</p>
-                        <p><i class="fa-regular fa-building pr-2"></i> Anexo: 2037</p>
+                        <p><i class="fa-regular fa-building pr-2"></i> Anexo: 2009, 2037 y 2079</p>
                     </div>
                 </div>
-
                 <!-- area  -->
                 <div class="bg-white rounded-lg shadow-sm overflow-hidden border border-gray-200">
                     <div class="p-4 text-sm flex-1 content-center h-full text-gray-600 p-6">
@@ -485,10 +500,9 @@
                         </h3>
                         <p><i class="fa-regular fa-envelope pr-2"></i> direccion_epth@usmp.pe </p>
                         <p><i class="fa-solid fa-square-phone pr-3"></i> 513 6300</p>
-                        <p><i class="fa-regular fa-building pr-2"></i> Anexo: 2052</p>
+                        <p><i class="fa-regular fa-building pr-2"></i> Anexo: 2019</p>
                     </div>
                 </div>
-
                 <!-- area  -->
                 <div class="bg-white rounded-lg shadow-sm overflow-hidden border border-gray-200">
                     <div class="p-4 text-sm flex-1 content-center h-full text-gray-600 p-6">
@@ -499,7 +513,6 @@
                         <p><i class="fa-regular fa-building pr-2"></i> Anexo: 2126</p>
                     </div>
                 </div>
-
                 <!-- area -->
                 <div class="bg-white rounded-lg shadow-sm overflow-hidden border border-gray-200">
                     <div class="p-4 text-sm flex-1 content-center h-full text-gray-600 p-6">
@@ -507,7 +520,7 @@
                         </h3>
                         <p><i class="fa-regular fa-envelope pr-2"></i> gradosytitulosfcctp@usmp.pe </p>
                         <p><i class="fa-solid fa-square-phone pr-3"></i> 513 6300</p>
-                        <p><i class="fa-regular fa-building pr-2"></i> Anexo: 2085</p>
+                        <p><i class="fa-regular fa-building pr-2"></i> Anexo: 2008</p>
                     </div>
                 </div>
                 <!-- area -->
@@ -518,29 +531,6 @@
                         <p><i class="fa-regular fa-envelope pr-2"></i> soporte_micampus@usmp.pe </p>
                         <p><i class="fa-solid fa-square-phone pr-3"></i> 513 6300</p>
                         <p><i class="fa-regular fa-building pr-2"></i> Anexo: 2073</p>
-                    </div>
-                </div>
-                <!-- area 2 -->
-                <div class="bg-white rounded-lg shadow-sm overflow-hidden border border-gray-200">
-                    <div class="p-4 text-sm flex-1 content-center h-full text-gray-600 p-6">
-                        <h3 class="text-md font-semibold mb-2 text-gray-900"> Renuncia FCCTP / Carta de Presentación de
-                            Egresados
-                        </h3>
-                        <p><i class="fa-regular fa-envelope pr-2"></i> sacad@usmp.pe </p>
-                        <p><i class="fa-solid fa-square-phone pr-3"></i> 513 6300</p>
-                        <p><i class="fa-regular fa-building pr-2"></i> Anexo: 2033</p>
-                    </div>
-                </div>
-
-                <!-- area 3 -->
-                <div class="bg-white rounded-lg shadow-sm overflow-hidden border border-gray-200">
-                    <div class="p-4 text-sm flex-1 content-center h-full text-gray-600 p-6">
-                        <h3 class="text-md font-semibold mb-2 text-gray-900"> Cartas de Presentación para Prácticas
-                            Preprofesionales y Profesionales
-                        </h3>
-                        <p><i class="fa-regular fa-envelope pr-2"></i> practicas_fcctp@usmp.pe </p>
-                        <p><i class="fa-solid fa-square-phone pr-3"></i> 513 6300</p>
-                        <p><i class="fa-regular fa-building pr-2"></i> Anexo: 2119</p>
                     </div>
                 </div>
                 <!-- area 2 -->
@@ -611,15 +601,18 @@
             <div class="text-sm sm:text-sm block md:block sm:hidden hidden">
                 <nav class="space-x-2">
                     <a href="#matricula" class="hover:underline">Matricula</a>
-                    <a href="#asesoria" class="hover:underline">Asesorías</a>
+                    <a href="#horario" class="hover:underline">Horarios</a>
                     <a href="#guia" class="hover:underline">Guías</a>
-                    <a href="#plan" class="hover:underline">Plan de estudios</a>
+                    <a href="#asesoria" class="hover:underline">Asesorías</a>
                     <a href="#servicio" class="hover:underline">Servicios online</a>
                     <a href="#oficina" class="hover:underline">Oficinas</a>
                 </nav>
             </div>
         </div>
     </div>
+
+
+
     <!-- Script propio -->
     <script src="assets/js/script.js"></script>
     <!-- Script lightbox -->
