@@ -2,11 +2,13 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class MenuOption extends Model
 {
+    use SoftDeletes;
+
     protected $fillable = ['desc_opcion', 'respuesta'];
 
     public function optionRoute()
