@@ -18,6 +18,14 @@
             background-image: none;
         }
 
+        .mobile-closed-message-avatar {
+            height: 66px !important;
+            width: 66px !important;
+            top: 30px !important;
+        }
+
+
+
 
     </style>
 
@@ -642,7 +650,7 @@
                 bubbleBackground: '#fff',
                 headerTextColor: '#ffffff',
                 placeholderText: 'Escribe un mensaje..',
-                bubbleAvatarUrl: '/assets/images/icobot.png',
+                bubbleAvatarUrl: '/assets/images/botico.png',
                 //bubbleAvatarUrl: 'https://avatars.githubusercontent.com/u/46945071?v=4',
                 //bubbleBackground:'#c02026',
                 desktopHeight: 600,
