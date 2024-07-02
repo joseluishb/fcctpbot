@@ -81,7 +81,7 @@ class SelectingDocTypeConversation extends Conversation
     public function showOptions($clienteTempMat)
     {
         $this->say("Hola {$clienteTempMat->alumno}!");
-        $options = MenuOption::whereNull('parent_id')->where('active', 1)->get(['id', 'desc_opcion']);
+        $options = MenuOption::whereNull('parent_id')->where('active', 1)->get(['id', 'desc_opcion', 'respuesta']);
         $questionText = '<strong>Elige una opción (escribe el número):</strong><br><br>';
         foreach ($options as $key => $opcion) {
             $description = $this->formatOptionDescription($opcion->desc_opcion);
@@ -98,6 +98,10 @@ class SelectingDocTypeConversation extends Conversation
             if ($optionIndex >= 0 && $optionIndex < $options->count()) {
                 $selectedOption = $options[$optionIndex];
                 $this->say('Has seleccionado: ' . $selectedOption->desc_opcion);
+
+                if ($selectedOption->respuesta && trim($selectedOption->respuesta) !== '') {
+                    $this->say($selectedOption->respuesta);
+                }
 
                 // Manejo de la opción seleccionada
                 $this->handleSelectedOption($selectedOption->id, $clienteTempMat);
