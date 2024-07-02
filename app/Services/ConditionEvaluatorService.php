@@ -96,8 +96,11 @@ class ConditionEvaluatorService
 
         if ($conditions['action'] === 'FORAMPLMATRICULA') {
             $ampCred = $clienteTempMat->amp_cred;
+            $ciclo = (int) $clienteTempMat->ciclo;
 
-            $nextOptionId = $this->getEvalForAmpliacionCreditos($optionRoute, $ampCred);
+            $nextOptionId = $this->getEvalForAmpliacionCreditos($optionRoute, $ampCred, $ciclo);
+
+            //dd($nextOptionId);
 
             return [$conditions['action'], $nextOptionId];
         }
@@ -149,7 +152,7 @@ class ConditionEvaluatorService
         return null;
     }
 
-    public function getEvalForAmpliacionCreditos($conditionsJson, $ampCred)
+    public function getEvalForAmpliacionCreditos($conditionsJson, $ampCred, $ciclo)
     {
         $conditions = json_decode($conditionsJson, true);
 
@@ -171,12 +174,35 @@ class ConditionEvaluatorService
                         break;
                     }
                 }
+                if ($field === 'ciclo') {
+                    if (is_array($value)) {
+                        if (!($ciclo >= (int) $value[0] && $ciclo <= (int) $value[1])) {
+                            $allRulesMet = false;
+                            break;
+                        }
+                    } else {
+                        if ($ciclo != $value) {
+                            $allRulesMet = false;
+                            break;
+                        }
+                    }
+                }
             }
 
             if ($allRulesMet) {
+                if (!$ampCred) {
+                    if ($ciclo === 10) {
+                        return 93;
+                    } else {
+                        return 94;
+                    }
+                }
+
                 return $condition['next_option_id'];
             }
         }
+
+
 
         return null;
     }

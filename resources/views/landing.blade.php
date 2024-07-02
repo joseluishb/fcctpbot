@@ -18,9 +18,7 @@
             background-image: none;
         }
 
-        #botmanWidgetRoot {
-            background-image: none !important;
-        }
+
     </style>
 
 </head>
@@ -650,6 +648,8 @@
                 bubbleAvatarUrl: 'https://botman.io/img/logo.png',
                 //bubbleAvatarUrl: 'https://avatars.githubusercontent.com/u/46945071?v=4',
                 //bubbleBackground:'#c02026',
+                desktopHeight: 600,
+                desktopWidth: 400,
                 aboutLink: 'https://hube.pe',
                 aboutText: 'Desarrollado por OTI-FCCTP',
                 alwaysUseFloatingButton: !0,
