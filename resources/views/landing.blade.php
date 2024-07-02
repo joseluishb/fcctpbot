@@ -41,7 +41,8 @@
                     </button>
                 </div>
                 <ul id="menu" class="hidden lg:flex space-x-4">
-
+                    <li><a href="#inicio"
+                            class="text-gray-700 hover:text-red-500 transition-colors duration-300">Inicio</a></li>
                     <li><a href="#matricula"
                             class="text-gray-700 hover:text-red-500 transition-colors duration-300">Matrícula</a></li>
                     <li><a href="#horario"
@@ -53,43 +54,42 @@
                     <li><a href="#servicio"
                             class="text-gray-700 hover:text-red-500 transition-colors duration-300">Servicios
                             online</a></li>
-                    <li><a href="#oficina"
-                            class="text-gray-700 hover:text-red-500 transition-colors duration-300">Oficinas</a></li>
+
                 </ul>
             </nav>
         </div>
         <ul id="mobile-menu"
             class="absolute bg-white w-full left-0 top-full hidden lg:hidden space-y-4  shadow-lg menu-enter-active">
+            <a href="#inicio" class="text-gray-700">
+                <li
+                    class="text-left px-8 pt-3 pb-3 border-b hover:bg-gray-700 hover:text-white transition-colors duration-300">
+                    Inicio</li>
+                <a href="#matricula" class="text-gray-700">
+                    <li
+                        class="text-left px-8 pt-3 pb-3 border-b border-t hover:bg-gray-700 hover:text-white transition-colors duration-300">
+                        Matrícula</li>
+                </a>
+                <a href="#horario" class="text-gray-700">
+                    <li
+                        class="text-left px-8 pt-3 pb-3 border-b hover:bg-gray-700 hover:text-white transition-colors duration-300">
+                        Horarios</li>
+                </a>
+                <a href="#guia" class="text-gray-700">
+                    <li
+                        class="text-left px-8 pt-3 pb-3 border-b hover:bg-gray-700 hover:text-white transition-colors duration-300">
+                        Guías</li>
+                </a>
+                <a href="#asesoria" class="text-gray-700">
+                    <li
+                        class="text-left px-8 pt-3 pb-3 border-b hover:bg-gray-700 hover:text-white transition-colors duration-300">
+                        Asesorías</li>
+                </a>
+                <a href="#servicio" class="text-gray-700">
+                    <li
+                        class="text-left px-8 pt-3 pb-3 border-b hover:bg-gray-700 hover:text-white transition-colors duration-300">
+                        Servicios online</li>
+                </a>
 
-            <a href="#matricula" class="text-gray-700">
-                <li
-                    class="text-left px-8 pt-3 pb-3 border-b border-t hover:bg-gray-700 hover:text-white transition-colors duration-300">
-                    Matrícula</li>
-            </a>
-            <a href="#horario" class="text-gray-700">
-                <li
-                    class="text-left px-8 pt-3 pb-3 border-b hover:bg-gray-700 hover:text-white transition-colors duration-300">
-                    Horarios</li>
-            </a>
-            <a href="#guia" class="text-gray-700">
-                <li
-                    class="text-left px-8 pt-3 pb-3 border-b hover:bg-gray-700 hover:text-white transition-colors duration-300">
-                    Guías</li>
-            </a>
-            <a href="#asesoria" class="text-gray-700">
-                <li
-                    class="text-left px-8 pt-3 pb-3 border-b hover:bg-gray-700 hover:text-white transition-colors duration-300">
-                    Asesorías</li>
-            </a>
-            <a href="#servicio" class="text-gray-700">
-                <li
-                    class="text-left px-8 pt-3 pb-3 border-b hover:bg-gray-700 hover:text-white transition-colors duration-300">
-                    Servicios online</li>
-            </a>
-            <a href="#oficina" class="text-gray-700">
-                <li
-                    class="text-left px-8 pt-3 pb-3 border-b hover:bg-gray-700 hover:text-white transition-colors duration-300">
-                    Oficinas</li>
             </a>
         </ul>
 
@@ -198,7 +198,7 @@
         <div class="container-fluid mx-auto">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-0">
                 <div class="rounded-lg shadow-lg bg-red-500">
-                    <img src="assets/images/bg.jpg" alt="" class="w-full h-full object-cover object-right">
+                    <img src="assets/images/bg.jpg" alt="" class="w-full h-full object-cover object-center">
                 </div>
                 <div
                     class="bg-white p-10 pr-10 md:pr-0 sm:pr-10 flex-col content-center 2xl:w-10/12 xl:w-10/12 lg:w-10/12 md:w-11/12 sm:w-11/12 w-full">
@@ -480,7 +480,8 @@
                         </h3>
                         <p><i class="fa-regular fa-envelope pr-2"></i> direccion_comunicaciones@usmp.pe</p>
                         <p><i class="fa-solid fa-square-phone pr-3"></i> 513 6300</p>
-                        <p><i class="fa-regular fa-building pr-2"></i> Anexo: 2076, 2072</p>
+                        <p><i class="fa-regular fa-building pr-2"></i> Anexo: 2005</p>
+                        <p><i class="fa-regular fa-building pr-2"></i> Anexo de Coordinación Académica: 2036</p>
                     </div>
                 </div>
                 <!-- area  -->
@@ -490,17 +491,19 @@
                         </h3>
                         <p><i class="fa-regular fa-envelope pr-2"></i> direccion_psicologia@usmp.pe</p>
                         <p><i class="fa-solid fa-square-phone pr-3"></i> 513 6300</p>
-                        <p><i class="fa-regular fa-building pr-2"></i> Anexo: 2009, 2037 y 2079</p>
+                        <p><i class="fa-regular fa-building pr-2"></i> Anexo: 2009</p>
+                        <p><i class="fa-regular fa-building pr-2"></i> Anexo de Coordinación Académica: 2041</p>
                     </div>
                 </div>
                 <!-- area  -->
                 <div class="bg-white rounded-lg shadow-sm overflow-hidden border border-gray-200">
                     <div class="p-4 text-sm flex-1 content-center h-full text-gray-600 p-6">
-                        <h3 class="text-md font-semibold mb-2 text-gray-900">Dirección de Turismo
+                        <h3 class="text-md font-semibold mb-2 text-gray-900">Dirección de Turismo y Hotelería
                         </h3>
                         <p><i class="fa-regular fa-envelope pr-2"></i> direccion_epth@usmp.pe </p>
                         <p><i class="fa-solid fa-square-phone pr-3"></i> 513 6300</p>
-                        <p><i class="fa-regular fa-building pr-2"></i> Anexo: 2019</p>
+                        <p><i class="fa-regular fa-building pr-2"></i> Anexo: 2016</p>
+                        <p><i class="fa-regular fa-building pr-2"></i> Anexo de Coordinación Académica: 2113</p>
                     </div>
                 </div>
                 <!-- area  -->
@@ -510,7 +513,7 @@
                         </h3>
                         <p><i class="fa-regular fa-envelope pr-2"></i> secretaria_facultad_fcctp@usmp.pe </p>
                         <p><i class="fa-solid fa-square-phone pr-3"></i> 513 6300</p>
-                        <p><i class="fa-regular fa-building pr-2"></i> Anexo: 2126</p>
+                        <p><i class="fa-regular fa-building pr-2"></i> Anexo: 2010, 2126</p>
                     </div>
                 </div>
                 <!-- area -->
@@ -550,7 +553,7 @@
                         </h3>
                         <p><i class="fa-regular fa-envelope pr-2"></i> tesoreriafcctp@usmp.pe </p>
                         <p><i class="fa-solid fa-square-phone pr-3"></i> 513 6300</p>
-                        <p><i class="fa-regular fa-building pr-2"></i> Anexo: 2133</p>
+                        <p><i class="fa-regular fa-building pr-2"></i> Anexo: 2007, 2047, 2056, 2133</p>
                         <p><i class="fa-brands fa-whatsapp pr-2"></i> +51 983157357</p>
                         <p><i class="fa-solid fa-link pr-2"></i><a href="https://fcctp.usmp.edu.pe/tesoreria"
                                 target="_blank"> Visitar Website</a></p>
@@ -562,7 +565,7 @@
                         <h3 class="text-md font-semibold mb-2 text-gray-900"> Oficina de Bienestar Universitario
                         </h3>
                         <p><i class="fa-regular fa-envelope pr-2"></i> bienestarfcctp@usmp.pe</p>
-                        <p><i class="fa-solid fa-square-phone pr-3"></i> 513 6300</p>
+                        <p><i class="fa-solid fa-square-phone pr-3"></i> 513 6300 | Anexo 2015</p>
                         <p><i class="fa-regular fa-building pr-2"></i> Anexo Comunicaciones: 2066</p>
                         <p><i class="fa-regular fa-building pr-2"></i> Anexo Turismo: 2059</p>
                         <p><i class="fa-regular fa-building pr-2"></i> Anexo Psicología: 2067</p>
@@ -600,12 +603,12 @@
                 Psicología. Todos los derechos reservados.</div>
             <div class="text-sm sm:text-sm block md:block sm:hidden hidden">
                 <nav class="space-x-2">
+                    <a href="#inicio" class="hover:underline">Inicio</a>
                     <a href="#matricula" class="hover:underline">Matricula</a>
                     <a href="#horario" class="hover:underline">Horarios</a>
                     <a href="#guia" class="hover:underline">Guías</a>
                     <a href="#asesoria" class="hover:underline">Asesorías</a>
                     <a href="#servicio" class="hover:underline">Servicios online</a>
-                    <a href="#oficina" class="hover:underline">Oficinas</a>
                 </nav>
             </div>
         </div>
