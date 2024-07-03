@@ -100,11 +100,15 @@ class ConditionEvaluatorService
 
             $nextOptionId = $this->getEvalForAmpliacionCreditos($optionRoute, $ampCred, $ciclo);
 
-            //dd($nextOptionId);
-
             return [$conditions['action'], $nextOptionId];
         }
 
+        if ($conditions['action'] === 'FORREPLYLINKZOOM') {
+            $codEsc = $clienteTempMat->cod_esc;
+
+            $nextOptionId = $this->getReplyForLinkZoon($optionRoute, $codEsc);
+            return [$conditions['action'], $nextOptionId];
+        }
     }
 
     public function getReplyForMatExtemporanea($conditionsJson, $codEsc)
@@ -127,6 +131,39 @@ class ConditionEvaluatorService
 
         if(!$cronoMatr){
             return (int) $conditions['option_default'];
+        }
+
+        foreach ($conditions['conditions'] as $condition) {
+            $allRulesMet = true;
+
+            foreach ($condition['rules'] as $rule) {
+                $field = $rule['field'];
+                $value = $rule['value'];
+
+                if ($field === 'cod_esc') {
+                    if ($codEsc != $value) {
+                        $allRulesMet = false;
+                        break;
+                    }
+                }
+            }
+
+            if ($allRulesMet) {
+                return $condition['next_option_id'];
+            }
+        }
+
+        return null;
+    }
+    public function getReplyForLinkZoon($conditionsJson, $codEsc)
+    {
+        $currentDate = Carbon::today();
+        $codPer = '2024-2';
+
+        $conditions = json_decode($conditionsJson, true);
+
+        if (!isset($conditions['conditions'])) {
+            return null;
         }
 
         foreach ($conditions['conditions'] as $condition) {
@@ -202,10 +239,10 @@ class ConditionEvaluatorService
             }
         }
 
-
-
         return null;
     }
+
+
 
 
 

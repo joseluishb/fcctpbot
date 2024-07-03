@@ -231,14 +231,12 @@ class SelectingDocTypeConversation extends Conversation
                         }
                     }
 
-                    if ($action === 'FORREPLYEXTEMP') {
+                    if ($action === 'FORREPLYEXTEMP' || $action === 'FORREPLYLINKZOOM') {
                         if ($selectedNextSubOption->respuesta && trim($selectedNextSubOption->respuesta) !== '') {
                             $this->bot->typesAndWaits(1);
                             $this->say($selectedNextSubOption->respuesta);
                         }
                     }
-
-
                 }
 
                 if ($moreSubOptions->isEmpty()) {
