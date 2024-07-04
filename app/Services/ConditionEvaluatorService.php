@@ -107,6 +107,8 @@ class ConditionEvaluatorService
             $codEsc = $clienteTempMat->cod_esc;
 
             $nextOptionId = $this->getReplyForLinkZoon($optionRoute, $codEsc);
+            //dd($nextOptionId);
+            //dd([$conditions['action'], $nextOptionId]);
             return [$conditions['action'], $nextOptionId];
         }
     }

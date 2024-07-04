@@ -87,8 +87,13 @@ class SelectingDocTypeConversation extends Conversation
 
     public function showOptions($clienteTempMat)
     {
+        $msgeIni = "- Nuestro horario de atención para realizar tu matrícula es de 10 am a 6pm.<br>
+                    - Para realizar tu matrícula no debes contar con deudas pendientes.<br>
+                    - Si no estudiaste el ciclo anterior y no cuentas con reserva de matrícula, debes realizar la reactualización de tu matrícula.<br>
+                    - Si no cuenta con tu correo institucional u olvidaste tu contraseña, deberás seleccionar la opción 6 de soporte informático.";
+
         $this->bot->typesAndWaits(2);
-        $this->say("Hola {$clienteTempMat->alumno}!");
+        $this->say("<strong>Hola {$clienteTempMat->alumno}!</strong> <p>{$msgeIni}</p>");
         $options = MenuOption::whereNull('parent_id')->where('active', 1)->get(['id', 'desc_opcion', 'respuesta']);
         $questionText = '<strong>Elige una opción (escribe el número):</strong><br><br>';
         foreach ($options as $key => $opcion) {
