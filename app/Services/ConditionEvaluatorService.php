@@ -253,7 +253,7 @@ class ConditionEvaluatorService
 
     public function getClienteTempMatricula($nroDoc)
     {
-        return TempMatricula::where('dni', $nroDoc)->where('estado', '1')->first();
+        return TempMatricula::where('dni', $nroDoc)->first();
     }
 
 

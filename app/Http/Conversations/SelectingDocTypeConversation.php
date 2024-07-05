@@ -111,15 +111,24 @@ class SelectingDocTypeConversation extends Conversation
             if ($optionIndex >= 0 && $optionIndex < $options->count()) {
                 $selectedOption = $options[$optionIndex];
 
-                $this->bot->typesAndWaits(1);
-                $this->say('Has seleccionado: ' . $selectedOption->desc_opcion);
 
-                if ($selectedOption->respuesta && trim($selectedOption->respuesta) !== '') {
-                    $this->say($selectedOption->respuesta);
+                $validOptions = ((int)$clienteTempMat->estado === 1) ? [1,2,3,4,5,6,7] : [5, 6];
+
+                if (in_array($selectedOption->id, $validOptions)) {
+                    $this->bot->typesAndWaits(1);
+                    $this->say('Has seleccionado: ' . $selectedOption->desc_opcion);
+
+                    if ($selectedOption->respuesta && trim($selectedOption->respuesta) !== '') {
+                        $this->say($selectedOption->respuesta);
+                    }
+
+                    // Manejo de la opción seleccionada
+                    $this->handleSelectedOption($selectedOption->id, $clienteTempMat);
+                } else {
+                    $this->bot->typesAndWaits(1);
+                    $this->say('Opción no permitida. Solo puedes seleccionar las opciones 5 o 6. Por favor, intenta de nuevo.');
+                    $this->repeat();
                 }
-
-                // Manejo de la opción seleccionada
-                $this->handleSelectedOption($selectedOption->id, $clienteTempMat);
             } else {
 
                 $this->bot->typesAndWaits(1);
@@ -274,9 +283,22 @@ class SelectingDocTypeConversation extends Conversation
                 if ($answer->getValue() === 'yes') {
                     $this->bot->typesAndWaits(1);
                     $this->say('¡Gracias! Me alegra saber que estás satisfecho(a).');
+                    $this->botman->userStorage()->delete();
                 } elseif ($answer->getValue() === 'no') {
                     $this->bot->typesAndWaits(1);
-                    $this->say('Lamento escuchar eso. Por favor, dime cómo puedo mejorar.');
+                    //$this->say('Lamento escuchar eso. Por favor, dime cómo puedo mejorar.');
+                    $lastOoptionParenId = $this->botman->userStorage()->get('parent_id');
+                    Log::info('Destroying parent_id', ['id' => $lastOoptionParenId]);
+                    $this->botman->userStorage()->delete();
+
+
+                    $this->ask('Lamento escuchar eso. Por favor, dime cómo puedo mejorar.', function (Answer $improvementAnswer) {
+                        $userFeedback = $improvementAnswer->getText();
+                        // Aquí puedes guardar el feedback del usuario en la base de datos o procesarlo de alguna forma
+                        $this->bot->typesAndWaits(1);
+                        $this->say('¡Gracias por tu comentario! Lo tendremos en cuenta para mejorar.');
+                    });
+
                 } elseif ($answer->getValue() === 'menu') {
                     $this->showSubOptions($subOpciones, $clienteTempMat);
                 }
@@ -333,7 +355,17 @@ class SelectingDocTypeConversation extends Conversation
             if ($answer->isInteractiveMessageReply()) {
                 if ($answer->getValue() === 'yes') {
                     $this->bot->typesAndWaits(1);
-                    $this->say('Información importante que debes de saber previo al día de tu matrícula..');
+
+                    $msgeWelcome = "<strong>Bienvenido a tu primera matrícula!!!</strong>";
+                    $msgeWelcome .= "<p>A partir del 23 de julio podrás realizar tu primera matrícula en la FCCTP de la USMP ingresando al siguiente enlace para contactarte con la Oficina de Registros Académicos quien, de ser necesario, te asistirá.</p>";
+                    $msgeWelcome .= '<p><a href="#">ACCESO A SALA ZOOM DE ORA</a></p>';
+                    $msgeWelcome .= "<p><br>Recuerda que también podrás realizar tu matrícula de manera autónoma ingresando al siguiente enlace:</p>";
+                    $msgeWelcome .= '<a href="https://fioriprd.udm.hec.ondemand.com/sap/bc/ui2/flp?sap-client=400" target="_blank"><strong>ACCESO A SAP</strong></a>';
+                    $msgeWelcome .= '<a href="https://www.youtube.com/watch?v=A7n1_akA_Y0"><strong>VIDEO TUTORIAL DE MATRÍCULA SAP</strong></a>';
+
+
+
+                    $this->say($msgeWelcome);
                 } elseif ($answer->getValue() === 'no') {
                     $this->bot->typesAndWaits(1);
                     $this->say('Más info.. posible traslado interno.. no pertenece a fcctp..');
