@@ -84,6 +84,8 @@ class ConditionEvaluatorService
             $codEsc = $clienteTempMat->cod_esc;
             $promSem = $clienteTempMat->prom_sem;
 
+            //TODO:: ENVIAR X CORREO
+
             return [$conditions['action'], $promSem];
         }
 

@@ -177,6 +177,7 @@ class SelectingDocTypeConversation extends Conversation
 
                     $backSubOptions = MenuOption::where([
                         'parent_id' => $lastSavedOption->parent_id,
+                        'is_system_option' => 0,
                         'active' => 1,
                     ])->get(['id', 'parent_id', 'desc_opcion', 'respuesta']);
 
