@@ -127,7 +127,7 @@
                                 class="bg-red-700 hover:bg-red-800 py-3 px-4 rounded-md text-center text-white text-base font-light transition-colors duration-300 ease-in-out w-25 cursor-pointer">
                                 Más información<i class="fa-solid fa-chevron-down ps-4"></i>
                             </a></div>
-                        <div><a data-fancybox href="https://www.youtube.com/watch?v=W4mM1e1JSPM"
+                        <div><a data-fancybox href="https://youtu.be/WZlx3uU5mSQ"
                                 class="btn btn-danger bg-transparent hover:bg-red-700 py-3 px-4 rounded-md text-center text-gray-600 hover:text-white text-base font-md transition-colors duration-300 ease-in-out w-25 cursor-pointer border-2 border-gray-500 hover:border-red-700">
                                 Video instructivo de matrícula<i class="fa-solid fa-chevron-right ps-4"></i>
                             </a></div>
@@ -140,7 +140,7 @@
                         class="rounded-md md:rounded-3xl sm:rounded-md flex items-center justify-center relative bg-black">
                         <img src="assets/images/video_slider.jpg" alt=""
                             class="rounded-md md:rounded-3xl sm:rounded-md opacity-60 w-full h-full object-fit object-cover object-center">
-                        <a data-fancybox href="https://www.youtube.com/watch?v=W4mM1e1JSPM" class="absolute">
+                        <a data-fancybox href="https://youtu.be/WZlx3uU5mSQ" class="absolute">
                             <i class="fa-regular fa-circle-play text-white text-7xl"></i>
                         </a>
                     </div>
@@ -386,7 +386,7 @@
                                 a tu área de interés</p>
                         </div>
                         <div class="pt-4">
-                            <a href="https://fcctp.usmp.edu.pe/pdf/__proceso_matricula_2024_1.pdf" target="_blank"
+                            <a href="https://fcctp.usmp.edu.pe/documentos/pdf/PROCESO_DE_MATRIICULA-2024-II-%20-AREAS_DE_INTERES.pdf" target="_blank"
                                 class="bg-gray-600 hover:bg-gray-700 text-white border px-4 py-3 rounded-md font-light transition-colors duration-300 ease-in-out w-25 block w-[12rem]   text-center">
                                 <i class="fa-regular fa-file-lines pr-2"></i> Ver PDF
                             </a>
