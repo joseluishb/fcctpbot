@@ -2,9 +2,11 @@
 
 namespace App\Services;
 
+use App\Mail\SemesterAverageDispatch;
 use App\Models\SapM\CronogramaMatricula;
 use App\Models\SapM\TempMatricula;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Mail;
 
 class ConditionEvaluatorService
 {
@@ -85,6 +87,9 @@ class ConditionEvaluatorService
             $promSem = $clienteTempMat->prom_sem;
 
             //TODO:: ENVIAR X CORREO
+
+            Mail::to('desarrollador1_fcctp@usmp.pe')->send(new SemesterAverageDispatch($clienteTempMat));
+
 
             return [$conditions['action'], $promSem];
         }
