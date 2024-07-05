@@ -127,7 +127,7 @@
                                 class="bg-red-700 hover:bg-red-800 py-3 px-4 rounded-md text-center text-white text-base font-light transition-colors duration-300 ease-in-out w-25 cursor-pointer">
                                 Más información<i class="fa-solid fa-chevron-down ps-4"></i>
                             </a></div>
-                        <div><a data-fancybox href="https://youtu.be/WZlx3uU5mSQ"
+                        <div><a data-fancybox href="https://www.youtube.com/watch?v=WZlx3uU5mSQ"
                                 class="btn btn-danger bg-transparent hover:bg-red-700 py-3 px-4 rounded-md text-center text-gray-600 hover:text-white text-base font-md transition-colors duration-300 ease-in-out w-25 cursor-pointer border-2 border-gray-500 hover:border-red-700">
                                 Video instructivo de matrícula<i class="fa-solid fa-chevron-right ps-4"></i>
                             </a></div>
@@ -140,7 +140,7 @@
                         class="rounded-md md:rounded-3xl sm:rounded-md flex items-center justify-center relative bg-black">
                         <img src="assets/images/video_slider.jpg" alt=""
                             class="rounded-md md:rounded-3xl sm:rounded-md opacity-60 w-full h-full object-fit object-cover object-center">
-                        <a data-fancybox href="https://youtu.be/WZlx3uU5mSQ" class="absolute">
+                        <a data-fancybox href="https://www.youtube.com/watch?v=WZlx3uU5mSQ" class="absolute">
                             <i class="fa-regular fa-circle-play text-white text-7xl"></i>
                         </a>
                     </div>
@@ -152,18 +152,18 @@
 
     <!-- Sección matricula -->
     <section id="matricula" class="container mx-auto px-4 mb-6 pt-10 ">
-        <div class="mx-auto text-center font-poppins mb-10">
+        <div class="mx-auto text-center font-poppins mb-14">
             <h6 class="text-red-600 mb-0">Información para matrícula</h6>
             <div class="titulo">Proceso de matrícula académica</div>
         </div>
-        <div class=" grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div class="bg-white shadow-md rounded-md border border-gray-100">
-                <div class="container mx-auto grid grid-cols-3 gap-4">
-                    <div class="col-span-1">
-                        <img src="assets/images/foto-gronograma.jpg" alt="Imagen"
-                            class="w-full h-full object-fit object-cover object-left rounded-l-md">
+        <div class=" grid grid-cols-12 gap-4">
+            <div class="col-span-12 md:col-span-4 sm:col-span-12">
+                <div class="container gap-6 border border-gray-300 rounded-lg">
+                    <div class="h-48">
+                        <img src="assets/images/foto-cronograma.jpg" alt=""
+                            class="w-full h-full object-cover object-center rounded-t-lg">
                     </div>
-                    <div class="col-span-2">
+                    <div class=" col-span-2">
                         <div class="xl:p-8 lg:p-5 md:p-4 sm:p-4 p-4">
                             <div class="subtitulo">Cronograma de matrícula <br>2024 - II</div>
                             <div class="pt-2 mb-6 text-gray-700 text-base font-light">Información general para realizar
@@ -177,40 +177,10 @@
                     </div>
                 </div>
             </div>
-            <div class="bg-white shadow-md rounded-md border border-gray-100">
-                <div class="container mx-auto grid grid-cols-3 gap-4">
-                    <div class="col-span-1">
-                        <img src="assets/images/asesoria.jpg" alt="Imagen"
-                            class="w-full h-full object-fit object-cover object-center rounded-l-md">
-                    </div>
-                    <div class="col-span-2">
-                        <div class="xl:p-8 lg:p-5 md:p-4 sm:p-4 p-4">
-                            <div class="subtitulo">Orientación en el proceso de matrícula <br>2024-II</div>
-                            <div class="pt-2 mb-6 text-gray-700 text-base font-light">Realiza tus consultas sobre
-                                motivos académicos y otros relacionados con el proceso de matrícula. </div>
-                            <a href="https://forms.office.com/Pages/ResponsePage.aspx?id=7x8gmPbZaE6E9cJwUHTjQhU-ixc6PfBBlqERC-CJx11UNkdaUUlZUjFGTEQ0WVRWMzlOV1Q2UjZCSi4u"
-                                target="_blank"
-                                class="bg-gray-600 hover:bg-gray-700 text-white border px-4 py-3 rounded-md font-light transition-colors duration-300 ease-in-out w-25 block w-[12rem] mb-2 sm:mb-4 text-center">
-                                Ir al Formulario<i class="fa-solid fa-chevron-right ps-4"></i>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-
-    <!-- Pre requisitos -->
-    <section class="container-fluid border border-t-gray-200 border-b-gray-200 mt-20">
-        <div class="container-fluid mx-auto">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-0">
-                <div class="rounded-lg shadow-lg bg-red-500">
-                    <img src="assets/images/bg.jpg" alt="" class="w-full h-full object-cover object-center">
-                </div>
+            <div class=" col-span-12 md:col-span-8 sm:col-span-12">
                 <div
-                    class="bg-white p-10 pr-10 md:pr-0 sm:pr-10 flex-col content-center 2xl:w-10/12 xl:w-10/12 lg:w-10/12 md:w-11/12 sm:w-11/12 w-full">
-                    <h2 class="text-2xl font-medium font-poppins mb-6 ">¿Cuáles son los requisitos que debo cumplir para
+                    class="p-6 md:pr-0 sm:pr-10 flex-col content-center items-centerxl:w-12/12 xl:w-12/12 lg:w-12/12 md:w-12/12 sm:w-12/12 w-full h-full ">
+                    <h2 class="text-xl font-medium font-poppins mb-6 ">¿Cuáles son los requisitos que debo cumplir para
                         mi
                         proceso de
                         matrícula?</h2>
@@ -218,7 +188,7 @@
                         <div class="">Para iniciar tu proceso de matrícula a través de la plataforma SAP,
                             tienes
                             que cumplir los siguientes requisitos:</div>
-                        <div class="py-6">
+                        <div class="py-4">
                             <ul class="list-disc pl-10">
                                 <li>No tener deudas pendientes</li>
                                 <li>Cancelar tu recibo por derecho de matrícula</li>
@@ -246,6 +216,9 @@
     </section>
 
 
+
+
+
     <!-- Horarios -->
     <section id="horario" class="container mx-auto pt-10 px-4 my-0 lg:my-20 md:my-20 sm:my-5 ">
         <div class="grid lg:grid-cols-2 md:grid-cols-1 sm:grid-cols-1 grid-cols-1 gap-4">
@@ -257,7 +230,7 @@
                 <div
                     class="gap-4 grid grid-cols-1 lg:sm:grid-cols-1 md:sm:grid-cols-2 sm:grid-cols-1 w-1/1 lg:w-4/5 md:w-full sm:w-full">
                     <!-- card 2 -->
-                    <div class="bg-gray-50 shadow-md rounded-lg p-6 w-full border border-gray-100 mb-5">
+                    <div class="bg-gray-50 shadow-md rounded-lg p-6 w-full border border-gray-300 mb-5">
                         <div class="gap-4 content-center">
                             <div class="">
                                 <h2 class="mb-2 subtitulo">Horario de Cursos</h2>
@@ -273,7 +246,7 @@
                         </div>
                     </div>
                     <!-- card 1 -->
-                    <div class="bg-gray-50 shadow-md rounded-lg p-6 w-full border border-gray-100 mb-5">
+                    <div class="bg-gray-50 shadow-md rounded-lg p-6 w-full border border-gray-300 mb-5">
                         <div class="gap-4 content-center">
                             <div class="">
                                 <h2 class="mb-2 subtitulo">Plan de estudios</h2>
@@ -308,7 +281,7 @@
             </div>
             <div class="grid grid-cols-1 lg:grid-cols-3 md:grid-cols-2 gap-10">
 
-                <div class="bg-white p-6 rounded-lg shadow-lg border flex gap-4">
+                <div class="bg-white p-6 rounded-lg shadow-lg border border-gray-300 flex gap-4">
                     <div class="flex-shrink-0">
                         <img src="assets/images/ico-cc.svg" alt="Icon" class="h-12 w-12">
                     </div>
@@ -325,7 +298,7 @@
                     </div>
                 </div>
 
-                <div class="bg-white p-6 rounded-lg shadow-lg border flex gap-4">
+                <div class="bg-white p-6 rounded-lg shadow-lg border border-gray-300 flex gap-4">
                     <div class="flex-shrink-0">
                         <img src="assets/images/ico-tu.svg" alt="Icon" class="h-12 w-12">
                     </div>
@@ -342,7 +315,7 @@
                     </div>
                 </div>
 
-                <div class="bg-white p-6 rounded-lg shadow-lg border flex gap-4">
+                <div class="bg-white p-6 rounded-lg shadow-lg border border-gray-300 flex gap-4">
                     <div class="flex-shrink-0">
                         <img src="assets/images/ico-psi.svg" alt="Icon" class="h-12 w-12">
                     </div>
@@ -377,7 +350,7 @@
                 </div>
                 <div class="">
                     <!-- card 1 -->
-                    <div class="bg-white shadow-md rounded-lg p-6 w-full border border-gray-100 mb-5">
+                    <div class="bg-white shadow-md rounded-lg p-6 w-full border border-gray-300 mb-5">
                         <div class="">
                             <h2 class="mb-2 subtitulo">Fórmula de matrícula: Alumnos de IX y X
                                 ciclo de
@@ -386,14 +359,15 @@
                                 a tu área de interés</p>
                         </div>
                         <div class="pt-4">
-                            <a href="https://fcctp.usmp.edu.pe/documentos/pdf/PROCESO_DE_MATRIICULA-2024-II-%20-AREAS_DE_INTERES.pdf" target="_blank"
+                            <a href="https://fcctp.usmp.edu.pe/documentos/pdf/proceso-de-matricula-2024-II.pdf"
+                                target="_blank"
                                 class="bg-gray-600 hover:bg-gray-700 text-white border px-4 py-3 rounded-md font-light transition-colors duration-300 ease-in-out w-25 block w-[12rem]   text-center">
                                 <i class="fa-regular fa-file-lines pr-2"></i> Ver PDF
                             </a>
                         </div>
                     </div>
                     <!-- card 2 -->
-                    <div class="bg-white shadow-md rounded-lg p-6 w-full border border-gray-100">
+                    <div class="bg-white shadow-md rounded-lg p-6 w-full border border-gray-300">
                         <div class="">
                             <div class="mb-2 subtitulo">Tesorería: Asesoría de Pagos</div>
                             Horario: Lunes a viernes de 7:45 a. m. a 8:30
