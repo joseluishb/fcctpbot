@@ -168,7 +168,7 @@
                             <div class="subtitulo">Cronograma de matrícula <br>2024 - II</div>
                             <div class="pt-2 mb-6 text-gray-700 text-base font-light">Información general para realizar
                                 tu inscripción al presente ciclo académico.</div>
-                            <a href="https://fcctp.usmp.edu.pe/site/alumnos/servicios-academicos/registros-academicos/alumnos-pregrado/cronograma-academico-pregrado/"
+                            <a href="https://fcctp.usmp.edu.pe/pdf/2024/alumnos-regulares-cronograma-2024-2.pdf"
                                 target="_blank"
                                 class="bg-gray-600 hover:bg-gray-700 text-white border px-4 py-3 rounded-md font-light transition-colors duration-300 ease-in-out w-25 block w-[12rem] mb-2 sm:mb-4 text-center">
                                 Ingresar aquí<i class="fa-solid fa-chevron-right ps-4"></i>
@@ -221,55 +221,120 @@
 
     <!-- Horarios -->
     <section id="horario" class="container mx-auto pt-10 px-4 my-0 lg:my-20 md:my-20 sm:my-5 ">
-        <div class="grid lg:grid-cols-2 md:grid-cols-1 sm:grid-cols-1 grid-cols-1 gap-4">
-            <div class="p-6 flex-1 content-center">
-                <div class="mx-auto text-left font-poppins mb-10">
-                    <h6 class="text-red-600 mb-0">Asignaturas y prerrequisitos por escuela </h6>
-                    <div class="titulo">Plan de estudios y Horarios</div>
-                </div>
-                <div
-                    class="gap-4 grid grid-cols-1 lg:sm:grid-cols-1 md:sm:grid-cols-2 sm:grid-cols-1 w-1/1 lg:w-4/5 md:w-full sm:w-full">
-                    <!-- card 2 -->
-                    <div class="bg-gray-50 shadow-md rounded-lg p-6 w-full border border-gray-300 mb-5">
-                        <div class="gap-4 content-center">
-                            <div class="">
-                                <h2 class="mb-2 subtitulo">Horario de Cursos</h2>
-                                <p class="text-gray-700">Visualiza los turnos que tenemos disponibles</p>
+        <div class="mx-auto text-left font-poppins mb-10">
+            <h6 class="text-red-600 mb-0">Asignaturas y prerrequisitos por escuela </h6>
+            <div class="titulo">Plan de estudios y Horarios</div>
+        </div>
+
+
+        <div class="grid grid-cols-3 gap-10 p-10 bg-white rounded-xl border">
+            <div class="col-span-3 lg:col-span-2 md:col-span-3 sm:col-span-3 ">
+                <div>
+                    <div class="">
+                        <h2 class=" subtitulo">Horario de Cursos</h2>
+                        <p class="text-gray-700">Visualiza los turnos que tenemos disponibles</p>
+                        <div class="flex justify-left w-full mt-4">
+                            <a href="https://fcctp.usmp.edu.pe/site/alumnos/servicios-academicos/horarios/"
+                                target="_blank"
+                                class="bg-red-700 hover:bg-red-800 py-3 px-3 rounded-md text-center text-white text-base font-light transition-colors duration-300 ease-in-out cursor-pointer">
+                                Horarios de cursos<i class="fa-solid fa-chevron-right ps-4"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="line mt-10">
+                        <hr>
+                    </div>
+
+                    <div class="mt-10 gap-4 content-center">
+                        <div class="subtitulo">Conoce los planes de estudios </div>
+                        <div class="mt-1 mb-6">En esta sección encontrarás los cursos y pre-requisitos de cada
+                            escuela.</div>
+
+                        <div class="flex flex-col lg:flex-row md:flex-row sm:flex-col m-1 gap-4  grid-cols-12">
+                            <div class="col-span-6 border p-4 rounded-md shadow-md md:w-1/2 sm:w-full">
+                                <div class="font-semibold pb-4">
+                                    <div>Ingresantes hasta el</div>
+                                    <div class="">semestre 2022-I</div>
+                                </div>
+                                <a href="https://fcctp.usmp.edu.pe/pdf/2024/plan-cc-2024-I.pdf" target="_blank">
+                                    <div
+                                        class="text-sm border my-2 py-4 px-5 border-gray-300 rounded w-100 text-left bg-white border-l-4 border-l-red-700 hover:bg-red-700 hover:text-white transition-all duration-300 ease-out">
+                                        <div class="flex content-center align-center justify-between">
+                                            <div>Ciencias de la Comunicación</div>
+                                            <div><i class="fa-solid fa-chevron-right ps-4"></i></div>
+                                        </div>
+                                    </div>
+                                </a>
+                                <a href="https://fcctp.usmp.edu.pe/pdf/2024/plan-tu-2024-I.pdf" target="_blank">
+                                    <div
+                                        class="text-sm border my-2 py-4 px-5 border-gray-300 rounded w-100 text-left bg-white border-l-4 border-l-teal-800 hover:bg-teal-800 hover:text-white transition-all duration-300 ease-out">
+                                        <div class="flex content-center align-center justify-between">
+                                            <div>Turismo y Hotelería</div>
+                                            <div><i class="fa-solid fa-chevron-right ps-4"></i></div>
+                                        </div>
+                                    </div>
+                                </a>
+
+                                <a href="https://fcctp.usmp.edu.pe/pdf/2024/plan-psi-2024-I.pdf" target="_blank">
+                                    <div
+                                        class="text-sm border my-2 py-4 px-5 border-gray-300 rounded w-100 text-left bg-white border-l-4 border-l-blue-500 hover:bg-blue-500 hover:text-white transition-all duration-300 ease-out">
+                                        <div class="flex content-center align-center justify-between">
+                                            <div>Psicología</div>
+                                            <div><i class="fa-solid fa-chevron-right ps-4"></i></div>
+                                        </div>
+                                    </div>
+                                </a>
                             </div>
-                            <div class="flex justify-left w-full mt-4">
-                                <a href="https://fcctp.usmp.edu.pe/site/alumnos/servicios-academicos/horarios/"
-                                    target="_blank"
-                                    class="bg-red-700 hover:bg-red-800 py-3 px-3 rounded-md text-center text-white text-base font-light transition-colors duration-300 ease-in-out cursor-pointer">
-                                    Horarios de cursos<i class="fa-solid fa-chevron-right ps-4"></i>
+                            <div class="border p-4 rounded-md shadow-md md:w-1/2 sm:w-full">
+                                <div class="font-semibold pb-4">
+                                    <div>Ingresantes a partir del </div>
+                                    <div>semestre 2022-II</div>
+                                </div>
+                                <a href="https://fcctp.usmp.edu.pe/pdf/2024/plan-cc-2024-II.pdf" target="_blank">
+                                    <div
+                                        class="text-sm border my-2 py-4 px-5 border-gray-300 rounded w-100 text-left bg-white border-l-4 border-l-red-700 hover:bg-red-700 hover:text-white transition-all duration-300 ease-out">
+                                        <div class="flex content-center align-center justify-between">
+                                            <div>Ciencias de la Comunicación</div>
+                                            <div><i class="fa-solid fa-chevron-right ps-4"></i></div>
+                                        </div>
+                                    </div>
+                                </a>
+                                <a href="https://fcctp.usmp.edu.pe/pdf/2024/plan-tu-2024-II.pdf" target="_blank">
+                                    <div
+                                        class="text-sm border my-2 py-4 px-5 border-gray-300 rounded w-100 text-left bg-white border-l-4 border-l-teal-800 hover:bg-teal-800 hover:text-white transition-all duration-300 ease-out">
+                                        <div class="flex content-center align-center justify-between">
+                                            <div>Turismo y Hotelería</div>
+                                            <div><i class="fa-solid fa-chevron-right ps-4"></i></div>
+                                        </div>
+                                    </div>
+                                </a>
+
+                                <a href="https://fcctp.usmp.edu.pe/pdf/2024/plan-psi-2024-II.pdf" target="_blank">
+                                    <div
+                                        class="text-sm border my-2 py-4 px-5 border-gray-300 rounded w-100 text-left bg-white border-l-4 border-l-blue-500 hover:bg-blue-500 hover:text-white transition-all duration-300 ease-out">
+                                        <div class="flex content-center align-center justify-between">
+                                            <div>Psicología</div>
+                                            <div><i class="fa-solid fa-chevron-right ps-4"></i></div>
+                                        </div>
+                                    </div>
                                 </a>
                             </div>
                         </div>
-                    </div>
-                    <!-- card 1 -->
-                    <div class="bg-gray-50 shadow-md rounded-lg p-6 w-full border border-gray-300 mb-5">
-                        <div class="gap-4 content-center">
-                            <div class="">
-                                <h2 class="mb-2 subtitulo">Plan de estudios</h2>
-                                <p class="text-gray-700">Encuentra toda la información que necesitas</p>
-                            </div>
-                            <div class="flex justify-left w-full mt-4">
 
-                                <a href="https://fcctp.usmp.edu.pe/micampus/planes-de-estudios/" target="_blank"
-                                    class="bg-gray-600 hover:bg-gray-700 text-white border px-3 py-3 rounded-md font-light transition-colors duration-300 ease-in-out w-25 block  mb-2 sm:mb-4 text-center cursor-pointer">
-                                    Conoce tus planes de estudios<i class="fa-solid fa-chevron-right ps-4"></i>
-                                </a>
-
-                            </div>
-                        </div>
                     </div>
+
+
 
                 </div>
             </div>
-            <div class="mx-left">
-                <img src="assets/images/foto-asesoria.jpg" alt=""
-                    class="rounded-3xl lg:h-full md:w-full md:h-48 sm:w-full sm:h-48 object-cover object-fit object-center hidden block lg:block">
+            <div class="col-span-3 lg:col-span-1 md:col-span-0 sm:col-span-3"> <img
+                    src="assets/images/foto-asesoria.jpg" alt=""
+                    class="rounded-xl lg:h-full md:w-full md:h-48 sm:w-full sm:h-48 object-cover object-fit object-center hidden block lg:block">
             </div>
         </div>
+
+
     </section>
 
     <!-- Guia -->
