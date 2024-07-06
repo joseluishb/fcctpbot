@@ -10,6 +10,7 @@ use BotMan\BotMan\Messages\Incoming\Answer;
 use BotMan\BotMan\Messages\Outgoing\Actions\Button;
 use BotMan\BotMan\Messages\Outgoing\Question;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Str;
 
 
 class SelectingDocTypeConversation extends Conversation
@@ -18,6 +19,8 @@ class SelectingDocTypeConversation extends Conversation
     protected $botman;
     protected $documentType;
     protected $conditionEvaluator;
+    protected $sessionId;
+    public $uuid;
 
     public function __construct(ConditionEvaluatorService $conditionEvaluator, $botman)
     {
@@ -29,9 +32,40 @@ class SelectingDocTypeConversation extends Conversation
      */
     public function run() : void
     {
-        $this->bot->typesAndWaits(2);
+        $this->initializeSessionId();
+        Log::info('sessions in __construct', [
+            'sessionId' => $this->sessionId,
+            'session_uuid' => $this->uuid,
+            'uuid' => $this->botman->userStorage()->get('session_uuid')
+        ]);
+
+        $this->bot->typesAndWaits(1);
         $this->askForDocumentType();
     }
+
+    protected function initializeSessionId()
+    {
+        if ($this->sessionId === null) {
+            $this->sessionId = $this->botman->getUser()->getId();
+        }
+
+        $this->uuid = $this->botman->userStorage()->get('session_uuid');
+
+        if (!$this->uuid) {
+            $this->uuid = (string) Str::uuid();
+            $this->botman->userStorage()->save([
+                'session_uuid' => $this->uuid
+            ]);
+        }
+
+        Log::info('sessions Initialized', [
+            'sessionId' => $this->sessionId,
+            'session_uuid' => $this->uuid,
+            'uuid' => $this->botman->userStorage()->get('session_uuid')
+            ]
+        );
+    }
+
 
     public function askForDocumentType()
     {
@@ -283,7 +317,14 @@ class SelectingDocTypeConversation extends Conversation
                 if ($answer->getValue() === 'yes') {
                     $this->bot->typesAndWaits(1);
                     $this->say('¡Gracias! Me alegra saber que estás satisfecho(a).');
+
                     $this->botman->userStorage()->delete();
+                    Log::info('sessions after delete()', [
+                        'sessionId' => $this->sessionId,
+                        'session_uuid' => $this->uuid,
+                        'uuid' => $this->botman->userStorage()->get('session_uuid')
+                    ]);
+
                 } elseif ($answer->getValue() === 'no') {
                     $this->bot->typesAndWaits(1);
                     //$this->say('Lamento escuchar eso. Por favor, dime cómo puedo mejorar.');
@@ -379,4 +420,6 @@ class SelectingDocTypeConversation extends Conversation
     {
         return preg_replace('/^\d+(\.\d+)*\.\s*/', '', $description);
     }
+
+
 }
