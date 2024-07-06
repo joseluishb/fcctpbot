@@ -2,6 +2,7 @@
 
 namespace App\Http\Conversations;
 
+use App\Models\BotSession;
 use App\Models\MenuOption;
 use App\Models\SapM\Cliente;
 use App\Services\ConditionEvaluatorService;
@@ -9,6 +10,7 @@ use BotMan\BotMan\Messages\Conversations\Conversation;
 use BotMan\BotMan\Messages\Incoming\Answer;
 use BotMan\BotMan\Messages\Outgoing\Actions\Button;
 use BotMan\BotMan\Messages\Outgoing\Question;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 
@@ -38,6 +40,8 @@ class SelectingDocTypeConversation extends Conversation
             'session_uuid' => $this->uuid,
             'uuid' => $this->botman->userStorage()->get('session_uuid')
         ]);
+
+        $this->startSession();
 
         $this->bot->typesAndWaits(1);
         $this->askForDocumentType();
@@ -100,6 +104,8 @@ class SelectingDocTypeConversation extends Conversation
 
             $documentNumber = $answer->getText();
             $this->bot->typesAndWaits(1);
+
+            $this->sessionWithDocNumber($documentNumber);
 
             if ($this->validateDocumentNumber($documentNumber)) {
 
@@ -319,11 +325,14 @@ class SelectingDocTypeConversation extends Conversation
                     $this->say('¡Gracias! Me alegra saber que estás satisfecho(a).');
 
                     $this->botman->userStorage()->delete();
+
                     Log::info('sessions after delete()', [
                         'sessionId' => $this->sessionId,
                         'session_uuid' => $this->uuid,
                         'uuid' => $this->botman->userStorage()->get('session_uuid')
                     ]);
+
+                    $this->endSession();
 
                 } elseif ($answer->getValue() === 'no') {
                     $this->bot->typesAndWaits(1);
@@ -338,6 +347,7 @@ class SelectingDocTypeConversation extends Conversation
                         // Aquí puedes guardar el feedback del usuario en la base de datos o procesarlo de alguna forma
                         $this->bot->typesAndWaits(1);
                         $this->say('¡Gracias por tu comentario! Lo tendremos en cuenta para mejorar.');
+                        $this->endSession();
                     });
 
                 } elseif ($answer->getValue() === 'menu') {
@@ -422,4 +432,37 @@ class SelectingDocTypeConversation extends Conversation
     }
 
 
+
+    protected function startSession()
+    {
+        BotSession::updateOrCreate(
+            [
+                'session_id' => $this->sessionId,
+                'uuid' => $this->uuid
+            ],
+            [
+                'doc_number' => null,
+                'started_at' => Carbon::now(),
+                'ended_at' => null,
+            ]
+        );
+    }
+
+    protected function endSession()
+    {
+        BotSession::where([
+            'session_id' => $this->sessionId,
+            'uuid' => $this->uuid
+        ])
+            ->update(['ended_at' => Carbon::now()]);
+    }
+
+    protected function sessionWithDocNumber($docNumber)
+    {
+        BotSession::where([
+            'session_id' => $this->sessionId,
+            'uuid' => $this->uuid
+        ])
+            ->update(['doc_number' => $docNumber]);
+    }
 }
