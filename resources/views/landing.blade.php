@@ -55,7 +55,7 @@
                             class="text-gray-700 hover:text-red-500 transition-colors duration-300">Matrícula</a></li>
                     <li><a href="#horario"
                             class="text-gray-700 hover:text-red-500 transition-colors duration-300">Horarios</a></li>
-                    <li><a href="#guia"
+                    <li class="hidden"><a href="#guia"
                             class="text-gray-700 hover:text-red-500 transition-colors duration-300">Guías</a></li>
                     <li><a href="#asesoria"
                             class="text-gray-700 hover:text-red-500 transition-colors duration-300">Asesorías</a></li>
@@ -82,7 +82,7 @@
                         class="text-left px-8 pt-3 pb-3 border-b hover:bg-gray-700 hover:text-white transition-colors duration-300">
                         Horarios</li>
                 </a>
-                <a href="#guia" class="text-gray-700">
+                <a href="#guia" class="text-gray-700 hidden">
                     <li
                         class="text-left px-8 pt-3 pb-3 border-b hover:bg-gray-700 hover:text-white transition-colors duration-300">
                         Guías</li>
@@ -338,7 +338,7 @@
     </section>
 
     <!-- Guia -->
-    <section class="container-fluid border border-t-gray-200 border-b-gray-200 mx-auto px-4" id="guia">
+    <section class="container-fluid border border-t-gray-200 border-b-gray-200 mx-auto px-4 hidden" id="guia">
         <div class="container mx-auto px-36 xl:px-24 lg:px-0 md:px-0 sm:px-4 px-4 py-10 lg:py-20 md:py-20 sm:py-10">
             <div class="mx-auto text-center font-poppins mb-10">
                 <h6 class="text-red-600 mb-0">Documentos informativos</h6>
@@ -463,13 +463,14 @@
             <h6 class="text-red-600 mb-0">Trámites y consultas</h6>
             <div class="titulo">Servicios online</div>
         </div>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-10">
 
             <div class="w-full bg-white shadow-md rounded-lg overflow-hidden border">
                 <img class="w-full h-50 object-cover object-fit" src="assets/images/foto-reinicio.jpg" alt="">
                 <div class="px-6 mt-10 ">
-                    <h2 class="subtitulo">Actualización o renovación de contraseña SAP</h2>
-                    <p class="text-gray-700 mt-2 mb-6">Puedes actualizar o renovar tu contraseña de la Portal Académico
+                    <h2 class="subtitulo">Actualización de contraseña SAP</h2>
+                    <p class="text-gray-700 mt-2 mb-6 text-sm">Puedes actualizar o renovar tu contraseña de la Portal
+                        Académico
                         SAP para matricularte, por favor haz clic en el botón y sigue las instrucciones.</p>
                     <div class="mb-6">
                         <a href="https://sisfcctp.usmp.edu.pe/fcapps/sapform/reseteo/index.php" target="_blank"
@@ -484,7 +485,8 @@
                 <img class="w-full h-50 object-cover object-fit" src="assets/images/foto-correo.jpg" alt="">
                 <div class="p-6 py-8">
                     <h2 class="subtitulo">Sobre el correo USMP</h2>
-                    <p class="text-gray-700 mt-2 mb-6">Si deseas actualizar la información de seguridad y contraseña o
+                    <p class="text-gray-700 mt-2 mb-6 text-sm">Si deseas actualizar la información de seguridad y
+                        contraseña o
                         no cuentas con acceso a la bandeja de tu correo institucional, haz clic en el botón:</p>
                     <div class="mb-6">
                         <a href="https://fcctp.usmp.edu.pe/pdf/actualizacion_doc_alumno.pdf" target="_blank"
@@ -499,12 +501,29 @@
                 <img class="w-full h-50 object-cover object-fit" src="assets/images/foto-sap.jpg" alt="">
                 <div class="p-6 py-8">
                     <h2 class="subtitulo">Portal Académico SAP</h2>
-                    <p class="text-gray-700 mt-2 mb-6">Si deseas ingresar a la plataforma SAP para realizar consultas y
+                    <p class="text-gray-700 mt-2 mb-6 text-sm">Si deseas ingresar a la plataforma SAP para realizar
+                        consultas y
                         trámites académicos, puedes hacerlo haciendo clic en el siguiente botón: </p>
                     <div class="mb-6">
                         <a href="https://fioriprd.udm.hec.ondemand.com/sap/bc/ui2/flp?sap-client=400" target="_blank"
                             class="bg-gray-600 hover:bg-gray-700 text-white border px-4 py-3 rounded-md text-gray-500 font-light transition-colors duration-300 ease-in-out w-25 block w-[12rem] mb-2 sm:mb-4 text-center">
                             Ingresa aquí<i class="fa-solid fa-chevron-right ps-4"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="w-full bg-white shadow-md rounded-lg overflow-hidden border">
+                <img class="w-full h-50 object-cover object-fit" src="assets/images/foto-pagador.jpg" alt="">
+                <div class="p-6 py-8">
+                    <h2 class="subtitulo">Consulta de buen pagador</h2>
+                    <p class="text-gray-700 mt-2 mb-6 text-sm"> Verifica si te encuentras en el registro de BUEN
+                        PAGADOR para el
+                        proceso de matrícula 2024-2. Puedes hacerlo haciendo clic en el siguiente botón: </p>
+                    <div class="mb-6">
+                        <a href="https://fcctp.usmp.edu.pe/consulta-buen-pagador/" target="_blank"
+                            class="bg-gray-600 hover:bg-gray-700 text-white border px-4 py-3 rounded-md text-gray-500 font-light transition-colors duration-300 ease-in-out w-25 block w-[12rem] mb-2 sm:mb-4 text-center">
+                            Consulta aquí<i class="fa-solid fa-chevron-right ps-4"></i>
                         </a>
                     </div>
                 </div>
@@ -660,7 +679,6 @@
             </div>
         </div>
     </div>
-
 
 
 
