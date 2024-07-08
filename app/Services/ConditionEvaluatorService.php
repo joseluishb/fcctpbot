@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Mail\SemesterAverageDispatch;
+use App\Models\BotMailSended;
 use App\Models\SapM\CronogramaMatricula;
 use App\Models\SapM\TempMatricula;
 use Illuminate\Support\Carbon;
@@ -86,10 +87,22 @@ class ConditionEvaluatorService
             $codEsc = $clienteTempMat->cod_esc;
             $promSem = $clienteTempMat->prom_sem;
 
+            $em = $clienteTempMat->mail_inst;
+            $action = "GETAVERAGE";
+
             //TODO:: ENVIAR X CORREO
 
-            Mail::to('desarrollador1_fcctp@usmp.pe')->send(new SemesterAverageDispatch($clienteTempMat));
+            $recordExists = BotMailSended::where('em', $em)
+                                            ->where('action', $action)->exists();
 
+            if (!$recordExists) {
+                Mail::to($em)->send(new SemesterAverageDispatch($clienteTempMat));
+
+                BotMailSended::create([
+                    'action' => $action,
+                    'em' => $em,
+                ]);
+            }
 
             return [$conditions['action'], $promSem];
         }
