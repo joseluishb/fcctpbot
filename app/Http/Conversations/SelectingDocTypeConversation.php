@@ -368,6 +368,7 @@ class SelectingDocTypeConversation extends Conversation
                 }
             } else {
                 $this->bot->typesAndWaits(1);
+                $this->logInteraction('satisfaction_typed', null, $answer->getText(), $this->botman->userStorage()->get('parent_id'));
                 $this->say('Por favor, selecciona una opción.');
                 $this->repeat();
             }
