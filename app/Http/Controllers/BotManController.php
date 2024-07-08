@@ -73,7 +73,7 @@ class BotManController extends Controller
             $status = "Founded";
 
             $formatDatetime = Carbon::parse($tmpMatr->fec_mat)->format('d/m/Y \a \l\a\s H:i');
-            $msge = 'Podrás realizar tu matrícula a partir de ' . $formatDatetime;
+            $msge = 'Podrás realizar tu matrícula a partir del ' . $formatDatetime;
         }
 
 

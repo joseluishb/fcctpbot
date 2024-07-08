@@ -681,7 +681,7 @@
     </div>
 
     <div id="modal" class="fixed inset-0 flex items-center justify-center bg-gray-500 bg-opacity-75">
-        <div class="bg-white w-full max-w-2xl mx-4 mx-auto rounded-lg shadow-lg">
+        <div class="bg-white w-full max-w-md mx-4 mx-auto rounded-lg shadow-lg">
             <div class="flex flex-col h-full">
 
                 <div class="bg-white px-5 py-4 flex justify-between items-center rounded-t-lg">
