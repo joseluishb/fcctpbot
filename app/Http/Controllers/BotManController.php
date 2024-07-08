@@ -39,9 +39,20 @@ class BotManController extends Controller
         // });
 
         $botman->fallback(function (BotMan $bot) {
+            $userMessage = $bot->getMessage()->getText();
+
             //$bot->reply('Pucha, No me han programado para entender tu mensaje');
             $conditionEvaluatorService = new ConditionEvaluatorService();
-            $bot->startConversation(new SelectingDocTypeConversation($conditionEvaluatorService, $bot));
+            $conversation = new SelectingDocTypeConversation($conditionEvaluatorService, $bot);
+
+            $conversation->initializeSessionId();
+            $conversation->startSession();
+
+            $conversation->logInteraction('initial_message', null, $userMessage);
+
+            $bot->startConversation($conversation);
+
+
         });
 
 

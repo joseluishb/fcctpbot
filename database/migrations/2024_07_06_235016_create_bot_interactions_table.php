@@ -11,13 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('bot_sessions', function (Blueprint $table) {
+        Schema::create('bot_interactions', function (Blueprint $table) {
             $table->id();
+            $table->string('bot_session_id');
             $table->string('session_id');
             $table->uuid('uuid');
             $table->string('doc_number')->nullable();
-            $table->timestamp('started_at')->nullable();
-            $table->timestamp('ended_at')->nullable();
+            $table->string('interaction_type'); // "typed", "option_selected"
+            $table->integer('option_selected')->nullable();
+            $table->integer('option_parent')->nullable();
+            $table->text('response')->nullable();
             $table->timestamps();
         });
     }
@@ -27,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('bot_sessions');
+        Schema::dropIfExists('bot_interactions');
     }
 };

@@ -2,6 +2,7 @@
 
 namespace App\Http\Conversations;
 
+use App\Models\BotInteraction;
 use App\Models\BotSession;
 use App\Models\MenuOption;
 use App\Models\SapM\Cliente;
@@ -23,6 +24,8 @@ class SelectingDocTypeConversation extends Conversation
     protected $conditionEvaluator;
     protected $sessionId;
     public $uuid;
+    protected $botSessionId;
+
 
     public function __construct(ConditionEvaluatorService $conditionEvaluator, $botman)
     {
@@ -47,28 +50,7 @@ class SelectingDocTypeConversation extends Conversation
         $this->askForDocumentType();
     }
 
-    protected function initializeSessionId()
-    {
-        if ($this->sessionId === null) {
-            $this->sessionId = $this->botman->getUser()->getId();
-        }
 
-        $this->uuid = $this->botman->userStorage()->get('session_uuid');
-
-        if (!$this->uuid) {
-            $this->uuid = (string) Str::uuid();
-            $this->botman->userStorage()->save([
-                'session_uuid' => $this->uuid
-            ]);
-        }
-
-        Log::info('sessions Initialized', [
-            'sessionId' => $this->sessionId,
-            'session_uuid' => $this->uuid,
-            'uuid' => $this->botman->userStorage()->get('session_uuid')
-            ]
-        );
-    }
 
 
     public function askForDocumentType()
@@ -85,6 +67,8 @@ class SelectingDocTypeConversation extends Conversation
 
         $this->ask($question, function (Answer $answer) {
             $this->bot->typesAndWaits(1);
+
+            $this->logInteraction('document_type_enter', null, $answer->getValue());
 
             if ($answer->isInteractiveMessageReply()) {
                 $this->documentType = $answer->getValue();
@@ -114,7 +98,9 @@ class SelectingDocTypeConversation extends Conversation
 
                 if($clienteTempMat) {
                     $this->showOptions($clienteTempMat);
+                    $this->logInteraction('document_number-client_identified', null, $documentNumber);
                 }else {
+                    $this->logInteraction('document_number-no_client_identified', null, $documentNumber);
                     $this->askIfNewStudent();
                     //$this->repeat('No encontramos. Por favor intenta de nuevo o escribenos a sap_fcctp@usmp.pe reportando el problema.');
                 }
@@ -154,6 +140,11 @@ class SelectingDocTypeConversation extends Conversation
 
                 $validOptions = ((int)$clienteTempMat->estado === 1) ? [1,2,3,4,5,6,7] : [5, 6];
 
+                $this->logInteraction('principal_option_selected', $selectedOption->id, $answer->getText());
+                $this->botman->userStorage()->save([
+                    'parent_id' => $selectedOption->id
+                ]);
+
                 if (in_array($selectedOption->id, $validOptions)) {
                     $this->bot->typesAndWaits(1);
                     $this->say('Has seleccionado: ' . $selectedOption->desc_opcion);
@@ -164,12 +155,15 @@ class SelectingDocTypeConversation extends Conversation
 
                     // Manejo de la opción seleccionada
                     $this->handleSelectedOption($selectedOption->id, $clienteTempMat);
+
+
                 } else {
                     $this->bot->typesAndWaits(1);
                     $this->say('Opción no permitida. Solo puedes seleccionar las opciones 5 o 6. Por favor, intenta de nuevo.');
                     $this->repeat();
                 }
             } else {
+                $this->logInteraction('principal_option_selected', null, $answer->getText());
 
                 $this->bot->typesAndWaits(1);
                 $this->say('Selección inválida. Por favor, intenta de nuevo.');
@@ -216,6 +210,8 @@ class SelectingDocTypeConversation extends Conversation
 
                 $lastSavedOption = MenuOption::find($lastOoptionParenId);
 
+                $this->logInteraction('backreturn_option_selected', null, $answer->getText(), $lastOoptionParenId);
+
                 if($lastSavedOption && $lastSavedOption->parent_id) {
 
                     $this->botman->userStorage()->save([
@@ -239,6 +235,8 @@ class SelectingDocTypeConversation extends Conversation
             } elseif ($subOptionIndex == $subOpciones->count() + 1) {
                 $this->bot->typesAndWaits(2);
                 $this->say('Gracias por usar nuestro servicio. ¡Hasta luego!');
+                $this->logInteraction('finish_option_selected', null, $answer->getText(), $this->botman->userStorage()->get('parent_id'));
+                $this->askSatisfaction($subOpciones, $clienteTempMat);
 
             } elseif ( $subOptionIndex >= 0 && $subOptionIndex < $subOpciones->count() ) {
                 $selectedSubOption = $subOpciones[$subOptionIndex];
@@ -248,11 +246,15 @@ class SelectingDocTypeConversation extends Conversation
                 $this->bot->typesAndWaits(1);
                 $this->say('Has seleccionado: ' . $description);
 
+                $this->logInteraction('child_option_selected', $selectedSubOption->id, $answer->getText(), $this->botman->userStorage()->get('parent_id'));
+
+
                 $this->botman->userStorage()->save([
                     'parent_id' => $selectedSubOption->id
                 ]);
 
                 Log::info('SelectedSubOption for parent_id', ['id' => $selectedSubOption->id]);
+
 
                 $moreSubOptions = MenuOption::where([
                                                 'parent_id' => $selectedSubOption->id,
@@ -324,6 +326,8 @@ class SelectingDocTypeConversation extends Conversation
                     $this->bot->typesAndWaits(1);
                     $this->say('¡Gracias! Me alegra saber que estás satisfecho(a).');
 
+                    $this->logInteraction('satisfaction_selected', null, $answer->getText(), $this->botman->userStorage()->get('parent_id'));
+
                     $this->botman->userStorage()->delete();
 
                     Log::info('sessions after delete()', [
@@ -336,6 +340,9 @@ class SelectingDocTypeConversation extends Conversation
 
                 } elseif ($answer->getValue() === 'no') {
                     $this->bot->typesAndWaits(1);
+
+                    $this->logInteraction('satisfaction_selected', null, $answer->getText(), $this->botman->userStorage()->get('parent_id'));
+
                     //$this->say('Lamento escuchar eso. Por favor, dime cómo puedo mejorar.');
                     $lastOoptionParenId = $this->botman->userStorage()->get('parent_id');
                     Log::info('Destroying parent_id', ['id' => $lastOoptionParenId]);
@@ -347,6 +354,9 @@ class SelectingDocTypeConversation extends Conversation
                         // Aquí puedes guardar el feedback del usuario en la base de datos o procesarlo de alguna forma
                         $this->bot->typesAndWaits(1);
                         $this->say('¡Gracias por tu comentario! Lo tendremos en cuenta para mejorar.');
+
+                        $this->logInteraction('userFeedback_nosatisfaction', null, $userFeedback, $this->botman->userStorage()->get('parent_id'));
+
                         $this->endSession();
                     });
 
@@ -431,11 +441,34 @@ class SelectingDocTypeConversation extends Conversation
         return preg_replace('/^\d+(\.\d+)*\.\s*/', '', $description);
     }
 
-
-
-    protected function startSession()
+    public function initializeSessionId()
     {
-        BotSession::updateOrCreate(
+        if ($this->sessionId === null) {
+            $this->sessionId = $this->botman->getUser()->getId();
+        }
+
+        $this->uuid = $this->botman->userStorage()->get('session_uuid');
+
+        if (!$this->uuid) {
+            $this->uuid = (string) Str::uuid();
+            $this->botman->userStorage()->save([
+                'session_uuid' => $this->uuid
+            ]);
+        }
+
+        Log::info(
+            'sessions Initialized',
+            [
+                'sessionId' => $this->sessionId,
+                'session_uuid' => $this->uuid,
+                'uuid' => $this->botman->userStorage()->get('session_uuid')
+            ]
+        );
+    }
+
+    public function startSession()
+    {
+        $botSession = BotSession::updateOrCreate(
             [
                 'session_id' => $this->sessionId,
                 'uuid' => $this->uuid
@@ -446,6 +479,9 @@ class SelectingDocTypeConversation extends Conversation
                 'ended_at' => null,
             ]
         );
+
+        $this->botSessionId = $botSession->id;
+
     }
 
     protected function endSession()
@@ -465,4 +501,18 @@ class SelectingDocTypeConversation extends Conversation
         ])
             ->update(['doc_number' => $docNumber]);
     }
+
+    public function logInteraction($action, $optionSelected = null, $message = null, $parent_id = null)
+    {
+        BotInteraction::create([
+            'bot_session_id' => $this->botSessionId,
+            'session_id' => $this->sessionId,
+            'uuid' => $this->uuid,
+            'interaction_type' => $action,
+            'option_selected' => $optionSelected,
+            'response' => $message,
+            'option_parent' => $parent_id
+        ]);
+    }
+
 }
