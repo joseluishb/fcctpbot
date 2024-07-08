@@ -108,6 +108,7 @@ class SelectingDocTypeConversation extends Conversation
                 }
 
             } else {
+                $this->logInteraction('document_number-invalid', null, $documentNumber);
                 $this->repeat('Número de documento inválido. Por favor intenta de nuevo.');
             }
         });
@@ -427,11 +428,14 @@ class SelectingDocTypeConversation extends Conversation
                     $msgeWelcome .= '- <a href="https://www.youtube.com/watch?v=A7n1_akA_Y0"><strong>VIDEO TUTORIAL DE MATRÍCULA SAP</strong></a>';
 
 
-
+                    $this->logInteraction('newstudent-yes_selected', null, $answer->getText());
                     $this->say($msgeWelcome);
+
                 } elseif ($answer->getValue() === 'no') {
                     $this->bot->typesAndWaits(1);
-                    $this->say('Más info.. posible traslado interno.. no pertenece a fcctp..');
+                    $this->logInteraction('newstudent-no_selected', null, $answer->getText());
+                    $this->say('Puedes escribirnos a soporte_fcctp@usmp.pe y escribe tu caso.');
+
                 }
 
             }
