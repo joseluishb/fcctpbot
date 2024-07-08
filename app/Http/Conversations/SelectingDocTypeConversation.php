@@ -11,9 +11,11 @@ use BotMan\BotMan\Messages\Conversations\Conversation;
 use BotMan\BotMan\Messages\Incoming\Answer;
 use BotMan\BotMan\Messages\Outgoing\Actions\Button;
 use BotMan\BotMan\Messages\Outgoing\Question;
+use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
+use Jenssegers\Agent\Agent;
 
 
 class SelectingDocTypeConversation extends Conversation
@@ -475,6 +477,11 @@ class SelectingDocTypeConversation extends Conversation
 
     public function startSession()
     {
+        $agent = new Agent();
+        $browser = $agent->browser();
+
+        $platform = $agent->platform();
+        $version = $agent->version($platform);
         $botSession = BotSession::updateOrCreate(
             [
                 'session_id' => $this->sessionId,
@@ -484,6 +491,12 @@ class SelectingDocTypeConversation extends Conversation
                 'doc_number' => null,
                 'started_at' => Carbon::now(),
                 'ended_at' => null,
+                'device' => $agent->device(),
+                'browser' => $browser,
+                'browser_version' => $agent->version($browser),
+                'platform' => $platform,
+                'platform_version' => $version,
+                'ip' => request()->ip()
             ]
         );
 

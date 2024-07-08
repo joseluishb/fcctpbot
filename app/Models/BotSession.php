@@ -12,5 +12,12 @@ class BotSession extends Model
         'uuid',
         'started_at',
         'ended_at',
+        'device',
+        'browser',
+        'browser_version',
+        'platform',
+        'platform_version',
+        'ip'
+
     ];
 }
