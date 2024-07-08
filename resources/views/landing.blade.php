@@ -680,6 +680,42 @@
         </div>
     </div>
 
+    <div id="modal" class="fixed inset-0 flex items-center justify-center bg-gray-500 bg-opacity-75">
+        <div class="bg-white w-full max-w-2xl mx-4 mx-auto rounded-lg shadow-lg">
+            <div class="flex flex-col h-full">
+
+                <div class="bg-white px-5 py-4 flex justify-between items-center rounded-t-lg">
+
+                    <h3 class="text-lg font-semibold mb-4">Consulta tu turno de matrícula</h3>
+                    <button class="text-gray-600 hover:text-gray-800 focus:outline-none" onclick="closeModal();">
+                        <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                </div>
+            <div class="flex-1 p-8">
+                <form method="POST" action="{{ route('turnomatr') }}" id="formTurnoMtr">
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-700">Número de documento:</label>
+                        <input name="dni" placeholder="Ingresa tu DNI o CE" required type="text" style="border: solid 2px #999"
+                            class="mt-1 block w-full border-gray-400 rounded-md shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 p-2">
+                    </div>
+                    <div class="mb-4 hidden" id="cMsge">
+                        <div class="bg-blue-100 border-t border-b border-blue-500 text-blue-700 px-4 py-3" role="alert">
+                            <p class="font-bold" id="msge"></p>
+                        </div>
+                    </div>
+                    <div class="flex justify-end">
+                        <button type="submit" id="btnAccept" class="px-4 py-2 text-white bg-red-700 hover:bg-red-800 rounded">Consultar</button>
+                    </div>
+
+
+                </form>
+            </div>
+            </div>
+        </div>
+    </div>
+
 
 
     <!-- Script propio -->
@@ -735,9 +771,102 @@
         };
 
 
+        function closeModal() {
+            document.getElementById('modal').classList.add('hidden');
+        }
+
+    function hasClass(el, className) {
+        if (el.classList)
+            return el.classList.contains(className)
+        else
+            return !!el.className.match(new RegExp('(\\s|^)' + className + '(\\s|$)'))
+    }
+
+    function addClass(el, className) {
+        if (el.classList)
+            el.classList.add(className)
+        else if (!hasClass(el, className)) el.className += " " + className
+    }
+
+    function removeClass(el, className) {
+        if (el.classList)
+            el.classList.remove(className)
+        else if (hasClass(el, className)) {
+            var reg = new RegExp('(\\s|^)' + className + '(\\s|$)')
+            el.className=el.className.replace(reg, ' ')
+        }
+    }
+
+        const formTurnoMtr = document.getElementById("formTurnoMtr");
+
+        if(formTurnoMtr) {
+            formTurnoMtr.addEventListener("submit", function(event) {
+                event.preventDefault();
+
+                const bntSubmit = document.getElementById("btnAccept");
+                bntSubmit.innerHTML = '<i class="fas fa-sync fa-spin"></i>';
+                addClass(bntSubmit, 'disabled');
 
 
 
+                const action = event.target.getAttribute('action');
+                const formData = new FormData(event.target);
+                fetch(action, {
+                        method: 'POST',
+                        credentials: "same-origin",
+                        headers: {
+                            "Accept": "application/json",
+                            "X-Requested-With": "XMLHttpRequest",
+                            "X-CSRF-TOKEN": '{{ csrf_token() }}'
+                        },
+                        body: formData
+                    })
+                    .then((response) => {
+                        if (!response.ok) {
+                            throw response;
+                        }
+                        return response.json();
+                    })
+                    .then((data) => {
+                        document.getElementById('cMsge').classList.remove('hidden');
+                        document.getElementById('btnAccept').classList.add('hidden');
+
+                        const msge = document.getElementById('msge');
+                        if (data.status === 'Founded') {
+
+                            msge.innerHTML = data.msge;
+
+                            event.target.reset();
+
+
+                        }else{
+                            msge.innerHTML = 'Puedes ingresar a nuestro chatbot para resolver tus dudas referente a la matrícula 2024-2';
+
+                        }
+                    })
+                    .catch(handleRequestError);
+
+
+            });
+        }
+
+    function handleRequestError(error) {
+        if (error instanceof Error) {
+            console.log(error.message); // Error en la solicitud
+        } else {
+            error.json().then((jsonError) => {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: jsonError.message,
+                });
+                console.log('Error en la respuesta: ' + error.status); // Código de estado de error
+                console.log('Mensaje de error: ' + jsonError.message); // Mensaje de error devuelto en la respuesta
+            }).catch((parseError) => {
+                console.log('Error al analizar el JSON de error:', parseError);
+            });
+        }
+    }
         </script>
         <script src='https://cdn.jsdelivr.net/npm/botman-web-widget@0/build/js/widget.js'></script>
 </body>

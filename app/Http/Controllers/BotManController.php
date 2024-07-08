@@ -4,10 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Http\Conversations\SearchingStudentConversation;
 use App\Http\Conversations\SelectingDocTypeConversation;
+use App\Models\SapM\TempMatricula;
 use App\Services\ConditionEvaluatorService;
 use BotMan\BotMan\BotMan;
 use BotMan\BotMan\Messages\Conversations\Conversation;
 use BotMan\BotMan\Messages\Incoming\Answer;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class BotManController extends Controller
@@ -57,5 +59,28 @@ class BotManController extends Controller
 
 
         $botman->listen();
+    }
+
+    public function getTurnoMatricula(Request $request)
+    {
+        $nroDoc = trim($request->input('dni'));
+
+        $tmpMatr = TempMatricula::where('dni', $nroDoc)->first();
+        $msge = null;
+
+        $status = "NotFounded";
+        if($tmpMatr) {
+            $status = "Founded";
+
+            $formatDatetime = Carbon::parse($tmpMatr->fec_mat)->format('d/m/Y \a \l\a\s H:i');
+            $msge = 'Podrás realizar tu matrícula a partir de ' . $formatDatetime;
+        }
+
+
+
+        return response()->json([
+            'status' => $status,
+            'msge' => $msge
+        ]);
     }
 }

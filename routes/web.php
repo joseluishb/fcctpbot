@@ -35,4 +35,6 @@ Route::get('/chat', function () {
     return view('chat');
 });
 
+Route::post('/q/getTurnoMatricula', [BotManController::class, 'getTurnoMatricula'])->name('turnomatr');
+
 require __DIR__.'/auth.php';
