@@ -344,7 +344,7 @@
     </section>
 
     <!-- Guia -->
-    <section class="container-fluid border border-t-gray-200 border-b-gray-200 mx-auto px-4 hidden" id="guia">
+    <section class="container-fluid border border-t-gray-200 border-b-gray-200 mx-auto px-4" id="guia">
         <div class="container mx-auto px-36 xl:px-24 lg:px-0 md:px-0 sm:px-4 px-4 py-10 lg:py-20 md:py-20 sm:py-10">
             <div class="mx-auto text-center font-poppins mb-10">
                 <h6 class="text-red-600 mb-0">Documentos informativos</h6>
@@ -360,7 +360,7 @@
                         <h2 class="subtitulo leading-5 pb-2">Ciencias de la Comunicación</h2>
                         <p class="text-gray-500">Guía para ingresantes</p>
                         <div class="mt-10 mb-4">
-                            <a href="https://fcctp.usmp.edu.pe/pdf/guias_ingresante/2024_1/Guia_Ingresante%202024%20I_CC.pdf"
+                            <a href="https://fcctp.usmp.edu.pe/documentos/pdf/guias/Guia_Ingresante_2024_II_CC.pdf"
                                 target="_blank"
                                 class="bg-gray-600 hover:bg-gray-700 text-white border px-4 py-3 rounded-md transition-colors duration-300 ease-in-out">
                                 Ver Documento <i class="pl-1 fa-regular fa-file-lines"></i>
@@ -377,7 +377,7 @@
                         <h2 class="subtitulo leading-5 pb-2">Turismo y Hotelería</h2>
                         <p class="text-gray-500">Guía para ingresantes</p>
                         <div class="mt-10 mb-4">
-                            <a href="https://fcctp.usmp.edu.pe/pdf/guias_ingresante/2024_1/Guia_Ingresante_2024_I_TURISMO.pdf"
+                            <a href="https://fcctp.usmp.edu.pe/documentos/pdf/guias/_Guia_Ingresante_2024_II_TH.pdf"
                                 target="_blank"
                                 class="bg-gray-600 hover:bg-gray-700 text-white border px-4 py-3 rounded-md transition-colors duration-300 ease-in-out">
                                 Ver Documento <i class="pl-1 fa-regular fa-file-lines"></i>
@@ -394,7 +394,7 @@
                         <h2 class="subtitulo leading-5 pb-2">Psicología</h2>
                         <p class="text-gray-500">Guía para ingresantes</p>
                         <div class="mt-10 mb-4">
-                            <a href="https://fcctp.usmp.edu.pe/pdf/guias_ingresante/2024_1/Guia_Ingresante_2024_I_PSICOLOGIA.pdf"
+                            <a href="https://fcctp.usmp.edu.pe/documentos/pdf/guias/_Guia_Ingresante_2024_II_P.pdf"
                                 target="_blank"
                                 class="bg-gray-600 hover:bg-gray-700 text-white border px-4 py-3 rounded-md  transition-colors duration-300 ease-in-out">
                                 Ver Documento <i class="pl-1 fa-regular fa-file-lines"></i>
@@ -682,42 +682,6 @@
                     <a href="#asesoria" class="hover:underline">Asesorías</a>
                     <a href="#servicio" class="hover:underline">Servicios online</a>
                 </nav>
-            </div>
-        </div>
-    </div>
-
-    <div id="modal" class="fixed inset-0 flex items-center justify-center bg-gray-500 bg-opacity-75">
-        <div class="bg-white w-full max-w-md mx-4 mx-auto rounded-lg shadow-lg">
-            <div class="flex flex-col h-full">
-
-                <div class="bg-white px-5 py-4 flex justify-between items-center rounded-t-lg">
-
-                    <h3 class="text-lg font-semibold mb-4">Consulta tu turno de matrícula</h3>
-                    <button class="text-gray-600 hover:text-gray-800 focus:outline-none" onclick="closeModal();">
-                        <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                        </svg>
-                    </button>
-                </div>
-            <div class="flex-1 p-8">
-                <form method="POST" action="{{ route('turnomatr') }}" id="formTurnoMtr">
-                    <div class="mb-4">
-                        <label class="block text-sm font-medium text-gray-700">Número de documento:</label>
-                        <input name="dni" placeholder="Ingresa tu DNI o CE" required type="text" style="border: solid 2px #999"
-                            class="mt-1 block w-full border-gray-400 rounded-md shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 p-2">
-                    </div>
-                    <div class="mb-4 hidden" id="cMsge">
-                        <div class="bg-blue-100 border-t border-b border-blue-500 text-blue-700 px-4 py-3" role="alert">
-                            <p class="font-bold" id="msge"></p>
-                        </div>
-                    </div>
-                    <div class="flex justify-end">
-                        <button type="submit" id="btnAccept" class="px-4 py-2 text-white bg-red-700 hover:bg-red-800 rounded">Consultar</button>
-                    </div>
-
-
-                </form>
-            </div>
             </div>
         </div>
     </div>
