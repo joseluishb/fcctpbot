@@ -686,7 +686,41 @@
         </div>
     </div>
 
+    <div id="modal" class="fixed inset-0 flex items-center justify-center bg-gray-500 bg-opacity-75">
+        <div class="bg-white w-full max-w-md mx-4 mx-auto rounded-lg shadow-lg">
+            <div class="flex flex-col h-full">
 
+                <div class="bg-white px-5 py-4 flex justify-between items-center rounded-t-lg">
+
+                    <h3 class="text-lg font-semibold mb-4">Consulta tu turno de matrícula</h3>
+                    <button class="text-gray-600 hover:text-gray-800 focus:outline-none" onclick="closeModal();">
+                        <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                </div>
+            <div class="flex-1 p-8">
+                <form method="POST" action="{{ route('turnomatr') }}" id="formTurnoMtr">
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-700">Número de documento:</label>
+                        <input name="dni" placeholder="Ingresa tu DNI o CE" required type="text" style="border: solid 2px #999"
+                            class="mt-1 block w-full border-gray-400 rounded-md shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 p-2">
+                    </div>
+                    <div class="mb-4 hidden" id="cMsge">
+                        <div class="bg-blue-100 border-t border-b border-blue-500 text-blue-700 px-4 py-3" role="alert">
+                            <p class="font-bold" id="msge"></p>
+                        </div>
+                    </div>
+                    <div class="flex justify-end">
+                        <button type="submit" id="btnAccept" class="px-4 py-2 text-white bg-red-700 hover:bg-red-800 rounded">Consultar</button>
+                    </div>
+
+
+                </form>
+            </div>
+            </div>
+        </div>
+    </div>
 
     <!-- Script propio -->
     <script src="assets/js/script.js"></script>
