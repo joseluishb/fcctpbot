@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BotManController;
+use App\Http\Controllers\DialogflowController;
 use App\Http\Controllers\ProfileController;
 
 
@@ -36,5 +37,8 @@ Route::get('/chat', function () {
 });
 
 Route::post('/q/getTurnoMatricula', [BotManController::class, 'getTurnoMatricula'])->name('turnomatr');
+
+Route::post('/dialogflow/detect-intent', [DialogflowController::class, 'detectIntent'])->name('dialogflow.detectIntent');;
+
 
 require __DIR__.'/auth.php';

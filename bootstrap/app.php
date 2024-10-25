@@ -11,7 +11,10 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
-        //
+        //TODO: Desactivar para csrf dialogflow
+        $middleware->validateCsrfTokens(except: [
+            '/dialogflow/detect-intent',
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //

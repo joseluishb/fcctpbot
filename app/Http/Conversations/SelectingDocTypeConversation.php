@@ -51,6 +51,8 @@ class SelectingDocTypeConversation extends Conversation
         $this->startSession();
 
         $this->bot->typesAndWaits(1);
+
+
         $this->askForDocumentType();
     }
 

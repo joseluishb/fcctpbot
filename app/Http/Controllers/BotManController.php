@@ -10,7 +10,9 @@ use BotMan\BotMan\BotMan;
 use BotMan\BotMan\Messages\Conversations\Conversation;
 use BotMan\BotMan\Messages\Incoming\Answer;
 use Carbon\Carbon;
+
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
 use Jenssegers\Agent\Agent;
 
 class BotManController extends Controller
@@ -37,8 +39,16 @@ class BotManController extends Controller
             $bot->startConversation(new SearchingStudentConversation());
         });
 
-        // $botman->hears('(.*)', function (BotMan $bot) {
-        //     $bot->startConversation(new SelectingDocTypeConversation());
+        $botman->hears('{message}', function (BotMan $bot, $message) {
+            //$bot->reply('Lorem ipsummm!!!');
+            $response = $this->sendToDialogflow($message);
+            $bot->reply($response);
+
+        });
+
+        // $botman->hears('{message}', function (BotMan $botman, $message) {
+        //     $response = $this->sendToDialogflow($message);
+        //     $botman->reply($response);
         // });
 
         $botman->fallback(function (BotMan $bot) {
@@ -83,5 +93,29 @@ class BotManController extends Controller
             'status' => $status,
             'msge' => $msge
         ]);
+    }
+
+    protected function sendToDialogflow($message)
+    {
+        // Realiza una solicitud HTTP al controlador DialogflowController
+        try {
+            $ngrokUrl = 'https://47dd-2001-1388-13a6-9229-a15a-b305-555d-b0b3.ngrok-free.app/dialogflow/detect-intent';
+
+            $response = Http::post($ngrokUrl, [
+                'text' => $message,
+            ]);
+
+            // Verifica si la respuesta fue exitosa
+            if ($response->successful()) {
+                // Obtén el texto de la respuesta de Dialogflow
+                $fulfillmentText = $response->json('fulfillmentText');
+
+                return $fulfillmentText;
+            } else {
+                return "Hubo un problema al procesar tu solicitud. Inténtalo nuevamente.";
+            }
+        } catch (\Exception $e) {
+            return "Ocurrió un error: " . $e->getMessage();
+        }
     }
 }
