@@ -99,7 +99,7 @@ class BotManController extends Controller
     {
         // Realiza una solicitud HTTP al controlador DialogflowController
         try {
-            $ngrokUrl = 'https://47dd-2001-1388-13a6-9229-a15a-b305-555d-b0b3.ngrok-free.app/dialogflow/detect-intent';
+            $ngrokUrl = 'https://eee2-181-65-251-110.ngrok-free.app/dialogflow/detect-intent';
 
             $response = Http::post($ngrokUrl, [
                 'text' => $message,

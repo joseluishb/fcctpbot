@@ -12,9 +12,28 @@ class DialogflowController extends Controller
 {
     public function detectIntent(Request $request)
     {
-        // Obtén el texto del usuario desde la solicitud
+        // Verifica si la solicitud proviene de Dialogflow y maneja la respuesta directamente
+        if ($request->has('queryResult')) {
+            // Obtiene el texto del usuario y otros detalles desde Dialogflow
+            $text = $request->input('queryResult.queryText');
+            $intentName = $request->input('queryResult.intent.displayName');
+            $fulfillmentText = $request->input('queryResult.fulfillmentText') . " -- Plmngr";
+
+            Log::info('Texto recibido desde Dialogflow: ' . $text);
+            Log::info('Intent detectado: ' . $intentName);
+            Log::info('Dialogflow fulfillmentText: ' . $fulfillmentText);
+
+            // Si `fulfillmentText` no está vacío, lo devuelve; si no, devuelve un mensaje por defecto
+            return response()->json([
+                'fulfillmentText' => $fulfillmentText ?? 'No se encontraron respuestas adecuadas para tu solicitud.',
+            ]);
+        }
+
+        // Si la solicitud no es de Dialogflow, se asume que es de Botman o desde otra fuente
         $text = $request->input('text');
-        Log::info($request);
+        Log::info('Texto recibido desde otra fuente: ' . $text);
+
+
         $projectId = 'fcctp-agent-matr-pgqo'; // Reemplaza con tu ID de proyecto
         $sessionId = uniqid(); // Puedes generar un ID de sesión único
         $languageCode = 'es'; // Idioma del usuario
@@ -25,21 +44,30 @@ class DialogflowController extends Controller
         try {
             // Configura la sesión
             $session = $sessionsClient->sessionName($projectId, $sessionId);
+
             // Crea el input de texto
             $textInput = new TextInput();
             $textInput->setText($text);
             $textInput->setLanguageCode($languageCode);
+
             // Configura la consulta
             $queryInput = new QueryInput();
             $queryInput->setText($textInput);
+
             // Detecta la intención
             $response = $sessionsClient->detectIntent($session, $queryInput);
             $queryResult = $response->getQueryResult();
             $fulfillmentText = $queryResult->getFulfillmentText();
 
+            Log::info('Botman fulfillmentText: ' . $fulfillmentText);
+
+
+
             return response()->json([
                 'fulfillmentText' => $fulfillmentText,
             ]);
+
+
 
         } catch (\Exception $e) {
             Log::error('Error detecting intent: ' . $e->getMessage());
