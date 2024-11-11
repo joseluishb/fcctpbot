@@ -13,6 +13,7 @@ use Carbon\Carbon;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
 use Jenssegers\Agent\Agent;
 
 class BotManController extends Controller
@@ -52,6 +53,8 @@ class BotManController extends Controller
         // });
 
         $botman->fallback(function (BotMan $bot) {
+            Log::info('Fallback');
+
             $userMessage = $bot->getMessage()->getText();
 
             //$bot->reply('Pucha, No me han programado para entender tu mensaje');
@@ -99,7 +102,8 @@ class BotManController extends Controller
     {
         // Realiza una solicitud HTTP al controlador DialogflowController
         try {
-            $ngrokUrl = 'https://eee2-181-65-251-110.ngrok-free.app/dialogflow/detect-intent';
+            #$ngrokUrl = 'https://eee2-181-65-251-110.ngrok-free.app/dialogflow/detect-intent';
+            $ngrokUrl = 'https://0dec-2001-1388-13a6-3f5e-4f11-6179-60f8-f424.ngrok-free.app/dialogflow/detect-intent';
 
             $response = Http::post($ngrokUrl, [
                 'text' => $message,
@@ -109,6 +113,7 @@ class BotManController extends Controller
             if ($response->successful()) {
                 // Obtén el texto de la respuesta de Dialogflow
                 $fulfillmentText = $response->json('fulfillmentText');
+                //Log::info('sendToDialogflow Dialogflow fulfillmentText: ' . $fulfillmentText);
 
                 return $fulfillmentText;
             } else {
