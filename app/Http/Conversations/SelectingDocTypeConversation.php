@@ -33,8 +33,6 @@ class SelectingDocTypeConversation extends Conversation
     {
         $this->conditionEvaluator = $conditionEvaluator;
         $this->botman = $botman;
-
-
     }
 
     /**
@@ -47,6 +45,13 @@ class SelectingDocTypeConversation extends Conversation
             'session_uuid' => $this->uuid,
             'uuid' => $this->botman->userStorage()->get('session_uuid')
         ]);
+
+        $startMessage = $this->botman->getMessage()->getText();
+        $this->botman->userStorage()->save([
+            'startMessage' => $startMessage
+        ]);
+
+        # Log::info("startMessage:" . $startMessage);
 
         $this->startSession();
 

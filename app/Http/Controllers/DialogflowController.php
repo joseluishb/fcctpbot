@@ -63,13 +63,15 @@ class DialogflowController extends Controller
             $response = $sessionsClient->detectIntent($session, $queryInput);
             $queryResult = $response->getQueryResult();
             $fulfillmentText = $queryResult->getFulfillmentText();
+            $intentName = $queryResult->getIntent()->getDisplayName();
 
             Log::info('Botman fulfillmentText: ' . $fulfillmentText);
-            Log::info('Dialogflow IntentName: ' . $queryResult->getIntent()->getDisplayName());
+            Log::info('Dialogflow IntentName: ' . $intentName);
 
 
             return response()->json([
                 'fulfillmentText' => $fulfillmentText,
+                'intentName' => $intentName,
             ]);
 
         } catch (\Exception $e) {

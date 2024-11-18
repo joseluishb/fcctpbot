@@ -27,7 +27,6 @@ class BotManController extends Controller
             $bot->startConversation(new SelectingDocTypeConversation($conditionEvaluatorService, $bot));
         });
 
-
         $botman->hears('hola', function (BotMan $bot) {
             $bot->reply('Hola, cuéntame, ¿en qué te ayudo?');
         });
@@ -41,16 +40,12 @@ class BotManController extends Controller
         });
 
         $botman->hears('{message}', function (BotMan $bot, $message) {
-            //$bot->reply('Lorem ipsummm!!!');
-            $response = $this->sendToDialogflow($message);
-            $bot->reply($response);
+            //$response = $this->sendToDialogflow($message);
+            //$bot->reply($response);
+            $conditionEvaluatorService = new ConditionEvaluatorService();
+            $bot->startConversation(new SelectingDocTypeConversation($conditionEvaluatorService, $bot));
 
         });
-
-        // $botman->hears('{message}', function (BotMan $botman, $message) {
-        //     $response = $this->sendToDialogflow($message);
-        //     $botman->reply($response);
-        // });
 
         $botman->fallback(function (BotMan $bot) {
             Log::info('Fallback');
@@ -67,7 +62,6 @@ class BotManController extends Controller
             $conversation->logInteraction('initial_message', null, $userMessage);
 
             $bot->startConversation($conversation);
-
 
         });
 
@@ -114,6 +108,7 @@ class BotManController extends Controller
                 // Obtén el texto de la respuesta de Dialogflow
                 $fulfillmentText = $response->json('fulfillmentText');
                 //Log::info('sendToDialogflow Dialogflow fulfillmentText: ' . $fulfillmentText);
+                Log::info($response);
 
                 return $fulfillmentText;
             } else {
