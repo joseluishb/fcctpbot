@@ -7,6 +7,7 @@ use App\Models\BotSession;
 use App\Models\MenuOption;
 use App\Models\SapM\Cliente;
 use App\Services\ConditionEvaluatorService;
+use App\Services\DialogflowService;
 use BotMan\BotMan\Messages\Conversations\Conversation;
 use BotMan\BotMan\Messages\Incoming\Answer;
 use BotMan\BotMan\Messages\Outgoing\Actions\Button;
@@ -27,12 +28,14 @@ class SelectingDocTypeConversation extends Conversation
     protected $sessionId;
     public $uuid;
     protected $botSessionId;
+    protected $dialogflow;
 
 
-    public function __construct(ConditionEvaluatorService $conditionEvaluator, $botman)
+    public function __construct(ConditionEvaluatorService $conditionEvaluator, $botman, DialogflowService $dialogflow)
     {
         $this->conditionEvaluator = $conditionEvaluator;
         $this->botman = $botman;
+        $this->dialogflow = $dialogflow;
     }
 
     /**
@@ -57,12 +60,8 @@ class SelectingDocTypeConversation extends Conversation
 
         $this->bot->typesAndWaits(1);
 
-
         $this->askForDocumentType();
     }
-
-
-
 
     public function askForDocumentType()
     {
@@ -106,9 +105,30 @@ class SelectingDocTypeConversation extends Conversation
 
                 $clienteTempMat = $this->conditionEvaluator->getClienteTempMatricula($documentNumber);
 
+                $startMessage = $this->botman->userStorage()->get('startMessage');
+                $intentName = $this->dialogflow->gettingIntent($startMessage);
+
+
+                Log::info('Mensaje inicial -->', ['startMessage' => $startMessage]);
 
                 if($clienteTempMat) {
-                    $this->showOptions($clienteTempMat);
+
+                    if($intentName === 'calendario_matricula') {
+                        $referIntentNextOptionId = 8;
+                        $selectedNextSubOption = MenuOption::find($referIntentNextOptionId);
+
+                        if ($selectedNextSubOption->respuesta && trim($selectedNextSubOption->respuesta) !== '') {
+                            $this->bot->typesAndWaits(1);
+                            $this->say($selectedNextSubOption->respuesta);
+                        }
+
+                        $this->handleSelectedOption($referIntentNextOptionId, $clienteTempMat);
+
+
+                    }else{
+                        $this->showOptions($clienteTempMat);
+                    }
+
                     $this->logInteraction('document_number-client_identified', null, $documentNumber);
                 }else {
                     $this->logInteraction('document_number-no_client_identified', null, $documentNumber);

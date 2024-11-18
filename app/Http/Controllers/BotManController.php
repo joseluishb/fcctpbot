@@ -6,6 +6,7 @@ use App\Http\Conversations\SearchingStudentConversation;
 use App\Http\Conversations\SelectingDocTypeConversation;
 use App\Models\SapM\TempMatricula;
 use App\Services\ConditionEvaluatorService;
+use App\Services\DialogflowService;
 use BotMan\BotMan\BotMan;
 use BotMan\BotMan\Messages\Conversations\Conversation;
 use BotMan\BotMan\Messages\Incoming\Answer;
@@ -23,8 +24,8 @@ class BotManController extends Controller
         $botman = app('botman');
 
         $botman->hears('start_conversation', function (BotMan $bot) {
-            $conditionEvaluatorService = new ConditionEvaluatorService();
-            $bot->startConversation(new SelectingDocTypeConversation($conditionEvaluatorService, $bot));
+            /* $conditionEvaluatorService = new ConditionEvaluatorService();
+            $bot->startConversation(new SelectingDocTypeConversation($conditionEvaluatorService, $bot)); */
         });
 
         $botman->hears('hola', function (BotMan $bot) {
@@ -43,7 +44,8 @@ class BotManController extends Controller
             //$response = $this->sendToDialogflow($message);
             //$bot->reply($response);
             $conditionEvaluatorService = new ConditionEvaluatorService();
-            $bot->startConversation(new SelectingDocTypeConversation($conditionEvaluatorService, $bot));
+            $dialogflow = new DialogflowService();
+            $bot->startConversation(new SelectingDocTypeConversation($conditionEvaluatorService, $bot, $dialogflow));
 
         });
 
@@ -53,15 +55,16 @@ class BotManController extends Controller
             $userMessage = $bot->getMessage()->getText();
 
             //$bot->reply('Pucha, No me han programado para entender tu mensaje');
+            /*
             $conditionEvaluatorService = new ConditionEvaluatorService();
             $conversation = new SelectingDocTypeConversation($conditionEvaluatorService, $bot);
-
             $conversation->initializeSessionId();
             $conversation->startSession();
 
             $conversation->logInteraction('initial_message', null, $userMessage);
 
             $bot->startConversation($conversation);
+            */
 
         });
 
