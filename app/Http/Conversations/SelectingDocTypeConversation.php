@@ -113,7 +113,15 @@ class SelectingDocTypeConversation extends Conversation
 
                 if($clienteTempMat) {
 
-                    if($intentName === 'calendario_matricula') {
+                    if ($intentName === 'calendario-reactualizacion-matricula' || $intentName === 'reactualizacion-matricula') {
+                        $referIntentNextOptionId = $intentName === 'reactualizacion-matricula' ? 3 : 39;
+                        $selectedNextSubOption = MenuOption::find($referIntentNextOptionId);
+
+                        if ($selectedNextSubOption->respuesta && trim($selectedNextSubOption->respuesta) !== '') {
+                            $this->bot->typesAndWaits(1);
+                            $this->say($selectedNextSubOption->respuesta);
+                        }
+                    }elseif($intentName === 'calendario_matricula') {
                         $referIntentNextOptionId = 8;
                         $selectedNextSubOption = MenuOption::find($referIntentNextOptionId);
 
