@@ -49,6 +49,8 @@ class SelectingDocTypeConversation extends Conversation
             'uuid' => $this->botman->userStorage()->get('session_uuid')
         ]);
 
+
+
         $startMessage = $this->botman->getMessage()->getText();
         $this->botman->userStorage()->save([
             'startMessage' => $startMessage
@@ -60,7 +62,8 @@ class SelectingDocTypeConversation extends Conversation
 
         $this->bot->typesAndWaits(1);
 
-        $this->askForDocumentType();
+        //$this->askForDocumentType();
+        $this->askForDocumentNumber();
     }
 
     public function askForDocumentType()
@@ -91,7 +94,9 @@ class SelectingDocTypeConversation extends Conversation
 
     public function askForDocumentNumber()
     {
-        $documentText = $this->documentType === 'dni' ? 'Ingresa tu DNI' : 'Ingresa tu CE';
+        //$documentText = $this->documentType === 'dni' ? 'Ingresa tu DNI' : 'Ingresa tu CE';
+        $documentText = 'Ingresa tu DNI ó tu CE';
+
         $this->bot->typesAndWaits(1);
 
         $this->ask($documentText, function (Answer $answer) {
@@ -141,7 +146,6 @@ class SelectingDocTypeConversation extends Conversation
                 }else {
                     $this->logInteraction('document_number-no_client_identified', null, $documentNumber);
                     $this->askIfNewStudent();
-                    //$this->repeat('No encontramos. Por favor intenta de nuevo o escribenos a sap_fcctp@usmp.pe reportando el problema.');
                 }
 
             } else {
@@ -414,14 +418,15 @@ class SelectingDocTypeConversation extends Conversation
 
     protected function validateDocumentNumber($documentNumber)
     {
-        if ($this->documentType === 'dni') {
-            return preg_match('/^\d{8}$/', $documentNumber);
-        } elseif ($this->documentType === 'ce') {
-            return preg_match('/^[a-zA-Z0-9]{9,12}$/', $documentNumber);
-        }
+        // if ($this->documentType === 'dni') {
+        //     return preg_match('/^\d{8}$/', $documentNumber);
+        // } elseif ($this->documentType === 'ce') {
+        //     return preg_match('/^[a-zA-Z0-9]{9,12}$/', $documentNumber);
+        // }
 
-        return false;
+        return preg_match('/^\d{8}$/', $documentNumber) || preg_match('/^[a-zA-Z0-9]{9,12}$/', $documentNumber);
     }
+
 
     public function askForStudentType()
     {
@@ -536,6 +541,7 @@ class SelectingDocTypeConversation extends Conversation
         );
 
         $this->botSessionId = $botSession->id;
+
 
     }
 

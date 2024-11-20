@@ -742,7 +742,7 @@
             var botmanWidget = {
                 frameEndpoint: '/chat',
                 title: 'FCCTPBot',
-                introMessage: '¡Hola! Soy el Asistente Virtual de la FCCTP 🤖. Estoy aquí para ayudarte con el proceso de matrícula 2024-2. <p>¿En qué puedo asistirte hoy? 😄</p>',
+                introMessage: '¡Hola! Soy el Asistente Virtual de la FCCTP 🤖. Estoy aquí para ayudarte con el proceso de matrícula 2025-1. <p>¿En qué puedo asistirte hoy? 😄</p>',
                 mainColor: '#dd3333',
                 bubbleBackground: '#fff',
                 headerTextColor: '#ffffff',
