@@ -63,7 +63,15 @@ class SelectingDocTypeConversation extends Conversation
         $this->bot->typesAndWaits(1);
 
         //$this->askForDocumentType();
-        $this->askForDocumentNumber();
+
+        $documentNumber = $this->botman->userStorage()->get('documentNumber');
+        Log::info("doc_number entered:" . $documentNumber);
+
+        if(!$documentNumber) {
+            $this->askForDocumentNumber();
+        }else{
+            $this->conversationIntent();
+        }
     }
 
     public function askForDocumentType()
@@ -95,7 +103,7 @@ class SelectingDocTypeConversation extends Conversation
     public function askForDocumentNumber()
     {
         //$documentText = $this->documentType === 'dni' ? 'Ingresa tu DNI' : 'Ingresa tu CE';
-        $documentText = 'Ingresa tu DNI ó tu CE';
+        $documentText = 'Antes de ayudarte, ingresa tu DNI ó tu CE, por favor:';
 
         $this->bot->typesAndWaits(1);
 
@@ -108,39 +116,14 @@ class SelectingDocTypeConversation extends Conversation
 
             if ($this->validateDocumentNumber($documentNumber)) {
 
+                $this->botman->userStorage()->save([
+                    'documentNumber' => $documentNumber
+                ]);
                 $clienteTempMat = $this->conditionEvaluator->getClienteTempMatricula($documentNumber);
 
-                $startMessage = $this->botman->userStorage()->get('startMessage');
-                $intentName = $this->dialogflow->gettingIntent($startMessage);
-
-
-                Log::info('Mensaje inicial -->', ['startMessage' => $startMessage]);
-
                 if($clienteTempMat) {
-
-                    if ($intentName === 'calendario-reactualizacion-matricula' || $intentName === 'reactualizacion-matricula') {
-                        $referIntentNextOptionId = $intentName === 'reactualizacion-matricula' ? 3 : 39;
-                        $selectedNextSubOption = MenuOption::find($referIntentNextOptionId);
-
-                        if ($selectedNextSubOption->respuesta && trim($selectedNextSubOption->respuesta) !== '') {
-                            $this->bot->typesAndWaits(1);
-                            $this->say($selectedNextSubOption->respuesta);
-                        }
-                    }elseif($intentName === 'calendario_matricula') {
-                        $referIntentNextOptionId = 8;
-                        $selectedNextSubOption = MenuOption::find($referIntentNextOptionId);
-
-                        if ($selectedNextSubOption->respuesta && trim($selectedNextSubOption->respuesta) !== '') {
-                            $this->bot->typesAndWaits(1);
-                            $this->say($selectedNextSubOption->respuesta);
-                        }
-
-                        $this->handleSelectedOption($referIntentNextOptionId, $clienteTempMat);
-
-
-                    }else{
-                        $this->showOptions($clienteTempMat);
-                    }
+                    $isMessageStart = true;
+                    $this->conversationIntent($isMessageStart);
 
                     $this->logInteraction('document_number-client_identified', null, $documentNumber);
                 }else {
@@ -154,6 +137,50 @@ class SelectingDocTypeConversation extends Conversation
             }
         });
     }
+
+    public function conversationIntent($isMessageStart=false)
+    {
+        $documentNumber = $this->botman->userStorage()->get('documentNumber');
+        $clienteTempMat = $this->conditionEvaluator->getClienteTempMatricula($documentNumber);
+
+        $startMessage = $this->botman->userStorage()->get('startMessage');
+        $intentName = $this->dialogflow->gettingIntent($startMessage);
+
+        $hola = $isMessageStart ? "Hola {$clienteTempMat->alumno}!" : "";
+
+        if ($intentName === 'calendario-reactualizacion-matricula' || $intentName === 'reactualizacion-matricula') {
+            $referIntentNextOptionId = $intentName === 'reactualizacion-matricula' ? 3 : 39;
+            $selectedNextSubOption = MenuOption::find($referIntentNextOptionId);
+
+
+            if ($selectedNextSubOption->respuesta && trim($selectedNextSubOption->respuesta) !== '') {
+                $this->bot->typesAndWaits(1);
+                $this->say("{$hola}<p>Tu consulta es sobre <strong>{$selectedNextSubOption->desc_opcion}</strong></p>");
+
+                $this->say($selectedNextSubOption->respuesta);
+
+
+                $this->handleSelectedOption($referIntentNextOptionId, $clienteTempMat);
+
+            }
+        } elseif ($intentName === 'calendario_matricula') {
+            $referIntentNextOptionId = 8;
+            $selectedNextSubOption = MenuOption::find($referIntentNextOptionId);
+
+            if ($selectedNextSubOption->respuesta && trim($selectedNextSubOption->respuesta) !== '') {
+                $this->bot->typesAndWaits(1);
+                $this->say("{$hola}<p>Tu consulta es sobre <strong>{$selectedNextSubOption->desc_opcion}</strong></p>");
+                $this->say($selectedNextSubOption->respuesta);
+
+                $this->handleSelectedOption($referIntentNextOptionId, $clienteTempMat);
+            }
+
+        } else {
+            $this->showOptions($clienteTempMat);
+        }
+    }
+
+
 
     public function showOptions($clienteTempMat)
     {
@@ -221,7 +248,8 @@ class SelectingDocTypeConversation extends Conversation
         $subOpciones = MenuOption::where('parent_id', $optionId)->get(['id', 'parent_id', 'desc_opcion', 'respuesta']);
 
         if ($subOpciones->isEmpty()) {
-            $this->say('No hay sub-opciones disponibles.');
+            //$this->say('No hay sub-opciones disponibles.');
+            Log::info('No hay sub-opciones disponibles', ['parent_id' => $optionId]);
             return;
         }
 
@@ -372,7 +400,7 @@ class SelectingDocTypeConversation extends Conversation
 
                     $this->logInteraction('satisfaction_selected', null, $answer->getText(), $this->botman->userStorage()->get('parent_id'));
 
-                    $this->botman->userStorage()->delete();
+                    //$this->botman->userStorage()->delete();
 
                     Log::info('sessions after delete()', [
                         'sessionId' => $this->sessionId,
@@ -390,7 +418,8 @@ class SelectingDocTypeConversation extends Conversation
                     //$this->say('Lamento escuchar eso. Por favor, dime cómo puedo mejorar.');
                     $lastOoptionParenId = $this->botman->userStorage()->get('parent_id');
                     Log::info('Destroying parent_id', ['id' => $lastOoptionParenId]);
-                    $this->botman->userStorage()->delete();
+
+                    //$this->botman->userStorage()->delete();
 
 
                     $this->ask('Lamento escuchar eso. Por favor, dime cómo puedo mejorar.', function (Answer $improvementAnswer) {
