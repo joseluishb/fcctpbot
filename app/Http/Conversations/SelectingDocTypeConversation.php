@@ -256,8 +256,43 @@ class SelectingDocTypeConversation extends Conversation
         $this->showSubOptions($subOpciones, $clienteTempMat);
     }
 
-
     protected function showSubOptions($subOpciones, $clienteTempMat)
+    {
+        // Generar el texto de las opciones
+        $questionText = $this->generateQuestionText($subOpciones);
+
+        // Crear la pregunta
+        $question = Question::create($questionText)
+            ->fallback('No puedo procesar tu solicitud')
+            ->callbackId('select_sub_option');
+
+        // Manejar la respuesta del usuario
+        $this->ask($question, function (Answer $answer) use ($subOpciones, $clienteTempMat) {
+            $selectedIndex = (int) $answer->getText() - 1;
+
+            switch (true) {
+                case $selectedIndex == $subOpciones->count():
+                    $this->handleBackOption($answer, $clienteTempMat);
+                    break;
+
+                case $selectedIndex == $subOpciones->count() + 1:
+                    $this->handleFinishOption($answer, $subOpciones, $clienteTempMat);
+                    break;
+
+                case $selectedIndex >= 0 && $selectedIndex < $subOpciones->count():
+                    $this->handleSubOptionSelection($subOpciones[$selectedIndex], $subOpciones, $clienteTempMat, $answer);
+                    break;
+
+                default:
+                    $this->bot->typesAndWaits(1);
+                    $this->say('Selección inválida. Por favor, intenta de nuevo.');
+                    $this->repeat();
+            }
+        });
+    }
+
+
+    protected function showSubOptions_($subOpciones, $clienteTempMat)
     {
         $questionText = '<strong>Elige una opción escribiendo su número:</strong><br><br>';
         foreach ($subOpciones as $key => $subOpcion) {
@@ -605,4 +640,114 @@ class SelectingDocTypeConversation extends Conversation
         ]);
     }
 
+    // Generar texto de la pregunta
+    protected function generateQuestionText($subOpciones)
+    {
+        $questionText = '<strong>Elige una opción escribiendo su número:</strong><br><br>';
+        foreach ($subOpciones as $key => $subOpcion) {
+            $description = $this->formatOptionDescription($subOpcion->desc_opcion);
+            $questionText .= ($key + 1) . ". " . $description . "<br>";
+        }
+        $questionText .= ($subOpciones->count() + 1) . ". Regresar al menú anterior<br>";
+        $questionText .= ($subOpciones->count() + 2) . ". Finalizar atención<br>";
+        return $questionText;
+    }
+
+    // Manejar la opción "Regresar al menú anterior"
+    protected function handleBackOption(Answer $answer, $clienteTempMat)
+    {
+        $parentId = $this->botman->userStorage()->get('parent_id');
+        Log::info('BackSubOptions getting parent_id', ['back_parent_id' => $parentId]);
+
+        $lastOption = MenuOption::find($parentId);
+
+        $this->logInteraction('backreturn_option_selected', null, $answer->getText(), $parentId);
+
+        if ($lastOption && $lastOption->parent_id) {
+            $this->botman->userStorage()->save(['parent_id' => $lastOption->parent_id]);
+            Log::info('BackSubOptions for parent_id', ['back_parent_id' => $lastOption->parent_id]);
+
+            $backSubOptions = MenuOption::where([
+                'parent_id' => $lastOption->parent_id,
+                'is_system_option' => 0,
+                'active' => 1,
+            ])->get(['id', 'parent_id', 'desc_opcion', 'respuesta']);
+
+            $this->showSubOptions($backSubOptions, $clienteTempMat);
+        } else {
+            $this->showOptions($clienteTempMat);
+        }
+    }
+
+    // Manejar la opción "Finalizar atención"
+    protected function handleFinishOption(Answer $answer, $subOpciones, $clienteTempMat)
+    {
+        $this->bot->typesAndWaits(2);
+        $this->say('Gracias por usar nuestro servicio. ¡Hasta luego!');
+        $this->logInteraction('finish_option_selected', null, $answer->getText(), $this->botman->userStorage()->get('parent_id'));
+        $this->askSatisfaction($subOpciones, $clienteTempMat);
+    }
+
+    // Manejar la selección de una sub-opción
+    protected function handleSubOptionSelection($selectedSubOption, $subOpciones, $clienteTempMat, Answer $answer)
+    {
+        $this->bot->typesAndWaits(1);
+        $this->say('Has seleccionado: ' . $selectedSubOption->desc_opcion);
+
+        $this->logInteraction('child_option_selected', $selectedSubOption->id, $answer->getText(), $this->botman->userStorage()->get('parent_id'));
+        $this->botman->userStorage()->save(['parent_id' => $selectedSubOption->id]);
+
+        Log::info('SelectedSubOption for parent_id', ['id' => $selectedSubOption->id]);
+
+        $moreSubOptions = $this->getMoreSubOptions($selectedSubOption);
+
+        if ($selectedSubOption->respuesta && trim($selectedSubOption->respuesta) !== '') {
+            $this->bot->typesAndWaits(1);
+            $this->say($selectedSubOption->respuesta);
+        }
+
+        if (!empty($selectedSubOption->optionRoute)) {
+            $this->handleOptionRoute($selectedSubOption, $clienteTempMat);
+        }
+
+        if ($moreSubOptions->isEmpty()) {
+            $this->askSatisfaction($subOpciones, $clienteTempMat);
+        } else {
+            $this->showSubOptions($moreSubOptions, $clienteTempMat);
+        }
+    }
+
+    // Obtener más sub-opciones
+    protected function getMoreSubOptions($selectedSubOption)
+    {
+        return MenuOption::where([
+            'parent_id' => $selectedSubOption->id,
+            'is_system_option' => 0,
+            'active' => 1,
+        ])->get(['id', 'parent_id', 'desc_opcion', 'respuesta', 'active']);
+    }
+
+    // Manejar rutas de opciones
+    protected function handleOptionRoute($selectedSubOption, $clienteTempMat)
+    {
+        $nextOption = $this->conditionEvaluator->execInternalProcess($selectedSubOption->optionRoute, $clienteTempMat);
+        $nextOptionId = $nextOption[1];
+        $action = $nextOption[0];
+
+        $nextSubOption = MenuOption::find($nextOptionId);
+
+        if (in_array($action, ['FORNEXTOPTIONID', 'FORAMPLMATRICULA'])) {
+            $moreSubOptions = $this->getMoreSubOptions($nextSubOption);
+
+            if ($nextSubOption->respuesta && trim($nextSubOption->respuesta) !== '') {
+                $this->bot->typesAndWaits(1);
+                $this->say($nextSubOption->respuesta);
+            }
+        } elseif (in_array($action, ['FORREPLYEXTEMP', 'FORREPLYLINKZOOM'])) {
+            if ($nextSubOption->respuesta && trim($nextSubOption->respuesta) !== '') {
+                $this->bot->typesAndWaits(1);
+                $this->say($nextSubOption->respuesta);
+            }
+        }
+    }
 }
