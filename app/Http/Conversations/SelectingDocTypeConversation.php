@@ -152,6 +152,10 @@ class SelectingDocTypeConversation extends Conversation
             $referIntentNextOptionId = $intentName === 'reactualizacion-matricula' ? 3 : 39;
             $selectedNextSubOption = MenuOption::find($referIntentNextOptionId);
 
+            $this->botman->userStorage()->save([
+                'intentOptionParenId' => $referIntentNextOptionId
+            ]);
+
 
             if ($selectedNextSubOption->respuesta && trim($selectedNextSubOption->respuesta) !== '') {
                 $this->bot->typesAndWaits(1);
@@ -166,6 +170,10 @@ class SelectingDocTypeConversation extends Conversation
         } elseif ($intentName === 'calendario_matricula') {
             $referIntentNextOptionId = 8;
             $selectedNextSubOption = MenuOption::find($referIntentNextOptionId);
+
+            $this->botman->userStorage()->save([
+                'intentOptionParenId' => $referIntentNextOptionId
+            ]);
 
             if ($selectedNextSubOption->respuesta && trim($selectedNextSubOption->respuesta) !== '') {
                 $this->bot->typesAndWaits(1);
@@ -268,14 +276,26 @@ class SelectingDocTypeConversation extends Conversation
 
         // Manejar la respuesta del usuario
         $this->ask($question, function (Answer $answer) use ($subOpciones, $clienteTempMat) {
+
             $selectedIndex = (int) $answer->getText() - 1;
+            $countOtherOptions = $this->botman->userStorage()->get('countOtherOptions');
+            //Log::info('tx opción', ['answ' => $answer->getText()]);
+            Log::info('in', context: ['countOtherOptions' => $countOtherOptions, 'selectedIndex' => $selectedIndex, 'subopccount' => $subOpciones->count()]);
+            //Log::info('abc', context: ['c' => ($countOtherOptions == 2 && $selectedIndex == $subOpciones->count())]);
 
             switch (true) {
-                case $selectedIndex == $subOpciones->count():
+                case $countOtherOptions === 3 && $selectedIndex == $subOpciones->count():
                     $this->handleBackOption($answer, $clienteTempMat);
                     break;
 
-                case $selectedIndex == $subOpciones->count() + 1:
+                case ($countOtherOptions === 3 && $selectedIndex == $subOpciones->count() + 1) || ($countOtherOptions == 2 && $selectedIndex == $subOpciones->count()):
+
+                    $this->ask("Ingrese su consulta", function (Answer $answer) {
+
+                    });
+                    break;
+
+                case ($countOtherOptions === 2 && $selectedIndex == $subOpciones->count() + 1) || ($countOtherOptions === 3 && $selectedIndex == $subOpciones->count() + 2):
                     $this->handleFinishOption($answer, $subOpciones, $clienteTempMat);
                     break;
 
@@ -643,13 +663,25 @@ class SelectingDocTypeConversation extends Conversation
     // Generar texto de la pregunta
     protected function generateQuestionText($subOpciones)
     {
-        $questionText = '<strong>Elige una opción escribiendo su número:</strong><br><br>';
+        $questionText = '<strong>Para continuar, elige una opción escribiendo su número:</strong><br><br>';
         foreach ($subOpciones as $key => $subOpcion) {
             $description = $this->formatOptionDescription($subOpcion->desc_opcion);
             $questionText .= ($key + 1) . ". " . $description . "<br>";
         }
-        $questionText .= ($subOpciones->count() + 1) . ". Regresar al menú anterior<br>";
-        $questionText .= ($subOpciones->count() + 2) . ". Finalizar atención<br>";
+        $lastOptionParentId = $this->botman->userStorage()->get('parent_id');
+        $intentOptionParenId = $this->botman->userStorage()->get('intentOptionParenId');
+
+        $countOtherOption = 0;
+        if( $lastOptionParentId > 0 && $lastOptionParentId !== $intentOptionParenId ) {
+            ++$countOtherOption;
+            $questionText .= ($subOpciones->count() + $countOtherOption) . ". Regresar al menú anterior<br>";
+        }
+        $questionText .= ($subOpciones->count() + ++$countOtherOption) . ". Nueva consulta<br>";
+        $questionText .= ($subOpciones->count() + ++$countOtherOption) . ". Finalizar atención<br>";
+
+        $this->botman->userStorage()->save(['countOtherOptions' => $countOtherOption]);
+        Log::info('lastOptionParentId, intentOptionParenId, countOtherOption', ['lastOptionParentId' => $lastOptionParentId, 'intentOptionParenId'=>$intentOptionParenId, 'countOtherOption' => $countOtherOption]);
+
         return $questionText;
     }
 
@@ -691,6 +723,8 @@ class SelectingDocTypeConversation extends Conversation
     // Manejar la selección de una sub-opción
     protected function handleSubOptionSelection($selectedSubOption, $subOpciones, $clienteTempMat, Answer $answer)
     {
+
+
         $this->bot->typesAndWaits(1);
         $this->say('Has seleccionado: ' . $selectedSubOption->desc_opcion);
 
