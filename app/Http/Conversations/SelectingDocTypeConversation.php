@@ -291,7 +291,12 @@ class SelectingDocTypeConversation extends Conversation
                 case ($countOtherOptions === 3 && $selectedIndex == $subOpciones->count() + 1) || ($countOtherOptions == 2 && $selectedIndex == $subOpciones->count()):
 
                     $this->ask("Ingrese su consulta", function (Answer $answer) {
+                       $newMessage = $answer->getText();
+                        $this->botman->userStorage()->save([
+                            'startMessage' => $newMessage
+                        ]);
 
+                        $this->conversationIntent();
                     });
                     break;
 
