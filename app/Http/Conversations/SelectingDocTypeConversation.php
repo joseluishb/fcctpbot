@@ -148,44 +148,76 @@ class SelectingDocTypeConversation extends Conversation
 
         $hola = $isMessageStart ? "Hola {$clienteTempMat->alumno}!" : "";
 
-        if ($intentName === 'calendario-reactualizacion-matricula' || $intentName === 'reactualizacion-matricula') {
-            $referIntentNextOptionId = $intentName === 'reactualizacion-matricula' ? 3 : 39;
-            $selectedNextSubOption = MenuOption::find($referIntentNextOptionId);
+        // Buscar la opción del menú asociada al intent
+        $selectedNextSubOption = MenuOption::where('intent', $intentName)->first();
 
+        if ($selectedNextSubOption) {
+            // Guardar el ID de la opción seleccionada en el almacenamiento del usuario
             $this->botman->userStorage()->save([
-                'intentOptionParenId' => $referIntentNextOptionId
+                'intentOptionParenId' => $selectedNextSubOption->id
             ]);
 
-
-            if ($selectedNextSubOption->respuesta && trim($selectedNextSubOption->respuesta) !== '') {
-                $this->bot->typesAndWaits(1);
-                $this->say("{$hola}<p>Tu consulta es sobre <strong>{$selectedNextSubOption->desc_opcion}</strong></p>");
-
-                $this->say($selectedNextSubOption->respuesta);
-
-
-                $this->handleSelectedOption($referIntentNextOptionId, $clienteTempMat);
-
-            }
-        } elseif ($intentName === 'calendario_matricula') {
-            $referIntentNextOptionId = 8;
-            $selectedNextSubOption = MenuOption::find($referIntentNextOptionId);
-
-            $this->botman->userStorage()->save([
-                'intentOptionParenId' => $referIntentNextOptionId
-            ]);
-
-            if ($selectedNextSubOption->respuesta && trim($selectedNextSubOption->respuesta) !== '') {
+            // Responder al usuario si hay una respuesta definida
+            if (!empty(trim($selectedNextSubOption->respuesta))) {
                 $this->bot->typesAndWaits(1);
                 $this->say("{$hola}<p>Tu consulta es sobre <strong>{$selectedNextSubOption->desc_opcion}</strong></p>");
                 $this->say($selectedNextSubOption->respuesta);
 
-                $this->handleSelectedOption($referIntentNextOptionId, $clienteTempMat);
-            }
+                $moreSubOptions = $this->getMoreSubOptions($selectedNextSubOption);
 
+
+                if ($moreSubOptions->isEmpty()) {
+                    $this->askSatisfaction($moreSubOptions, $clienteTempMat);
+                }
+
+                // Manejar la selección de la opción
+                $this->handleSelectedOption($selectedNextSubOption->id, $clienteTempMat);
+            }
         } else {
+            // Mostrar opciones generales si no hay intent asociado
             $this->showOptions($clienteTempMat);
         }
+
+
+
+        // if ($intentName === 'reactualizacion-matricula-calendario' || $intentName === 'reactualizacion-matricula') {
+        //     $referIntentNextOptionId = $intentName === 'reactualizacion-matricula' ? 3 : 39;
+        //     $selectedNextSubOption = MenuOption::find($referIntentNextOptionId);
+
+        //     $this->botman->userStorage()->save([
+        //         'intentOptionParenId' => $referIntentNextOptionId
+        //     ]);
+
+
+        //     if ($selectedNextSubOption->respuesta && trim($selectedNextSubOption->respuesta) !== '') {
+        //         $this->bot->typesAndWaits(1);
+        //         $this->say("{$hola}<p>Tu consulta es sobre <strong>{$selectedNextSubOption->desc_opcion}</strong></p>");
+
+        //         $this->say($selectedNextSubOption->respuesta);
+
+
+        //         $this->handleSelectedOption($referIntentNextOptionId, $clienteTempMat);
+
+        //     }
+        // } elseif ($intentName === 'calendario_matricula') {
+        //     $referIntentNextOptionId = 8;
+        //     $selectedNextSubOption = MenuOption::find($referIntentNextOptionId);
+
+        //     $this->botman->userStorage()->save([
+        //         'intentOptionParenId' => $referIntentNextOptionId
+        //     ]);
+
+        //     if ($selectedNextSubOption->respuesta && trim($selectedNextSubOption->respuesta) !== '') {
+        //         $this->bot->typesAndWaits(1);
+        //         $this->say("{$hola}<p>Tu consulta es sobre <strong>{$selectedNextSubOption->desc_opcion}</strong></p>");
+        //         $this->say($selectedNextSubOption->respuesta);
+
+        //         $this->handleSelectedOption($referIntentNextOptionId, $clienteTempMat);
+        //     }
+
+        // } else {
+        //     $this->showOptions($clienteTempMat);
+        // }
     }
 
 
