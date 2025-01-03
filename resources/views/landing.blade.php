@@ -4,26 +4,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Servicio de Matrícula | Universidad de San Martín de Porres</title>
 
-
+    <title>Servicio de Matrícula FCCTP | Universidad de San Martín de Porres</title>
     <meta name="description" content="Revisa las orientaciones y Proceso de matrícula académica. Accede a horarios, cursos y toda la información que necesitas para iniciar el semestre." />
     <link rel="image_src" href="https://fcctp.usmp.edu.pe/images/matricula/icon-usmp-114x114.png" />
-    <link rel="canonical" href="https://fcctp.usmp.edu.pe" />
+    <link rel="canonical" href="https://matricula.fcctp.edu.pe/" />
     <meta property="og:locale" content="es_ES" />
     <meta property="og:type" content="website" />
     <meta property="og:image" content="https://fcctp.usmp.edu.pe/images/matricula/icon-usmp-114x114.png"/>
-    <meta property="og:title" content="Matrícula - Universidad San Martín de Porres" />
+    <meta property="og:title" content="Matrícula FCCTP - Universidad San Martín de Porres" />
     <meta property="og:description" content="Revisa las orientaciones y soporte del proceso de inscripción académica. Accede a horarios, cursos y toda la información que necesitas para iniciar el semestre." />
-    <meta property="og:url" content="https://fcctp.usmp.edu.pe" />
-    <meta property="og:site_name" content="Universidad San Martín de Porres" />
+    <meta property="og:url" content="https://matricula.fcctp.edu.pe/" />
+    <meta property="og:site_name" content="Matrícula FCCTP | Universidad San Martín de Porres" />
     <link rel="icon" href="https://fcctp.usmp.edu.pe/images/matricula/favicon-usmp.ico" />
     <link rel="icon" type="image/png" sizes="32x32" href="https://fcctp.usmp.edu.pe/images/matricula/icon-usmp-32x32.png" />
     <link rel="icon" type="image/png" sizes="16x16" href="https://fcctp.usmp.edu.pe/images/matricula/icon-usmp-16x16.png" />
     <link rel="apple-touch-icon" href="https://fcctp.usmp.edu.pe/images/matricula/icon-usmp.png" />
     <link rel="apple-touch-icon" sizes="72x72" href="https://fcctp.usmp.edu.pe/images/matricula/icon-usmp-72x72.png" />
     <link rel="apple-touch-icon" sizes="114x114" href="https://fcctp.usmp.edu.pe/images/matricula/icon-usmp-114x114.png" />
-
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Matrícula FCCTP - Universidad de San Martín de Porres">
+    <meta name="twitter:description" content="Revisa las orientaciones y soporte del proceso de inscripción académica. Accede a horarios, cursos y toda la información que necesitas para iniciar el semestre.">
+    <meta name="twitter:image" content="https://fcctp.usmp.edu.pe/site/wp-content/uploads/2022/07/favicon_USMP.png">
 
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Matrícula - Universidad de San Martín de Porres">
