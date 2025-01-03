@@ -264,7 +264,7 @@
                             escuela.</div>
 
                         <div class="flex flex-col lg:flex-row md:flex-row sm:flex-col m-1 gap-4  grid-cols-12 ">
-                            <div class="col-span-6 border p-4 rounded-md shadow-md md:w-1/2 sm:w-full hidden">
+                            <div class="col-span-6 border p-4 rounded-md shadow-md md:w-1/2 sm:w-full">
                                 <div class="font-semibold pb-4">
                                     <div>Ingresantes hasta el</div>
                                     <div class="">semestre 2022-I</div>
