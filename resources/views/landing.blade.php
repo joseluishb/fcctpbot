@@ -4,17 +4,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Servicios de Matrícula - 2024-II</title>
-    <link rel="icon" type="image/x-icon" href="assets/images/icon-usmp.png">
+
+    <title>Servicio de Matrícula FCCTP | Universidad de San Martín de Porres</title>
+    <meta name="description" content="Revisa las orientaciones y Proceso de matrícula académica. Accede a horarios, cursos y toda la información que necesitas para iniciar el semestre." />
+    <link rel="image_src" href="https://fcctp.usmp.edu.pe/images/matricula/icon-usmp-114x114.png" />
+    <link rel="canonical" href="https://matricula.fcctp.edu.pe/" />
+    <meta property="og:locale" content="es_ES" />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="https://fcctp.usmp.edu.pe/images/matricula/icon-usmp-114x114.png"/>
+    <meta property="og:title" content="Matrícula FCCTP - Universidad San Martín de Porres" />
+    <meta property="og:description" content="Revisa las orientaciones y soporte del proceso de inscripción académica. Accede a horarios, cursos y toda la información que necesitas para iniciar el semestre." />
+    <meta property="og:url" content="https://matricula.fcctp.edu.pe/" />
+    <meta property="og:site_name" content="Matrícula FCCTP | Universidad San Martín de Porres" />
+    <link rel="icon" href="https://fcctp.usmp.edu.pe/images/matricula/favicon-usmp.ico" />
+    <link rel="icon" type="image/png" sizes="32x32" href="https://fcctp.usmp.edu.pe/images/matricula/icon-usmp-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="https://fcctp.usmp.edu.pe/images/matricula/icon-usmp-16x16.png" />
+    <link rel="apple-touch-icon" href="https://fcctp.usmp.edu.pe/images/matricula/icon-usmp.png" />
+    <link rel="apple-touch-icon" sizes="72x72" href="https://fcctp.usmp.edu.pe/images/matricula/icon-usmp-72x72.png" />
+    <link rel="apple-touch-icon" sizes="114x114" href="https://fcctp.usmp.edu.pe/images/matricula/icon-usmp-114x114.png" />
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Matrícula FCCTP - Universidad de San Martín de Porres">
+    <meta name="twitter:description" content="Revisa las orientaciones y soporte del proceso de inscripción académica. Accede a horarios, cursos y toda la información que necesitas para iniciar el semestre.">
+    <meta name="twitter:image" content="https://fcctp.usmp.edu.pe/site/wp-content/uploads/2022/07/favicon_USMP.png">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Matrícula - Universidad de San Martín de Porres">
+    <meta name="twitter:description" content="Revisa las orientaciones y soporte del proceso de inscripción académica. Accede a horarios, cursos y toda la información que necesitas para iniciar el semestre.">
+    <meta name="twitter:image" content="https://fcctp.usmp.edu.pe/site/wp-content/uploads/2022/07/favicon_USMP.png">
+
+
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-    <link rel="stylesheet" href="/assets/css/estilos.css">
+    <link rel="stylesheet" href="assets/css/estilos.css">
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
-        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-6KX2HP8RH6"></script>
     <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
@@ -165,53 +189,37 @@
         <div class=" grid grid-cols-12 gap-4">
             <div class="col-span-12 md:col-span-4 sm:col-span-12">
                 <div class="container gap-6 border border-gray-300 rounded-lg">
-                    <div class="h-48">
+                    <div class="h-96">
                         <img src="assets/images/foto-cronograma.jpg" alt=""
                             class="w-full h-full object-cover object-center rounded-t-lg">
                     </div>
-                    <div class=" col-span-2">
-                        <div class="xl:p-8 lg:p-5 md:p-4 sm:p-4 p-4">
-                            <div class="subtitulo">Cronograma de matrícula <br>2024 - II</div>
-                            <div class="pt-2 mb-6 text-gray-700 text-base font-light">Información general para realizar
-                                tu inscripción al presente ciclo académico.</div>
-                            <a href="https://fcctp.usmp.edu.pe/pdf/2024/alumnos-regulares-cronograma-2024-2.pdf"
-                                target="_blank"
-                                class="bg-gray-600 hover:bg-gray-700 text-white border px-4 py-3 rounded-md font-light transition-colors duration-300 ease-in-out w-25 block w-[12rem] mb-2 sm:mb-4 text-center">
-                                Ingresar aquí<i class="fa-solid fa-chevron-right ps-4"></i>
-                            </a>
-                        </div>
-                    </div>
+
                 </div>
             </div>
             <div class=" col-span-12 md:col-span-8 sm:col-span-12">
                 <div
-                    class="p-6 md:pr-0 sm:pr-10 flex-col content-center items-centerxl:w-12/12 xl:w-12/12 lg:w-12/12 md:w-12/12 sm:w-12/12 w-full h-full ">
+                    class="px-6 md:pr-0 sm:pr-10 flex-col content-center items-centerxl:w-12/12 xl:w-12/12 lg:w-12/12 md:w-12/12 sm:w-12/12 w-full h-full ">
                     <h2 class="text-xl font-medium font-poppins mb-6 ">¿Cuáles son los requisitos que debo cumplir para
                         mi
                         proceso de
                         matrícula?</h2>
                     <div class="text-gray-700 font-light">
-                        <div class="">Para iniciar tu proceso de matrícula a través de la plataforma SAP,
-                            tienes
-                            que cumplir los siguientes requisitos:</div>
+                        <div class="">Para iniciar tu proceso de matrícula a través de la plataforma SAP, tienes que cumplir los siguientes requisitos:</div>
                         <div class="py-4">
                             <ul class="list-disc pl-10">
-                                <li>No tener deudas pendientes</li>
-                                <li>Cancelar tu recibo por derecho de matrícula</li>
+                                <li>No tener deudas pendientes con la Universidad.</li>
+                                <li>Cancelar tu recibo por derecho de matrícula 2025-I.</li>
                             </ul>
                         </div>
                         <div class="">
                             <div class="mb-4">Además, Si:</div>
                             <ul class="list-disc pl-10">
-                                <li>Te matriculaste en el semestre 2024-I y que no tengas impedimento alguno por sanción
-                                    disciplinaria o deficiencia académica.</li>
-                                <li>Realizaste el trámite de Reserva de matrícula para el semestre 2024-I.</li>
-                                <li>Realizaste el trámite de Retiro de ciclo del semestre 2024-I.</li>
-                                <li>Tienes Resolución de Reactualización de matrícula para el semestre 2024-II.</li>
-                                <li>Tienes Resolución de matrícula especial para el 2024-II.</li>
-                                <li>Perteneces al grupo de ingresantes 2024-II en todas las modalidades con la condición
-                                    de
-                                    admitido por la Oficina de Admisión.</li>
+                                <li>Te estuviste matriculado en el semestre 2024-II no debes tener impedimento alguno por sanción disciplinaria o deficiencia académica.</li>
+                                <li>Realizaste el trámite de Reserva de matrícula para el semestre 2024-II.</li>
+                                <li>Realizaste el trámite de Retiro de ciclo del semestre 2024-II.</li>
+                                <li>Tienes Resolución de Reactualización de matrícula para el semestre 2025-I.</li>
+                                <li>Tienes Resolución de matrícula especial para el 2025-I.</li>
+                                <li>Perteneces al grupo de ingresantes 2025-I en todas las modalidades con la condición de admitido por la Oficina de Admisión.</li>
                             </ul>
                         </div>
                     </div>
@@ -240,7 +248,7 @@
                         <h2 class=" subtitulo">Horario de Cursos</h2>
                         <p class="text-gray-700">Visualiza los turnos que tenemos disponibles</p>
                         <div class="flex justify-left w-full mt-4">
-                            <a href="https://app.powerbi.com/view?r=eyJrIjoiOGIxOWQ2NmYtMGYxOS00YWVmLThkMTYtZWI2ZjVhY2YyZGQ1IiwidCI6Ijk4MjAxZmVmLWQ5ZjYtNGU2OC04NGY1LWMyNzA1MDc0ZTM0MiIsImMiOjR9"
+                            <a href="https://bit.ly/4iMrHZK"
                                 target="_blank"
                                 class="bg-red-700 hover:bg-red-800 py-3 px-3 rounded-md text-center text-white text-base font-light transition-colors duration-300 ease-in-out cursor-pointer">
                                 Horarios de cursos<i class="fa-solid fa-chevron-right ps-4"></i>
@@ -257,7 +265,7 @@
                         <div class="mt-1 mb-6">En esta sección encontrarás los cursos y pre-requisitos de cada
                             escuela.</div>
 
-                        <div class="flex flex-col lg:flex-row md:flex-row sm:flex-col m-1 gap-4  grid-cols-12">
+                        <div class="flex flex-col lg:flex-row md:flex-row sm:flex-col m-1 gap-4  grid-cols-12 ">
                             <div class="col-span-6 border p-4 rounded-md shadow-md md:w-1/2 sm:w-full">
                                 <div class="font-semibold pb-4">
                                     <div>Ingresantes hasta el</div>
@@ -360,7 +368,7 @@
                         <h2 class="subtitulo leading-5 pb-2">Ciencias de la Comunicación</h2>
                         <p class="text-gray-500">Guía para ingresantes</p>
                         <div class="mt-10 mb-4">
-                            <a href="https://fcctp.usmp.edu.pe/documentos/pdf/guias/Guia_Ingresante_2024_II_CC.pdf"
+                            <a href="/documentos/guias/Guia-Ingresante-2025-I_CC.pdf"
                                 target="_blank"
                                 class="bg-gray-600 hover:bg-gray-700 text-white border px-4 py-3 rounded-md transition-colors duration-300 ease-in-out">
                                 Ver Documento <i class="pl-1 fa-regular fa-file-lines"></i>
@@ -377,7 +385,8 @@
                         <h2 class="subtitulo leading-5 pb-2">Turismo y Hotelería</h2>
                         <p class="text-gray-500">Guía para ingresantes</p>
                         <div class="mt-10 mb-4">
-                            <a href="https://fcctp.usmp.edu.pe/documentos/pdf/guias/_Guia_Ingresante_2024_II_TH.pdf"
+                            <a
+                                href="/documentos/guias/Guia-Ingresante-2025-I_TH.pdf"
                                 target="_blank"
                                 class="bg-gray-600 hover:bg-gray-700 text-white border px-4 py-3 rounded-md transition-colors duration-300 ease-in-out">
                                 Ver Documento <i class="pl-1 fa-regular fa-file-lines"></i>
@@ -394,7 +403,8 @@
                         <h2 class="subtitulo leading-5 pb-2">Psicología</h2>
                         <p class="text-gray-500">Guía para ingresantes</p>
                         <div class="mt-10 mb-4">
-                            <a href="https://fcctp.usmp.edu.pe/documentos/pdf/guias/_Guia_Ingresante_2024_II_P.pdf"
+                            <a
+                                href="/documentos/guias/Guia-Ingresante-2025-I_PS.pdf"
                                 target="_blank"
                                 class="bg-gray-600 hover:bg-gray-700 text-white border px-4 py-3 rounded-md  transition-colors duration-300 ease-in-out">
                                 Ver Documento <i class="pl-1 fa-regular fa-file-lines"></i>
@@ -407,12 +417,13 @@
         </div>
     </section>
 
+
     <!-- asesorias -->
     <section class="container mx-auto px-4 pt-10 my-10 lg:my-20 md:my-20 sm:my-10" id="asesoria">
         <div class="grid lg:grid-cols-2 md:grid-cols-1 sm:grid-cols-1 grid-cols-1 gap-4">
             <div class="mx-left">
                 <img src="assets/images/foto-plan.jpg" alt=""
-                    class="rounded-3xl h-48 w-full lg:h-full md:w-full md:h-48 sm:w-full sm:h-48 object-cover object-fit">
+                    class="rounded-3xl h-48 md:w-full md:h-96 sm:w-full sm:h-48 w-full sm:h-full object-cover object-fit">
             </div>
             <div class="p-6 flex-1 content-center">
                 <div class="mx-auto text-left font-poppins mb-10">
@@ -421,7 +432,7 @@
                 </div>
                 <div class="">
                     <!-- card 1 -->
-                    <div class="bg-white shadow-md rounded-lg p-6 w-full border border-gray-300 mb-5">
+                    <div class="bg-white shadow-md rounded-lg p-6 w-full border border-gray-300 mb-5 hidden">
                         <div class="">
                             <h2 class="mb-2 subtitulo">Fórmula de matrícula: Alumnos de IX y X
                                 ciclo de
@@ -686,7 +697,7 @@
         </div>
     </div>
 
-    <div id="modal" class="fixed inset-0 flex items-center justify-center bg-gray-500 bg-opacity-75">
+    <div id="modal" class="fixed inset-0 flex items-center justify-center bg-gray-500 bg-opacity-75 hidden">
         <div class="bg-white w-full max-w-md mx-4 mx-auto rounded-lg shadow-lg">
             <div class="flex flex-col h-full">
 
@@ -721,7 +732,7 @@
             </div>
         </div>
     </div>
-
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <!-- Script propio -->
     <script src="assets/js/script.js"></script>
     <!-- Script lightbox -->
@@ -755,8 +766,6 @@
                 aboutLink: 'https://hube.pe',
                 aboutText: 'Desarrollado por OTI-FCCTP',
                 alwaysUseFloatingButton: !0,
-
-
             }
 
 
@@ -872,7 +881,7 @@
         }
     }
         </script>
-        <script src='https://cdn.jsdelivr.net/npm/botman-web-widget@0/build/js/widget.js'></script>
-</body>
+{{--         <script src='https://cdn.jsdelivr.net/npm/botman-web-widget@0/build/js/widget.js'></script>
+ --}}</body>
 
 </html>

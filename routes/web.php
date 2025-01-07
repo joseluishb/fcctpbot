@@ -8,7 +8,9 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return redirect('/admin/menu-options');//return view('welcome');
+    //return redirect('/admin/menu-options');//return view('welcome');
+    return view('landing');
+
 });
 
 Route::get('/dashboard', function () {
@@ -25,7 +27,8 @@ Route::middleware('auth')->group(function () {
 
 Route::match(['get', 'post'], '/botman', [BotManController::class, 'handle']);
 Route::get('/2024-2', function () {
-    return view('landing');
+    //return view('landing');
+    return redirect('/', 303);//return view('welcome');
 });
 
 Route::get('/demo', function () {
