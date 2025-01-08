@@ -166,13 +166,25 @@ class SelectingDocTypeConversation extends Conversation
 
                 $moreSubOptions = $this->getMoreSubOptions($selectedNextSubOption);
 
-
-                if ($moreSubOptions->isEmpty()) {
+                if ($moreSubOptions->isEmpty() && !$selectedNextSubOption->executes_system_process) {
                     $this->askSatisfaction($moreSubOptions, $clienteTempMat);
                 }
 
-                // Manejar la selección de la opción
-                $this->handleSelectedOption($selectedNextSubOption->id, $clienteTempMat);
+                if(!$selectedNextSubOption->executes_system_process) {
+                    // Manejar la selección de la opción
+                    $this->handleSelectedOption($selectedNextSubOption->id, $clienteTempMat);
+                }else{
+                    $this->handleOptionRoute($selectedNextSubOption, $clienteTempMat);
+
+                    if ($moreSubOptions->isEmpty()) {
+                        $subOpciones = MenuOption::where('parent_id', $selectedNextSubOption->id)->get(['id', 'parent_id', 'desc_opcion', 'respuesta']);
+                        $this->askSatisfaction($subOpciones, $clienteTempMat);
+                    } else {
+                        $this->showSubOptions($moreSubOptions, $clienteTempMat);
+                    }
+                }
+
+
             }
         } else {
             // Mostrar opciones generales si no hay intent asociado
@@ -350,7 +362,7 @@ class SelectingDocTypeConversation extends Conversation
     }
 
 
-    protected function showSubOptions_($subOpciones, $clienteTempMat)
+/*     protected function showSubOptions_($subOpciones, $clienteTempMat)
     {
         $questionText = '<strong>Elige una opción escribiendo su número:</strong><br><br>';
         foreach ($subOpciones as $key => $subOpcion) {
@@ -474,7 +486,7 @@ class SelectingDocTypeConversation extends Conversation
                 $this->repeat();
             }
         });
-    }
+    } */
 
     protected function askSatisfaction($subOpciones, $clienteTempMat)
     {
@@ -761,8 +773,6 @@ class SelectingDocTypeConversation extends Conversation
     // Manejar la selección de una sub-opción
     protected function handleSubOptionSelection($selectedSubOption, $subOpciones, $clienteTempMat, Answer $answer)
     {
-
-
         $this->bot->typesAndWaits(1);
         $this->say('Has seleccionado: ' . $selectedSubOption->desc_opcion);
 
@@ -807,6 +817,7 @@ class SelectingDocTypeConversation extends Conversation
         $action = $nextOption[0];
 
         $nextSubOption = MenuOption::find($nextOptionId);
+        Log::info("handleOptionRoute", ["nextOption" => $nextOption, "nextSubOption" => $nextSubOption]);
 
         if (in_array($action, ['FORNEXTOPTIONID', 'FORAMPLMATRICULA'])) {
             $moreSubOptions = $this->getMoreSubOptions($nextSubOption);
