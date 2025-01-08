@@ -145,6 +145,7 @@ class SelectingDocTypeConversation extends Conversation
 
         $startMessage = $this->botman->userStorage()->get('startMessage');
         $intentName = $this->dialogflow->gettingIntent($startMessage);
+        Log::info('Dialogflow IntentName for DB Consulting: ' . $intentName);
 
         $hola = $isMessageStart ? "Hola {$clienteTempMat->alumno}!" : "";
 
