@@ -298,7 +298,9 @@ class SelectingDocTypeConversation extends Conversation
 
     protected function handleSelectedOption($optionId, $clienteTempMat)
     {
-        $subOpciones = MenuOption::where('parent_id', $optionId)->get(['id', 'parent_id', 'desc_opcion', 'respuesta','executes_system_process']);
+        $subOpciones = MenuOption::where('parent_id', $optionId)
+                                    ->where('active', 1)
+                                    ->get(['id', 'parent_id', 'desc_opcion', 'respuesta','executes_system_process']);
 
         if ($subOpciones->isEmpty()) {
             //$this->say('No hay sub-opciones disponibles.');

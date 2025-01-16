@@ -3,7 +3,8 @@
 <head>
     <title>FCCTPBot</title>
     <meta charset="UTF-8">
-    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/chat.css') }}">
+    {{-- <link rel="stylesheet" type="text/css" href="{{ url('assets/css/chat.css') }}"> --}}
+    <link rel="stylesheet" type="text/css" href="/assets/css/chat.css">
 </head>
 <body>
 

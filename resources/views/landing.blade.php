@@ -36,7 +36,7 @@
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-    <link rel="stylesheet" href="assets/css/estilos.css">
+    <link rel="stylesheet" href="{{ url('assets/css/estilos.css')}}">
     <script src="https://cdn.tailwindcss.com"></script>
 
     <script>
@@ -771,7 +771,7 @@
 
         function checkBotmanWidgetReady(callback) {
             if (typeof botmanChatWidget !== 'undefined') {
-                callback();
+                callback();/*  */
             } else {
                 setTimeout(function() { checkBotmanWidgetReady(callback); }, 100);
             }
