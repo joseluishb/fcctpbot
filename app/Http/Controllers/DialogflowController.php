@@ -35,13 +35,7 @@ class DialogflowController extends Controller
         }
         */
 
-        Log::info('GOOGLE_APPLICATION_CREDENTIALS: ' . env('GOOGLE_APPLICATION_CREDENTIALS'));
 
-        if (file_exists(env('GOOGLE_APPLICATION_CREDENTIALS'))) {
-            Log::info('JSON file is accessible.');
-        } else {
-            Log::error('JSON file is not accessible.');
-        }
 
         try {
             // Si la solicitud no es de Dialogflow, se asume que es de Botman o desde otra fuente
