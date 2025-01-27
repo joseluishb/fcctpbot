@@ -698,8 +698,11 @@
             </div>
         </div>
     </div>
-
-    <div id="modal" class="fixed inset-0 flex items-center justify-center bg-gray-500 bg-opacity-75 hidden">
+    @php
+        // Obtener el parámetro `show` como un array
+        $shows = explode(',', request('show', '')); // Si no existe, devuelve un array vacío
+    @endphp
+    <div id="modal" class="fixed inset-0 flex items-center justify-center bg-gray-500 bg-opacity-75 {{ in_array('turno', $shows) ? '':'hidden' }}">
         <div class="bg-white w-full max-w-md mx-4 mx-auto rounded-lg shadow-lg">
             <div class="flex flex-col h-full">
 
@@ -883,7 +886,9 @@
         }
     }
         </script>
+        @if(in_array('chatbot', $shows))
         <script src='https://cdn.jsdelivr.net/npm/botman-web-widget@0/build/js/widget.js'></script>
+        @endif
 </body>
 
 </html>
