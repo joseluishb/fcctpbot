@@ -39,12 +39,14 @@
     <link rel="stylesheet" href="{{ url('assets/css/estilos.css')}}">
     <script src="https://cdn.tailwindcss.com"></script>
 
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-SE3NBWXSWL"></script>
     <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
 
-    gtag('config', 'G-6KX2HP8RH6');
+    gtag('config', 'G-SE3NBWXSWL');
     </script>
 
     <style>
