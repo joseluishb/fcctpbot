@@ -41,7 +41,6 @@ class BotManController extends Controller
         });
 
         $botman->hears('{message}', function (BotMan $bot, $message) {
-            \Log::info('GOOGLE_APPLICATION_CREDENTIALS: ' . getenv('GOOGLE_APPLICATION_CREDENTIALS'));
 
             //$response = $this->sendToDialogflow($message);
             //$bot->reply($response);

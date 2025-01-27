@@ -59,6 +59,15 @@ class DialogflowController extends Controller
             $queryInput = new QueryInput();
             $queryInput->setText($textInput);
 
+            \Log::info('GOOGLE_APPLICATION_CREDENTIALS: ' . env('GOOGLE_APPLICATION_CREDENTIALS'));
+
+            if (file_exists(env('GOOGLE_APPLICATION_CREDENTIALS'))) {
+                \Log::info('JSON file is accessible.');
+            } else {
+                \Log::error('JSON file is not accessible.');
+            }
+
+
             // Detecta la intención
             $response = $sessionsClient->detectIntent($session, $queryInput);
             $queryResult = $response->getQueryResult();
