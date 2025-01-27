@@ -61,7 +61,10 @@ class DialogflowService
             Log::error('Error detecting intent: ' . $e->getMessage());
             return $e->getMessage();
         } finally {
-            $sessionsClient->close();
+            //$sessionsClient->close();
+            if ($sessionsClient) {
+                $sessionsClient->close();
+            }
         }
     }
 }
