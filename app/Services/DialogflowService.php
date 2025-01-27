@@ -20,6 +20,8 @@ class DialogflowService
             Log::error('JSON file is not accessible.');
         }
 
+        $sessionsClient = null;
+
         try {
             $projectId = 'fcctp-agent-matr-pgqo'; // Reemplaza con tu ID de proyecto
             $sessionId = uniqid(); // Puedes generar un ID de sesión único
