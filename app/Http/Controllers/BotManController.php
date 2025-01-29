@@ -42,10 +42,22 @@ class BotManController extends Controller
 
         $botman->hears('{message}', function (BotMan $bot, $message) {
 
+            $userMessage = $bot->getMessage()->getText();
+            Log::info('msge:' .$userMessage);
+
+
             //$response = $this->sendToDialogflow($message);
             //$bot->reply($response);
             $conditionEvaluatorService = new ConditionEvaluatorService();
             $dialogflow = new DialogflowService();
+
+            //$conversation = new SelectingDocTypeConversation($conditionEvaluatorService, $bot, $dialogflow);
+            //$conversation->initializeSessionId();
+            //$conversation->startSession();
+            //$conversation->logInteraction('initial_message', null, $message);
+
+            //$bot->startConversation($conversation);
+
             $bot->startConversation(new SelectingDocTypeConversation($conditionEvaluatorService, $bot, $dialogflow));
 
         });

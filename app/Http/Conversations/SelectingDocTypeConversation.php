@@ -140,6 +140,9 @@ class SelectingDocTypeConversation extends Conversation
 
     public function conversationIntent($isMessageStart=false)
     {
+        $msge = $this->botman->getMessage()->getText();
+        $this->logInteraction('initial_message', null, $msge);
+
         $documentNumber = $this->botman->userStorage()->get('documentNumber');
         $clienteTempMat = $this->conditionEvaluator->getClienteTempMatricula($documentNumber);
 
@@ -158,6 +161,7 @@ class SelectingDocTypeConversation extends Conversation
                 'intentOptionParenId' => $selectedNextSubOption->id
             ]);
 
+            //TODO: Revisar cuando la rpta esté vacío, ya que no devolverá las subopciones
             // Responder al usuario si hay una respuesta definida
             if (!empty(trim($selectedNextSubOption->respuesta))) {
                 $this->bot->typesAndWaits(1);
@@ -183,8 +187,6 @@ class SelectingDocTypeConversation extends Conversation
                         $this->showSubOptions($moreSubOptions, $clienteTempMat);
                     }
                 }
-
-
             }
         } else {
             // Mostrar opciones generales si no hay intent asociado
@@ -242,8 +244,15 @@ class SelectingDocTypeConversation extends Conversation
                     - Si no estudiaste el ciclo anterior y no cuentas con reserva de matrícula, debes realizar la reactualización de tu matrícula.<br>
                     - Si no cuenta con tu correo institucional u olvidaste tu contraseña, deberás seleccionar la opción 6 de soporte informático.";
 
+        $startMessage = $this->botman->userStorage()->get('startMessage');
+
         $this->bot->typesAndWaits(2);
-        $this->say("<strong>Hola {$clienteTempMat->alumno}!</strong> <p>{$msgeIni}</p>");
+        if(!$startMessage) {
+            $this->say("<strong>Hola {$clienteTempMat?->alumno}!</strong> <p>{$msgeIni}</p>");
+        }else{
+            $this->say("<p><strong>Lo siento, no entendí tu solicitud, recuerda que estoy orientado a resolver consultas sobre el proceso de matrícula actual. Toma en cuenta lo siguiente:</strong></p><p>{$msgeIni}</p>");
+        }
+
         $options = MenuOption::whereNull('parent_id')->where('active', 1)->get(['id', 'desc_opcion', 'respuesta']);
         $questionText = '<strong>Elige una opción (escribe el número):</strong><br><br>';
         foreach ($options as $key => $opcion) {
@@ -515,7 +524,7 @@ class SelectingDocTypeConversation extends Conversation
                         'uuid' => $this->botman->userStorage()->get('session_uuid')
                     ]);
 
-                    $this->endSession();
+                    //$this->endSession();
 
                 } elseif ($answer->getValue() === 'no') {
                     $this->bot->typesAndWaits(1);
@@ -537,7 +546,7 @@ class SelectingDocTypeConversation extends Conversation
 
                         $this->logInteraction('userFeedback_nosatisfaction', null, $userFeedback, $this->botman->userStorage()->get('parent_id'));
 
-                        $this->endSession();
+                        //$this->endSession();
                     });
 
                 } elseif ($answer->getValue() === 'menu') {
