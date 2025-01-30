@@ -159,7 +159,7 @@
                                 class="bg-red-700 hover:bg-red-800 py-3 px-4 rounded-md text-center text-white text-base font-light transition-colors duration-300 ease-in-out w-25 cursor-pointer">
                                 Más información<i class="fa-solid fa-chevron-down ps-4"></i>
                             </a></div>
-                        <div><a data-fancybox href="https://www.youtube.com/watch?v=WZlx3uU5mSQ"
+                        <div><a data-fancybox href="https://www.youtube.com/watch?v=zfySaY6Q0aU"
                                 class="btn btn-danger bg-transparent hover:bg-red-700 py-3 px-4 rounded-md text-center text-gray-600 hover:text-white text-base font-md transition-colors duration-300 ease-in-out w-25 cursor-pointer border-2 border-gray-500 hover:border-red-700">
                                 Video instructivo de matrícula<i class="fa-solid fa-chevron-right ps-4"></i>
                             </a></div>
@@ -172,7 +172,7 @@
                         class="rounded-md md:rounded-3xl sm:rounded-md flex items-center justify-center relative bg-black">
                         <img src="assets/images/video_slider.jpg" alt=""
                             class="rounded-md md:rounded-3xl sm:rounded-md opacity-60 w-full h-full object-fit object-cover object-center">
-                        <a data-fancybox href="https://www.youtube.com/watch?v=WZlx3uU5mSQ" class="absolute">
+                        <a data-fancybox href="https://www.youtube.com/watch?v=zfySaY6Q0aU" class="absolute">
                             <i class="fa-regular fa-circle-play text-white text-7xl"></i>
                         </a>
                     </div>
@@ -699,10 +699,10 @@
         </div>
     </div>
     @php
-        // Obtener el parámetro `show` como un array
-        $shows = explode(',', request('show', '')); // Si no existe, devuelve un array vacío
+// Obtener el parámetro `show` como un array
+$shows = explode(',', request('show', '')); // Si no existe, devuelve un array vacío
     @endphp
-    <div id="modal" class="fixed inset-0 flex items-center justify-center bg-gray-500 bg-opacity-75 {{ in_array('turno', $shows) ? '':'hidden' }}">
+    <div id="modal" class="fixed inset-0 flex items-center justify-center bg-gray-500 bg-opacity-75 {{ in_array('turno', $shows) ? '' : 'hidden' }}">
         <div class="bg-white w-full max-w-md mx-4 mx-auto rounded-lg shadow-lg">
             <div class="flex flex-col h-full">
 
