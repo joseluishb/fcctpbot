@@ -232,11 +232,55 @@
     </section>
 
 
+        <!-- Nuevo Horarios de clases -->
+        <section class="container-fluid border border-t-gray-200 border-b-gray-200 mx-auto px-4 bg-gray-50 mt-14 pb-4"
+            id="cronograma">
+            <div class="container mx-auto px-36 xl:px-24 lg:px-0 md:px-0 sm:px-4 px-4 py-10 lg:py-10 md:py-10 sm:py-10">
+                <div class="mx-auto text-center font-poppins mb-10">
+                    <h6 class="text-red-600 mb-0">Guía de horarios</h6>
+                    <div class="titulo">Cronograma de horarios de matrícula</div>
+                </div>
+                <div class="flex flex-wrap justify-center gap-10">
+                    <div class="bg-white p-6 rounded-lg shadow-lg border border-gray-300 flex gap-4 w-100">
+                        <div class="flex-shrink-0">
+                            <img src="assets/images/ico-cc.svg" alt="Icon" class="h-12 w-12">
+                        </div>
+                        <div class="flex-grow">
+                            <h2 class="subtitulo leading-5 pb-2 pe-10">Calendario académico</h2>
+                            <p class="text-gray-500">Semestre 2025-I</p>
+                            <div class="mt-10 mb-4">
+                                <a href="https://fcctp.usmp.edu.pe/pdf/Calendario-Academico-2025-I.pdf" target="_blank"
+                                    class="bg-gray-600 hover:bg-gray-700 text-white border px-4 py-3 rounded-md transition-colors duration-300 ease-in-out">
+                                    Ver Documento <i class="pl-1 fa-regular fa-file-lines"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white p-6 rounded-lg shadow-lg border border-gray-300 flex gap-4 w-100">
+                        <div class="flex-shrink-0">
+                            <img src="assets/images/ico-cc.svg" alt="Icon" class="h-12 w-12">
+                        </div>
+                        <div class="flex-grow">
+                            <h2 class="subtitulo leading-5 pb-2 sm:pe-0 md:pe-10">Cronograma de matrícula</h2>
+                            <p class="text-gray-500">Semetre 2025-I</p>
+                            <div class="mt-10 mb-4">
+                                <a href="https://fcctp.usmp.edu.pe/site/alumnos/servicios-academicos/registros-academicos/alumnos-pregrado/cronograma-academico-pregrado/"
+                                    target="_blank"
+                                    class="bg-gray-600 hover:bg-gray-700 text-white border px-4 py-3 rounded-md transition-colors duration-300 ease-in-out">
+                                    Ir al enlace <i class="pl-1 fa-solid fa-link"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
 
 
 
     <!-- Horarios -->
-    <section id="horario" class="container mx-auto pt-10 px-4 my-0 lg:my-20 md:my-20 sm:my-5 ">
+    <section id="horario" class="container mx-auto pt-10 px-4 my-0 lg:my-5 md:my-20 sm:my-5 ">
         <div class="mx-auto text-left font-poppins mb-10">
             <h6 class="text-red-600 mb-0">Asignaturas y prerrequisitos por escuela </h6>
             <div class="titulo">Plan de estudios y Horarios</div>
