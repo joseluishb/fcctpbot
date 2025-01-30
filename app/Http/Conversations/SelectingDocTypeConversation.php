@@ -43,11 +43,11 @@ class SelectingDocTypeConversation extends Conversation
     public function run() : void
     {
         $this->initializeSessionId();
-        Log::info('sessions in __construct', [
+/*         Log::info('sessions in __construct', [
             'sessionId' => $this->sessionId,
             'session_uuid' => $this->uuid,
             'uuid' => $this->botman->userStorage()->get('session_uuid')
-        ]);
+        ]); */
 
 
 
@@ -517,12 +517,13 @@ class SelectingDocTypeConversation extends Conversation
                     $this->logInteraction('satisfaction_selected', null, $answer->getText(), $this->botman->userStorage()->get('parent_id'));
 
                     //$this->botman->userStorage()->delete();
-
+                    /*
                     Log::info('sessions after delete()', [
                         'sessionId' => $this->sessionId,
                         'session_uuid' => $this->uuid,
                         'uuid' => $this->botman->userStorage()->get('session_uuid')
                     ]);
+                    */
 
                     //$this->endSession();
 
@@ -533,8 +534,8 @@ class SelectingDocTypeConversation extends Conversation
 
                     //$this->say('Lamento escuchar eso. Por favor, dime cómo puedo mejorar.');
                     $lastOoptionParenId = $this->botman->userStorage()->get('parent_id');
-                    Log::info('Destroying parent_id', ['id' => $lastOoptionParenId]);
 
+                    //Log::info('Destroying parent_id', ['id' => $lastOoptionParenId]);
                     //$this->botman->userStorage()->delete();
 
 
@@ -623,7 +624,6 @@ class SelectingDocTypeConversation extends Conversation
                     $this->bot->typesAndWaits(1);
                     $this->logInteraction('newstudent-no_selected', null, $answer->getText());
                     $this->say('Puedes escribirnos a soporte_fcctp@usmp.pe y escribe tu caso.');
-
                 }
 
             }
