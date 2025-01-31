@@ -138,17 +138,23 @@ class SelectingDocTypeConversation extends Conversation
         });
     }
 
-    public function conversationIntent($isMessageStart=false)
+    public function conversationIntent($isMessageStart=false, $newMessage=null)
     {
-        $msge = $this->botman->getMessage()->getText();
-        $this->logInteraction('initial_message', null, $msge);
+        //$msge = $this->botman->getMessage()->getText();
+        //$this->logInteraction('initial_message', null, $msge);
 
         $documentNumber = $this->botman->userStorage()->get('documentNumber');
         $clienteTempMat = $this->conditionEvaluator->getClienteTempMatricula($documentNumber);
 
         $startMessage = $this->botman->userStorage()->get('startMessage');
-        $intentName = $this->dialogflow->gettingIntent($startMessage);
-        Log::info('Dialogflow IntentName for DB Consulting: ' . $intentName);
+
+        $message = $newMessage ? $newMessage : $startMessage;
+        $interactionType = $newMessage ? 'new_message' : 'initial_message';
+
+        $this->logInteraction($interactionType, null, $message);
+        $intentName = $this->dialogflow->gettingIntent($message);
+
+        Log::info('Dialogflow IntentName for DB Consulting: ' , ['intentName' => $intentName, 'Message' => $message]);
 
         $hola = $isMessageStart ? "Hola {$clienteTempMat->alumno}!" : "";
 
@@ -244,6 +250,8 @@ class SelectingDocTypeConversation extends Conversation
                     - Si no estudiaste el ciclo anterior y no cuentas con reserva de matrícula, debes realizar la reactualización de tu matrícula.<br>
                     - Si no cuenta con tu correo institucional u olvidaste tu contraseña, deberás seleccionar la opción 6 de soporte informático.";
 
+        $msgeIni .= "- <br>También puedes consultar en nuestro landing informativo: <a href='https://matricula.fcctp.edu.pe'><strong>Clic aquí</strong></a>";
+
         $startMessage = $this->botman->userStorage()->get('startMessage');
 
         $this->bot->typesAndWaits(2);
@@ -259,6 +267,7 @@ class SelectingDocTypeConversation extends Conversation
             $description = $this->formatOptionDescription($opcion->desc_opcion);
             $questionText .= ($key + 1) . ". " . $description . "<br>";
         }
+        $questionText .= ($options->count() + 1) . ". Nueva consulta<br>";
 
         $question = Question::create($questionText)
             ->fallback('No puedo procesar tu solicitud')
@@ -266,6 +275,8 @@ class SelectingDocTypeConversation extends Conversation
 
         $this->ask($question, function (Answer $answer) use ($options, $clienteTempMat) {
             $optionIndex = (int) $answer->getText() - 1;
+
+            //Log::info('Selected option', [$optionIndex, $options->count()]);
 
             if ($optionIndex >= 0 && $optionIndex < $options->count()) {
                 $selectedOption = $options[$optionIndex];
@@ -295,6 +306,15 @@ class SelectingDocTypeConversation extends Conversation
                     $this->say('Opción no permitida. Solo puedes seleccionar las opciones 5 o 6. Por favor, intenta de nuevo.');
                     $this->repeat();
                 }
+            } elseif ($optionIndex == $options->count()) {
+                $indexResponse = 9;
+                $this->logInteraction('principal_option_selected', null, $indexResponse);
+
+                $this->ask("Ingrese su consulta", function (Answer $answer) {
+                    Log::info('newMessage', ['newMessage' => $answer->getText()]);
+                    $this->conversationIntent(false, $answer->getText());
+                });
+
             } else {
                 $this->logInteraction('principal_option_selected', null, $answer->getText());
 

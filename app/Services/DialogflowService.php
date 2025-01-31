@@ -12,13 +12,13 @@ class DialogflowService
 {
     public function gettingIntent($message)
     {
-        Log::info('GOOGLE_APPLICATION_CREDENTIALS: ' . env('GOOGLE_APPLICATION_CREDENTIALS'));
+/*         Log::info('GOOGLE_APPLICATION_CREDENTIALS: ' . env('GOOGLE_APPLICATION_CREDENTIALS'));
 
         if (file_exists(env('GOOGLE_APPLICATION_CREDENTIALS'))) {
             Log::info('JSON file is accessible.');
         } else {
             Log::error('JSON file is not accessible.');
-        }
+        } */
 
         $sessionsClient = null;
 
