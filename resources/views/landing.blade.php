@@ -155,10 +155,19 @@
                     </p>
                     <div
                         class="text-center md:text-left sm:text-center flex-1 xl:flex lg:flex-1 md:flex-1 sm:flex-1 gap-4 pt-4">
-                        <div class="pb-8"><a href="javascript:openModal();"
+                        <div class="pb-8">
+
+                        @php
+                            // Obtener el parámetro `show` como un array
+                            $shows = explode(',', request('show', '')); // Si no existe, devuelve un array vacío
+                        @endphp
+                        @if(in_array('turno', $shows))
+                            <a href="javascript:openModal();"
                                 class="bg-red-700 hover:bg-red-800 py-3 px-4 rounded-md text-center text-white text-base font-light transition-colors duration-300 ease-in-out w-25 cursor-pointer">
                                 Consulta tu turno<i class="fa-solid fa-chevron-right ps-4"></i>
-                            </a></div>
+                            </a>
+                        @endif
+                        </div>
                         <div><a data-fancybox href="https://www.youtube.com/watch?v=zfySaY6Q0aU"
                                 class="btn btn-danger bg-transparent hover:bg-red-700 py-3 px-4 rounded-md text-center text-gray-600 hover:text-white text-base font-md transition-colors duration-300 ease-in-out w-25 cursor-pointer border-2 border-gray-500 hover:border-red-700">
                                 Video instructivo de matrícula<i class="fa-solid fa-chevron-right ps-4"></i>
@@ -742,10 +751,7 @@
             </div>
         </div>
     </div>
-    @php
-// Obtener el parámetro `show` como un array
-$shows = explode(',', request('show', '')); // Si no existe, devuelve un array vacío
-    @endphp
+
     <div id="modal" class="fixed inset-0 flex items-center justify-center bg-gray-500 bg-opacity-75 {{ in_array('turno', $shows) ? '' : 'hidden' }}">
         <div class="bg-white w-full max-w-md mx-4 mx-auto rounded-lg shadow-lg">
             <div class="flex flex-col h-full">
