@@ -519,7 +519,7 @@ class SelectingDocTypeConversation extends Conversation
         });
     } */
 
-    protected function askSatisfaction($subOpciones, $clienteTempMat)
+    protected function askSatisfaction($subOpciones = null, $clienteTempMat = null)
     {
         $question = Question::create('¿Estás satisfecho(a) con mi respuesta?')
             ->addButtons([
@@ -629,16 +629,34 @@ class SelectingDocTypeConversation extends Conversation
                 if ($answer->getValue() === 'yes') {
                     $this->bot->typesAndWaits(1);
 
-                    $msgeWelcome = "<strong>Bienvenido a tu primera matrícula!!!</strong>";
+/*                     $msgeWelcome = "<strong>Bienvenido a tu primera matrícula!!!</strong>";
                     $msgeWelcome .= "<p>A partir del 23 de julio podrás realizar tu primera matrícula en la FCCTP de la USMP ingresando al siguiente enlace para contactarte con la Oficina de Registros Académicos quien, de ser necesario, te asistirá.</p>";
                     $msgeWelcome .= '<p><a href="https://usmp-edu-pe.zoom.us/j/83990742629" target="_blank"><strong>ACCESO A SALA ZOOM DE REGISTROS ACADÉMICOS</strong></a></p>';
                     $msgeWelcome .= "<p><br>Recuerda que también podrás realizar tu matrícula de manera autónoma ingresando al siguiente enlace:</p>";
                     $msgeWelcome .= '- <a href="https://fioriprd.udm.hec.ondemand.com/sap/bc/ui2/flp?sap-client=400" target="_blank"><strong>ACCESO A SAP</strong></a><br>';
                     $msgeWelcome .= '- <a href="https://www.youtube.com/watch?v=A7n1_akA_Y0"><strong>VIDEO TUTORIAL DE MATRÍCULA SAP</strong></a>';
 
+                    $this->say($msgeWelcome); */
 
                     $this->logInteraction('newstudent-yes_selected', null, $answer->getText());
-                    $this->say($msgeWelcome);
+
+
+                    $intentName = '8_matricula-ingresantes';
+                    $selectedNextSubOption = MenuOption::where('intent', $intentName)->first();
+
+                    if ($selectedNextSubOption) {
+                        if ($selectedNextSubOption->respuesta && trim($selectedNextSubOption->respuesta) !== '') {
+                            $this->bot->typesAndWaits(1);
+                            $this->bot->userStorage()->save([
+                                'parent_id' => $selectedNextSubOption->id
+                            ]);
+                            $this->say($selectedNextSubOption->respuesta);
+
+                            $this->askSatisfaction();
+                            $this->botman->userStorage()->delete();
+                        }
+                    }
+
 
                 } elseif ($answer->getValue() === 'no') {
                     $this->bot->typesAndWaits(1);
