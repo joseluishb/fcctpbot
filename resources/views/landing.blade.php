@@ -155,9 +155,9 @@
                     </p>
                     <div
                         class="text-center md:text-left sm:text-center flex-1 xl:flex lg:flex-1 md:flex-1 sm:flex-1 gap-4 pt-4">
-                        <div class="pb-8"><a href="#matricula"
+                        <div class="pb-8"><a href="javascript:openModal();"
                                 class="bg-red-700 hover:bg-red-800 py-3 px-4 rounded-md text-center text-white text-base font-light transition-colors duration-300 ease-in-out w-25 cursor-pointer">
-                                Más información<i class="fa-solid fa-chevron-down ps-4"></i>
+                                Consulta tu turno<i class="fa-solid fa-chevron-right ps-4"></i>
                             </a></div>
                         <div><a data-fancybox href="https://www.youtube.com/watch?v=zfySaY6Q0aU"
                                 class="btn btn-danger bg-transparent hover:bg-red-700 py-3 px-4 rounded-md text-center text-gray-600 hover:text-white text-base font-md transition-colors duration-300 ease-in-out w-25 cursor-pointer border-2 border-gray-500 hover:border-red-700">
@@ -831,7 +831,9 @@ $shows = explode(',', request('show', '')); // Si no existe, devuelve un array v
                     demo();
                 });
         };
-
+        function openModal() {
+            document.getElementById('modal').classList.remove('hidden');
+        }
 
         function closeModal() {
             document.getElementById('modal').classList.add('hidden');
