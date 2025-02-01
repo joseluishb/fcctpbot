@@ -819,7 +819,7 @@ $shows = explode(',', request('show', '')); // Si no existe, devuelve un array v
                 //bubbleBackground:'#c02026',
                 desktopHeight: 600,
                 desktopWidth: 400,
-                aboutLink: 'https://hube.pe',
+                aboutLink: 'https://fcctp.usmp.edu.pe',
                 aboutText: 'Desarrollado por OTI-FCCTP',
                 alwaysUseFloatingButton: !0,
             }
