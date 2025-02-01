@@ -291,23 +291,26 @@ class SelectingDocTypeConversation extends Conversation
                 ]);
 
                 if (in_array($selectedOption->id, $validOptions)) {
+                    if($clienteTempMat->modalidad === 'INGRESANTES' && ($selectedOption->id !== 120 && $selectedOption->id !== 6)) {
+                        $this->bot->typesAndWaits(1);
+                        $this->say('Opción no permitida. Por tu modalidad, solo puedes seleccionar las opciones 6, 8 o 9. Por favor, intenta de nuevo.');
+                        $this->repeat();
+                    }else{
 
+                        $this->bot->typesAndWaits(1);
+                        $this->say('Has seleccionado: ' . $selectedOption->desc_opcion);
 
+                        if ($selectedOption->respuesta && trim($selectedOption->respuesta) !== '') {
+                            $this->say($selectedOption->respuesta);
+                        }
 
-                    $this->bot->typesAndWaits(1);
-                    $this->say('Has seleccionado: ' . $selectedOption->desc_opcion);
-
-                    if ($selectedOption->respuesta && trim($selectedOption->respuesta) !== '') {
-                        $this->say($selectedOption->respuesta);
+                        // Manejo de la opción seleccionada
+                        $this->handleSelectedOption($selectedOption->id, $clienteTempMat);
                     }
-
-                    // Manejo de la opción seleccionada
-                    $this->handleSelectedOption($selectedOption->id, $clienteTempMat);
-
 
                 } else {
                     $this->bot->typesAndWaits(1);
-                    $this->say('Opción no permitida. Solo puedes seleccionar las opciones 5 o 6. Por favor, intenta de nuevo.');
+                    $this->say('Opción no permitida. Por tu modalidad, solo puedes seleccionar las opciones 5, 6 o 9. Por favor, intenta de nuevo.');
                     $this->repeat();
                 }
             } elseif ($optionIndex == $options->count()) {
