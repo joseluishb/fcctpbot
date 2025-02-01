@@ -280,9 +280,10 @@ class SelectingDocTypeConversation extends Conversation
 
             if ($optionIndex >= 0 && $optionIndex < $options->count()) {
                 $selectedOption = $options[$optionIndex];
+                //Log::info('Selected option id', [$optionIndex, $options->count(), $selectedOption->id]);
 
 
-                $validOptions = ((int)$clienteTempMat->estado === 1) ? [1,2,3,4,5,6,7] : [5, 6];
+                $validOptions = ((int)$clienteTempMat->estado === 1) ? [1,2,3,4,5,6,7,120] : [5, 6];
 
                 $this->logInteraction('principal_option_selected', $selectedOption->id, $answer->getText());
                 $this->botman->userStorage()->save([
@@ -290,6 +291,9 @@ class SelectingDocTypeConversation extends Conversation
                 ]);
 
                 if (in_array($selectedOption->id, $validOptions)) {
+
+
+
                     $this->bot->typesAndWaits(1);
                     $this->say('Has seleccionado: ' . $selectedOption->desc_opcion);
 

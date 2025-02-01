@@ -136,7 +136,7 @@ class ConditionEvaluatorService
     public function getReplyForMatExtemporanea($conditionsJson, $codEsc)
     {
         $currentDate = Carbon::today();
-        $codPer = '2024-2';
+        $codPer = '2025-1';
 
         $conditions = json_decode($conditionsJson, true);
 
@@ -180,7 +180,7 @@ class ConditionEvaluatorService
     public function getReplyForLinkZoon($conditionsJson, $codEsc)
     {
         $currentDate = Carbon::today();
-        $codPer = '2024-2';
+        $codPer = '2025-1';
 
         $conditions = json_decode($conditionsJson, true);
 
