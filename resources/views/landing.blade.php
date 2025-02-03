@@ -475,11 +475,11 @@ $shows = explode(',', request('show', '')); // Si no existe, devuelve un array v
 
 
     <!-- asesorias -->
-    <section class="container mx-auto px-4 pt-10 my-10 lg:my-20 md:my-20 sm:my-10" id="asesoria">
+    <section class="container mx-auto px-4 my-10 lg:my-20 md:my-20 sm:my-10" id="asesoria">
         <div class="grid lg:grid-cols-2 md:grid-cols-1 sm:grid-cols-1 grid-cols-1 gap-4">
             <div class="mx-left">
                 <img src="assets/images/foto-plan.jpg" alt=""
-                    class="rounded-3xl h-48 md:w-full md:h-96 sm:w-full sm:h-48 w-full sm:h-full object-cover object-fit">
+                    class="rounded-3xl h-48 w-full lg:h-full md:w-full md:h-48 sm:w-full sm:h-48 object-cover object-fit">
             </div>
             <div class="p-6 flex-1 content-center">
                 <div class="mx-auto text-left font-poppins mb-10">
@@ -488,24 +488,21 @@ $shows = explode(',', request('show', '')); // Si no existe, devuelve un array v
                 </div>
                 <div class="">
                     <!-- card 1 -->
-                    <div class="bg-white shadow-md rounded-lg p-6 w-full border border-gray-300 mb-5 hidden">
+                    <div class="bg-white shadow-md rounded-lg p-6 w-full border border-gray-100 mb-5">
                         <div class="">
-                            <h2 class="mb-2 subtitulo">Fórmula de matrícula: Alumnos de IX y X
-                                ciclo de
-                                Ciencias de la Comunicación</h2>
-                            <p class="text-gray-700">Elige la fórmula de inscripción según ciclo y turno, de acuerdo
-                                a tu área de interés</p>
+                            <h2 class="mb-2 subtitulo">Fórmula de matrícula: Talleres de IX y X ciclo 2025-I</h2>
+                            <p class="text-gray-700">Elige la fórmula de matrícula según ciclo y turno, de acuerdo a tu área
+                                de interés</p>
                         </div>
                         <div class="pt-4">
-                            <a href="https://fcctp.usmp.edu.pe/documentos/pdf/proceso-de-matricula-2024-II.pdf"
-                                target="_blank"
+                            <a href="https://fcctp.usmp.edu.pe/pdf/matricula/ai-formulas-2025.pdf" target="_blank"
                                 class="bg-gray-600 hover:bg-gray-700 text-white border px-4 py-3 rounded-md font-light transition-colors duration-300 ease-in-out w-25 block w-[12rem]   text-center">
                                 <i class="fa-regular fa-file-lines pr-2"></i> Ver PDF
                             </a>
                         </div>
                     </div>
                     <!-- card 2 -->
-                    <div class="bg-white shadow-md rounded-lg p-6 w-full border border-gray-300">
+                    <div class="bg-white shadow-md rounded-lg p-6 w-full border border-gray-100">
                         <div class="">
                             <div class="mb-2 subtitulo">Tesorería: Asesoría de Pagos</div>
                             Horario: Lunes a viernes de 7:45 a. m. a 8:30
