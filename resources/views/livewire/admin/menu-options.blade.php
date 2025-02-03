@@ -82,8 +82,8 @@
                                                 {{ $menuOption->desc_opcion }}
 
                                                 <p class="italic relative">
-                                                    {!! $menuOption->executes_system_process ? '<a href="javascript:" class="relative group"><i class="fas fa-exclamation-circle"></i> Ejecuta proceso interno<span class="absolute left-1/2 transform -translate-x-1/2 bottom-full mb-2 w-48 p-2 text-sm text-white bg-black rounded opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-500">' . $menuOption->exec_system_process_instructions . '</span></a>': '' !!}
-                                                    {{ $menuOption->is_system_option ? 'Opción para proceso interno': '' }}
+                                                    {!! $menuOption->executes_system_process ? '<a href="javascript:" class="relative group"><i class="fas fa-exclamation-circle"></i> Ejecuta proceso interno<span class="absolute left-1/2 transform -translate-x-1/2 bottom-full mb-2 w-48 p-2 text-sm text-white bg-black rounded opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-500">' . $menuOption->exec_system_process_instructions . '</span></a>' : '' !!}
+                                                    {{ $menuOption->is_system_option ? 'Opción para proceso interno' : '' }}
                                                 </p>
                                             </td>
                                             <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
@@ -117,46 +117,52 @@
 
                 {{-- Modal para editar --}}
                 @if($isModalOpen)
-                    <div class="fixed inset-0 flex items-center justify-center bg-gray-500 bg-opacity-75">
-                        <div class="bg-white p-8 w-full max-w-2xl mx-4 rounded-lg shadow-lg">
-                            <h3 class="text-lg font-semibold mb-4">Editar opción de chatbot</h3>
-                            <form wire:submit.prevent="update">
-                                <div class="mb-4">
-                                    <label class="block text-sm font-medium text-gray-700">Opción</label>
-                                    <input wire:model.defer="desc_opcion" type="text"
-                                        class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
-                                    @error('desc_opcion') <span
-                                        class="text-red-500 text-sm">{{ $message }}</span> @enderror
-                                </div>
-                                <div class="mb-4">
-                                    <label class="block text-sm font-medium text-gray-700">Respuesta</label>
+                                        <div class="fixed inset-0 flex items-center justify-center bg-gray-500 bg-opacity-75">
+                                            <div class="bg-white p-8 w-full max-w-2xl mx-4 rounded-lg shadow-lg">
+                                                <h3 class="text-lg font-semibold mb-4">Editar opción de chatbot</h3>
+                                                <form wire:submit.prevent="update">
+                                                    <div class="mb-4">
+                                                        <label class="block text-sm font-medium text-gray-700">Opción</label>
+                                                        <input wire:model.defer="desc_opcion" type="text"
+                                                            class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+                                                        @error('desc_opcion') <span
+                                                            class="text-red-500 text-sm">{{ $message }}</span> @enderror
+                                                    </div>
+                                                    <div class="mb-4">
+                                                        <label class="block text-sm font-medium text-gray-700">Respuesta</label>
 
+                                                        <div wire:ignore>
+                                                            <textarea wire:model.defer="respuesta" id="respuesta2"
+                                                                class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+                                                                                            </textarea>
+                                                        </div>
 
-                                    <div wire:ignore>
-                                    <textarea wire:model.defer="respuesta" id="ckeditor_respuesta"
-                                        class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
-                                    </textarea>
-                                    </div>
-                                        @error('respuesta')
-                                        <span class="text-red-500 text-sm">{{ $message }}</span>
-                                        @enderror
-                                </div>
-                                <div class="mb-4">
-                                    <div class="bg-blue-100 border-t border-b border-blue-500 text-blue-700 px-4 py-3" role="alert">
-                                        <p class="font-bold">Instrucciones de respuesta</p>
-                                        <p class="text-sm italic">{{ ($instructivo != '') ? $instructivo : 'Sin instrucciones' }}</p>
-                                    </div>
-                                </div>
-                                <div class="flex justify-end">
-                                    <button type="button" wire:click="closeModal"
-                                        class="px-4 py-2 text-gray-500 bg-gray-200 rounded mr-2">Cancelar</button>
-                                    <button type="submit"
-                                        class="px-4 py-2 text-white bg-red-700 text-white  hover:bg-red-800 rounded">Guardar
-                                        Cambios</button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
+                    {{--                                     <div wire:ignore>
+                                                            <textarea wire:model.defer="respuesta" id="ckeditor_respuesta"
+                                                                class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+                                                            </textarea>
+                                                        </div> --}}
+
+                                                            @error('respuesta')
+                                                            <span class="text-red-500 text-sm">{{ $message }}</span>
+                                                            @enderror
+                                                    </div>
+                                                    <div class="mb-4">
+                                                        <div class="bg-blue-100 border-t border-b border-blue-500 text-blue-700 px-4 py-3" role="alert">
+                                                            <p class="font-bold">Instrucciones de respuesta</p>
+                                                            <p class="text-sm italic">{{ ($instructivo != '') ? $instructivo : 'Sin instrucciones' }}</p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="flex justify-end">
+                                                        <button type="button" wire:click="closeModal"
+                                                            class="px-4 py-2 text-gray-500 bg-gray-200 rounded mr-2">Cancelar</button>
+                                                        <button type="submit"
+                                                            class="px-4 py-2 text-white bg-red-700 text-white  hover:bg-red-800 rounded">Guardar
+                                                            Cambios</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
                 @endif
 
                 {{-- Modal para ver el diagrama de las sub-opciones del option padre --}}
@@ -206,75 +212,108 @@
 
 
 @push('scripts')
-<script src="{{ asset('assets/js/ckeditor.js') }}"></script>
-{{-- <script src="https://cdn.ckeditor.com/ckeditor5/41.4.2/classic/ckeditor.js"></script> --}}
+        {{-- <script src="{{ asset('assets/js/ckeditor.js') }}"></script> --}}
 
-<script>
-    document.addEventListener('livewire:init', function () {
-        console.log('oooohhhhh');
-        Livewire.on('oopenModal', () => {
-            setTimeout(() => {
+        <script src="https://cdn.tiny.cloud/1/nxbh8939vu50anif746swrf8qmh8wqb8iwb165a0iidgv6zk/tinymce/7/tinymce.min.js"
+            referrerpolicy="origin"></script>
 
-                    ClassicEditor
-                        .create(document.querySelector('#ckeditor_respuesta'), {
-                            extraPlugins: [ 'SourceEditing' ],
-                            toolbar: {
-                                items: [
-                                    'sourceEditing', '|',
-                                    'undo',
-                                    'redo',
-                                    '|',
-                                    'bold',
-                                    'italic',
-                                    '|',
-                                    'link',
-                                    'bulletedList',
-                                    'numberedList',
-                                    '|'
-                                    // Más íconos aquí según sea necesario
-                                ]
-                            },
-                            contentCss: [
-                                '{{ asset('assets/css/ckedirtor.css') }}', // Reemplaza con la ruta correcta a tu archivo CSS
-                                            'https://cdn.jsdelivr.net/npm/tailwindcss@3.4.4/dist/tailwind.min.css' // Tailwind CSS
 
-                            ]
-                        })
-                        //.create(document.querySelector('#ckeditor_respuesta'))
-                        .then(editor => {
-                            editor.model.document.on('change:data', () => {
-                                @this.set('respuesta', editor.getData());
-                            });
-                        })
-                        .catch(error => {
-                            console.error(error);
+
+        <script>
+            document.addEventListener('livewire:init', function () {
+                console.log('oooohhhhh');
+                Livewire.on('oopenModal', () => {
+    /*                 setTimeout(() => {
+
+                            ClassicEditor
+                                .create(document.querySelector('#ckeditor_respuesta'), {
+                                    extraPlugins: [ 'SourceEditing' ],
+                                    toolbar: {
+                                        items: [
+                                            'sourceEditing', '|',
+                                            'undo',
+                                            'redo',
+                                            '|',
+                                            'bold',
+                                            'italic',
+                                            '|',
+                                            'link',
+                                            'bulletedList',
+                                            'numberedList',
+                                            '|'
+                                            // Más íconos aquí según sea necesario
+                                        ]
+                                    },
+                                    contentCss: [
+                                        '{{ asset('assets/css/ckedirtor.css') }}', // Reemplaza con la ruta correcta a tu archivo CSS
+                                                    'https://cdn.jsdelivr.net/npm/tailwindcss@3.4.4/dist/tailwind.min.css' // Tailwind CSS
+
+                                    ]
+                                })
+                                //.create(document.querySelector('#ckeditor_respuesta'))
+                                .then(editor => {
+                                    editor.model.document.on('change:data', () => {
+                                        @this.set('respuesta', editor.getData());
+                                    });
+                                })
+                                .catch(error => {
+                                    console.error(error);
+                                });
+
+                    }, 100); */
+
+                    setTimeout(() => {
+                        // Destruir TinyMCE si ya está inicializado
+                        if (tinymce.get('respuesta2')) {
+                            tinymce.get('respuesta2').destroy();
+                        }
+
+                        // Inicializar TinyMCE nuevamente
+                        tinymce.init({
+                            selector: '#respuesta2',
+                            menubar: false,
+                            plugins: 'link lists code',
+                            toolbar: 'undo redo | bold italic | link bullist numlist | code',
+                            content_style: 'a { color: #bd1714}',
+                            setup: function (editor) {
+                                editor.on('change', function () {
+                                    @this.set('respuesta', editor.getContent());
+                                });
+                            }
+                        });
+                    }, 100);
+                });
+
+                    Livewire.on('closeModal', () => {
+                            if (tinymce.get('respuesta2')) {
+                                tinymce.get('respuesta2').destroy();
+                            }
                         });
 
-            }, 100);
-        });
-
-
-    });
-</script>
-
-
-<script>
-/*     document.addEventListener('DOMContentLoaded', function () {
-        Livewire.on('ooopenModal', (event) => {
-            let menuJson = event[0].menuJson;
-
-            if (!Array.isArray(menuJson)) {
-                menuJson = JSON.parse(menuJson); // Convertir a array si es un objeto JSON
-            }
+            });
 
 
 
-            setTimeout(() => {
-                console.log(menuJson );
+        </script>
 
-                renderMermaidDiagram(menuJson, 'menu-diagram');
-            }, 100);
-        });
-    }); */
-</script>
+
+        <script>
+             document.addEventListener('DOMContentLoaded', function () {
+                Livewire.on('ooopenModal', (event) => {
+                    let menuJson = event[0].menuJson;
+
+                    if (!Array.isArray(menuJson)) {
+                        menuJson = JSON.parse(menuJson); // Convertir a array si es un objeto JSON
+                    }
+
+
+
+                    setTimeout(() => {
+                        console.log(menuJson );
+
+                        renderMermaidDiagram(menuJson, 'menu-diagram');
+                    }, 100);
+                });
+            });
+        </script>
 @endpush
