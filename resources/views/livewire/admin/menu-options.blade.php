@@ -259,7 +259,7 @@
 
 
 <script>
-    document.addEventListener('DOMContentLoaded', function () {
+/*     document.addEventListener('DOMContentLoaded', function () {
         Livewire.on('ooopenModal', (event) => {
             let menuJson = event[0].menuJson;
 
@@ -275,6 +275,6 @@
                 renderMermaidDiagram(menuJson, 'menu-diagram');
             }, 100);
         });
-    });
+    }); */
 </script>
 @endpush
