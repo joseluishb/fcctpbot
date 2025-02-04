@@ -846,6 +846,8 @@ class SelectingDocTypeConversation extends Conversation
             $this->say($selectedSubOption->respuesta);
         }
 
+        //dd($selectedSubOption->optionRoute);
+
         if (!empty($selectedSubOption->optionRoute)) {
             $this->handleOptionRoute($selectedSubOption, $clienteTempMat);
         }
@@ -879,29 +881,34 @@ class SelectingDocTypeConversation extends Conversation
         $nextOptionId = $nextOption[1];
         $action = $nextOption[0];
 
-        $nextSubOption = MenuOption::find($nextOptionId);
-        Log::info("handleOptionRoute", ["nextOption" => $nextOption, "nextSubOption" => $nextSubOption]);
-        $moreSubOptions = $this->getMoreSubOptions($nextSubOption);
+        if($action === 'GETAVERAGE') {
+            $this->askSatisfaction(null, $clienteTempMat);
+        }else{
 
-        if (in_array($action, ['FORNEXTOPTIONID', 'FORAMPLMATRICULA'])) {
-            if ($nextSubOption->respuesta && trim($nextSubOption->respuesta) !== '') {
-                $this->bot->typesAndWaits(1);
-                $this->say($nextSubOption->respuesta);
+            $nextSubOption = MenuOption::find($nextOptionId);
+            Log::info("handleOptionRoute", ["nextOption" => $nextOption, "nextSubOption" => $nextSubOption]);
+            $moreSubOptions = $this->getMoreSubOptions($nextSubOption);
+
+            if (in_array($action, ['FORNEXTOPTIONID', 'FORAMPLMATRICULA'])) {
+                if ($nextSubOption->respuesta && trim($nextSubOption->respuesta) !== '') {
+                    $this->bot->typesAndWaits(1);
+                    $this->say($nextSubOption->respuesta);
+                }
+            } elseif (in_array($action, ['FORREPLYEXTEMP', 'FORREPLYLINKZOOM'])) {
+                if ($nextSubOption->respuesta && trim($nextSubOption->respuesta) !== '') {
+                    $this->bot->typesAndWaits(1);
+                    $this->say($nextSubOption->respuesta);
+                }
             }
-        } elseif (in_array($action, ['FORREPLYEXTEMP', 'FORREPLYLINKZOOM'])) {
-            if ($nextSubOption->respuesta && trim($nextSubOption->respuesta) !== '') {
-                $this->bot->typesAndWaits(1);
-                $this->say($nextSubOption->respuesta);
+
+
+            if ($moreSubOptions->isEmpty()) {
+                $subOpciones = MenuOption::where('parent_id', $nextSubOption->id)->get(['id', 'parent_id', 'desc_opcion', 'respuesta', 'executes_system_process']);
+                $this->askSatisfaction($subOpciones, $clienteTempMat);
+            } else {
+                $this->showSubOptions($moreSubOptions, $clienteTempMat);
             }
+
         }
-
-
-        if ($moreSubOptions->isEmpty()) {
-            $subOpciones = MenuOption::where('parent_id', $nextSubOption->id)->get(['id', 'parent_id', 'desc_opcion', 'respuesta', 'executes_system_process']);
-            $this->askSatisfaction($subOpciones, $clienteTempMat);
-        } else {
-            $this->showSubOptions($moreSubOptions, $clienteTempMat);
-        }
-
     }
 }
