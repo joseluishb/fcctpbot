@@ -63,6 +63,10 @@ html, body {
     border-top-left-radius: 2px;
 }
 
+.chatbot .msg figure{
+    margin-left: -25px;
+    margin-right: -25px;
+}
 .msg {
     word-wrap: break-word;
     min-width: 50px;

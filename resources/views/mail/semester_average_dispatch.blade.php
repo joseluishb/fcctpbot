@@ -1,14 +1,8 @@
 <x-mail::message>
-# Estimado(a) alumno:
+# Estimado(a) alumno(a):
 
 <p>
-Te escribimos para informarte sobre su promedio ponderado correspondiente al periodo 2024-2.
-</p>
-<p>
 Después de la revisión y el cálculo de tus calificaciones, tu promedio ponderado es de {{ $tempMatricula->prom_sem }}.
-</p>
-<p>
-Este resultado refleja tu esfuerzo y dedicación a lo largo del semestre. En caso de que tenga alguna pregunta o necesite más información sobre su rendimiento académico, no dude en ponerse en contacto con nosotros.
 </p>
 
 <p>

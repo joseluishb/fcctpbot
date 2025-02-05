@@ -83,7 +83,11 @@ class ConditionEvaluatorService
             return [$conditions['action'], $nextOptionId];
         }
 
-        if ($conditions['action'] === 'GETAVERAGE') {
+
+
+        $promSem = null;
+        if ($conditions['action'] === 'GETAVERAGE' && $clienteTempMat->modalidad === 'REGULAR') {
+
             $codEsc = $clienteTempMat->cod_esc;
             $promSem = $clienteTempMat->prom_sem;
 
@@ -91,7 +95,6 @@ class ConditionEvaluatorService
             $action = "GETAVERAGE";
 
             //TODO:: ENVIAR X CORREO
-
             $recordExists = BotMailSended::where('em', $em)
                                             ->where('action', $action)->exists();
 
