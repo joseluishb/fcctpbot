@@ -180,6 +180,8 @@ class SelectingDocTypeConversation extends Conversation
                     $this->askSatisfaction($moreSubOptions, $clienteTempMat);
                 }
 
+                Log::info('selectedNextSubOption intent', ['selectedNextSubOption' => $selectedNextSubOption]);
+
                 if(!$selectedNextSubOption->executes_system_process) {
                     // Manejar la selección de la opción
                     $this->handleSelectedOption($selectedNextSubOption->id, $clienteTempMat);
@@ -343,6 +345,8 @@ class SelectingDocTypeConversation extends Conversation
             Log::info('No hay sub-opciones disponibles', ['parent_id' => $optionId]);
             return;
         }
+
+        Log::info('handleSelectedOption fn', ['subOpciones' => $subOpciones]);
 
         $this->showSubOptions($subOpciones, $clienteTempMat);
     }
@@ -889,21 +893,22 @@ class SelectingDocTypeConversation extends Conversation
             Log::info("handleOptionRoute", ["nextOption" => $nextOption, "nextSubOption" => $nextSubOption]);
             $moreSubOptions = $this->getMoreSubOptions($nextSubOption);
 
-            if (in_array($action, ['FORNEXTOPTIONID', 'FORAMPLMATRICULA'])) {
-                if ($nextSubOption->respuesta && trim($nextSubOption->respuesta) !== '') {
+            if (in_array($action, ['FORNEXTOPTIONID', 'FORAMPLMATRICULacitive && A'])) {
+                if ($nextSubOption->active && $nextSubOption->respuesta && trim($nextSubOption->respuesta) !== '') {
                     $this->bot->typesAndWaits(1);
                     $this->say($nextSubOption->respuesta);
                 }
             } elseif (in_array($action, ['FORREPLYEXTEMP', 'FORREPLYLINKZOOM'])) {
-                if ($nextSubOption->respuesta && trim($nextSubOption->respuesta) !== '') {
+                if ($nextSubOption->active && $nextSubOption->respuesta && trim($nextSubOption->respuesta) !== '') {
                     $this->bot->typesAndWaits(1);
                     $this->say($nextSubOption->respuesta);
                 }
             }
 
+            Log::info('moreSubOptions:', [$moreSubOptions]);
 
             if ($moreSubOptions->isEmpty()) {
-                $subOpciones = MenuOption::where('parent_id', $nextSubOption->id)->get(['id', 'parent_id', 'desc_opcion', 'respuesta', 'executes_system_process']);
+                $subOpciones = MenuOption::where('parent_id', $nextSubOption->id)->where('active', 1)->get(['id', 'parent_id', 'desc_opcion', 'respuesta', 'executes_system_process']);
                 $this->askSatisfaction($subOpciones, $clienteTempMat);
             } else {
                 $this->showSubOptions($moreSubOptions, $clienteTempMat);
