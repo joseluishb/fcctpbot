@@ -161,8 +161,8 @@
 // Obtener el parámetro `show` como un array
 $shows = explode(',', request('show', '')); // Si no existe, devuelve un array vacío
                         @endphp
-                        {{-- @if(in_array('turno', $shows)) --}}
-                        @if(true)
+                        @if(in_array('turno', $shows))
+                        {{-- @if(true) --}}
                             <a href="javascript:openModal();"
                                 class="bg-red-700 hover:bg-red-800 py-3 px-4 rounded-md text-center text-white text-base font-light transition-colors duration-300 ease-in-out w-25 cursor-pointer">
                                 Consulta tu turno<i class="fa-solid fa-chevron-right ps-4"></i>
@@ -220,18 +220,18 @@ $shows = explode(',', request('show', '')); // Si no existe, devuelve un array v
                         <div class="py-4">
                             <ul class="list-disc pl-10">
                                 <li>No tener deudas pendientes con la Universidad.</li>
-                                <li>Cancelar tu recibo por derecho de matrícula 2025-I.</li>
+                                <li>Cancelar tu recibo por derecho de matrícula 2025-II.</li>
                             </ul>
                         </div>
                         <div class="">
                             <div class="mb-4">Además, Si:</div>
                             <ul class="list-disc pl-10">
-                                <li>Te estuviste matriculado en el semestre 2024-II no debes tener impedimento alguno por sanción disciplinaria o deficiencia académica.</li>
-                                <li>Realizaste el trámite de Reserva de matrícula para el semestre 2024-II.</li>
-                                <li>Realizaste el trámite de Retiro de ciclo del semestre 2024-II.</li>
-                                <li>Tienes Resolución de Reactualización de matrícula para el semestre 2025-I.</li>
-                                <li>Tienes Resolución de matrícula especial para el 2025-I.</li>
-                                <li>Perteneces al grupo de ingresantes 2025-I en todas las modalidades con la condición de admitido por la Oficina de Admisión.</li>
+                                <li>Te estuviste matriculado en el semestre 2025-I no debes tener impedimento alguno por sanción disciplinaria o deficiencia académica.</li>
+                                <li>Realizaste el trámite de Reserva de matrícula para el semestre 2025-I.</li>
+                                <li>Realizaste el trámite de Retiro de ciclo del semestre 2025-I.</li>
+                                <li>Tienes Resolución de Reactualización de matrícula para el semestre 2025-II.</li>
+                                <li>Tienes Resolución de matrícula especial para el 2025-II.</li>
+                                <li>Perteneces al grupo de ingresantes 2025-II en todas las modalidades con la condición de admitido por la Oficina de Admisión.</li>
                             </ul>
                         </div>
                     </div>
@@ -257,9 +257,9 @@ $shows = explode(',', request('show', '')); // Si no existe, devuelve un array v
                         </div>
                         <div class="flex-grow">
                             <h2 class="subtitulo leading-5 pb-2 pe-10">Calendario académico</h2>
-                            <p class="text-gray-500">Semestre 2025-I</p>
+                            <p class="text-gray-500">Semestre 2025-II</p>
                             <div class="mt-10 mb-4">
-                                <a href="https://fcctp.usmp.edu.pe/pdf/Calendario-Academico-2025-I.pdf" target="_blank"
+                                <a href="https://fcctp.usmp.edu.pe/pdf/calendario-academico-2025-II.pdf" target="_blank"
                                     class="bg-gray-600 hover:bg-gray-700 text-white border px-4 py-3 rounded-md transition-colors duration-300 ease-in-out">
                                     Ver Documento <i class="pl-1 fa-regular fa-file-lines"></i>
                                 </a>
@@ -750,7 +750,7 @@ $shows = explode(',', request('show', '')); // Si no existe, devuelve un array v
         </div>
     </div>
 
-    <div id="modal" class="fixed inset-0 flex items-center justify-center bg-gray-500 bg-opacity-75 {{ in_array('turno', $shows) ? '' : '' }}">
+    <div id="modal" class="fixed inset-0 flex items-center justify-center bg-gray-500 bg-opacity-75 {{ in_array('turno', $shows) ? '' : 'hidden' }}">
         <div class="bg-white w-full max-w-md mx-4 mx-auto rounded-lg shadow-lg">
             <div class="flex flex-col h-full">
 
@@ -936,8 +936,8 @@ $shows = explode(',', request('show', '')); // Si no existe, devuelve un array v
         }
     }
         </script>
-        {{-- @if(in_array('chatbot', $shows)) --}}
-        @if(true)
+        @if(in_array('chatbot', $shows))
+        {{-- @if(true) --}}
             <script src='https://cdn.jsdelivr.net/npm/botman-web-widget@0/build/js/widget.js'></script>
         @endif
 </body>
