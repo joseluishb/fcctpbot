@@ -273,7 +273,7 @@ $shows = explode(',', request('show', '')); // Si no existe, devuelve un array v
                         </div>
                         <div class="flex-grow">
                             <h2 class="subtitulo leading-5 pb-2 sm:pe-0 md:pe-10">Cronograma de matrícula</h2>
-                            <p class="text-gray-500">Semetre 2025-I</p>
+                            <p class="text-gray-500">Semetre 2025-II</p>
                             <div class="mt-10 mb-4">
                                 <a href="https://fcctp.usmp.edu.pe/site/alumnos/servicios-academicos/registros-academicos/alumnos-pregrado/cronograma-academico-pregrado/"
                                     target="_blank"
