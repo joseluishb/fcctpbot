@@ -589,7 +589,7 @@ $shows = explode(',', request('show', '')); // Si no existe, devuelve un array v
                     <h2 class="subtitulo">Consulta de buen pagador</h2>
                     <p class="text-gray-700 mt-2 mb-6 text-sm"> Verifica si te encuentras en el registro de BUEN
                         PAGADOR para el
-                        proceso de matrícula 2025-1. Puedes hacerlo haciendo clic en el siguiente botón: </p>
+                        proceso de matrícula 2025-2. Puedes hacerlo haciendo clic en el siguiente botón: </p>
                     <div class="mb-6">
                         <a href="https://fcctp.usmp.edu.pe/consulta-buen-pagador/" target="_blank"
                             class="bg-gray-600 hover:bg-gray-700 text-white border px-4 py-3 rounded-md text-gray-500 font-light transition-colors duration-300 ease-in-out w-25 block w-[12rem] mb-2 sm:mb-4 text-center">
