@@ -254,6 +254,8 @@ $shows = explode(',', request('show', '')); // Si no existe, devuelve un array v
                     <div class="bg-white p-6 rounded-lg shadow-lg border border-gray-300 flex gap-4 w-100">
                         <div class="flex-shrink-0">
                             <img src="assets/images/ico-cc.svg" alt="Icon" class="h-12 w-12">
+                        </div>
+                        <div class="flex-grow">
                             <h2 class="subtitulo leading-5 pb-2 pe-10">Calendario académico</h2>
                             <p class="text-gray-500">Semestre 2025-II</p>
                             <div class="mt-10 mb-4">
