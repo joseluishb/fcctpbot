@@ -251,10 +251,14 @@ $shows = explode(',', request('show', '')); // Si no existe, devuelve un array v
                     <div class="titulo">Cronograma de horarios de matrícula</div>
                 </div>
                 <div class="flex flex-wrap justify-center gap-10">
+                    <div class="bg-white p-6 rounded-lg shadow-lg border border-gray-300 flex gap-4 w-100">
+                        <div class="flex-shrink-0">
+                            <img src="assets/images/ico-cc.svg" alt="Icon" class="h-12 w-12">
                             <h2 class="subtitulo leading-5 pb-2 pe-10">Calendario académico</h2>
                             <p class="text-gray-500">Semestre 2025-II</p>
                             <div class="mt-10 mb-4">
-                                <a href="{{ url('/documentos/calendario-academico-2025-II.pdf') }}" target="_blank"
+                                <a href=" {{ url('documentos/calendario-academico-2025-II.pdf') }}" target="_blank"
+                                    class="bg-gray-600 hover:bg-gray-700 text-white border px-4 py-3 rounded-md transition-colors duration-300 ease-in-out">
                                     Ver Documento <i class="pl-1 fa-regular fa-file-lines"></i>
                                 </a>
                             </div>
