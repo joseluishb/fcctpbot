@@ -543,7 +543,7 @@ $shows = explode(',', request('show', '')); // Si no existe, devuelve un array v
                         Académico
                         SAP para matricularte, por favor haz clic en el botón y sigue las instrucciones.</p>
                     <div class="mb-6">
-                        <a href="https://sisfcctp.usmp.edu.pe/fcapps/sapform/reseteo/index.php" target="_blank"
+                        <a href="https://fcctpauth.usmp.edu.pe/login" target="_blank"
                             class="bg-gray-600 hover:bg-gray-700 text-white border px-4 py-3 rounded-md text-gray-500 font-light transition-colors duration-300 ease-in-out w-25 block w-[12rem] mb-2 sm:mb-4 text-center">
                             Solicitar reinicio<i class="fa-solid fa-chevron-right ps-4"></i>
                         </a>
