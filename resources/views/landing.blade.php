@@ -490,12 +490,12 @@ $shows = explode(',', request('show', '')); // Si no existe, devuelve un array v
                     <!-- card 1 -->
                     <div class="bg-white shadow-md rounded-lg p-6 w-full border border-gray-100 mb-5">
                         <div class="">
-                            <h2 class="mb-2 subtitulo">Fórmula de matrícula: Talleres de IX y X ciclo 2025-I</h2>
+                            <h2 class="mb-2 subtitulo">Fórmula de matrícula: Talleres de IX y X ciclo 2025-II</h2>
                             <p class="text-gray-700">Elige la fórmula de matrícula según ciclo y turno, de acuerdo a tu área
                                 de interés</p>
                         </div>
                         <div class="pt-4">
-                            <a href="https://fcctp.usmp.edu.pe/pdf/matricula/ai-formulas-2025.pdf" target="_blank"
+                            <a href="{{ URL('/documentos/cc-talleres-formulas-20252.pdf') }}" target="_blank"
                                 class="bg-gray-600 hover:bg-gray-700 text-white border px-4 py-3 rounded-md font-light transition-colors duration-300 ease-in-out w-25 block w-[12rem]   text-center">
                                 <i class="fa-regular fa-file-lines pr-2"></i> Ver PDF
                             </a>
