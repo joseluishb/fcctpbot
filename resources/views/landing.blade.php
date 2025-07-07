@@ -518,7 +518,7 @@ $shows = explode(',', request('show', '')); // Si no existe, devuelve un array v
                                 de interés</p>
                         </div>
                         <div class="pt-4">
-                            <a href="{{ URL('/documentos/cc-talleres-formulas-20252.pdf') }}" target="_blank"
+                            <a href="{{ URL('/documentos/cc-talleres-formulas-2025_2.pdf') }}" target="_blank"
                                 class="bg-gray-600 hover:bg-gray-700 text-white border px-4 py-3 rounded-md font-light transition-colors duration-300 ease-in-out w-25 block w-[12rem]   text-center">
                                 <i class="fa-regular fa-file-lines pr-2"></i> Ver PDF
                             </a>
