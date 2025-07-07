@@ -301,7 +301,7 @@ $shows = explode(',', request('show', '')); // Si no existe, devuelve un array v
                                 <a href="https://usmp-edu-pe.zoom.us/meeting/register/2arvE8WtSeaIsH3B17SU7A"
                                     target="_blank"
                                     class="bg-gray-600 hover:bg-gray-700 text-white border px-4 py-3 rounded-md transition-colors duration-300 ease-in-out">
-                                    Ir a la sala zom <i class="pl-1 fas fa-video"></i>
+                                    Ir a la sala zoom <i class="pl-1 fas fa-video"></i>
                                 </a>
                             </div>
                         </div>
