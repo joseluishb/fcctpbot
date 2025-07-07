@@ -275,7 +275,10 @@ $shows = explode(',', request('show', '')); // Si no existe, devuelve un array v
                             <h2 class="subtitulo leading-5 pb-2 sm:pe-0 md:pe-10">Cronograma de matrícula</h2>
                             <p class="text-gray-500">Semetre 2025-II</p>
                             <div class="mt-10 mb-4">
-                                <a href="https://fcctp.usmp.edu.pe/site/alumnos/servicios-academicos/registros-academicos/alumnos-pregrado/cronograma-academico-pregrado/"
+                            
+                            
+
+                                <a href="https://matricula.fcctp.edu.pe/documentos/cronograma-de-matricula-2025-2.pdf"
                                     target="_blank"
                                     class="bg-gray-600 hover:bg-gray-700 text-white border px-4 py-3 rounded-md transition-colors duration-300 ease-in-out">
                                     Ir al enlace <i class="pl-1 fa-solid fa-link"></i>
@@ -283,6 +286,26 @@ $shows = explode(',', request('show', '')); // Si no existe, devuelve un array v
                             </div>
                         </div>
                     </div>
+
+                    <div class="bg-white p-6 rounded-lg shadow-lg border border-gray-300 flex gap-4 w-100">
+                        <div class="flex-shrink-0">
+                            <img src="assets/images/ico-cc.svg" alt="Icon" class="h-12 w-12">
+                        </div>
+                        <div class="flex-grow">
+                            <h2 class="subtitulo leading-5 pb-2 sm:pe-0 md:pe-10">Sala Zoom</h2>
+                            <p class="text-gray-500">Matrícula 2025-II</p>
+                            <div class="mt-10 mb-4">
+                            
+                            
+
+                                <a href="https://usmp-edu-pe.zoom.us/meeting/register/2arvE8WtSeaIsH3B17SU7A"
+                                    target="_blank"
+                                    class="bg-gray-600 hover:bg-gray-700 text-white border px-4 py-3 rounded-md transition-colors duration-300 ease-in-out">
+                                    Ir al enlace <i class="pl-1 fa-solid fa-link"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>                    
                 </div>
             </div>
         </section>
