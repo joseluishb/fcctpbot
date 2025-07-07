@@ -304,7 +304,7 @@ $shows = explode(',', request('show', '')); // Si no existe, devuelve un array v
                         <h2 class=" subtitulo">Horario de Cursos</h2>
                         <p class="text-gray-700">Visualiza los turnos que tenemos disponibles</p>
                         <div class="flex justify-left w-full mt-4">
-                            <a href="https://app.powerbi.com/view?r=eyJrIjoiYTVlYTNjMjAtNTIxNC00MDgzLThhM2EtZTJlYjc4Mjk0ODcxIiwidCI6Ijk4MjAxZmVmLWQ5ZjYtNGU2OC04NGY1LWMyNzA1MDc0ZTM0MiIsImMiOjR9"
+                            <a href="https://tinyurl.com/ylexd2jb"
                                 target="_blank"
                                 class="bg-red-700 hover:bg-red-800 py-3 px-3 rounded-md text-center text-white text-base font-light transition-colors duration-300 ease-in-out cursor-pointer">
                                 Horarios de cursos<i class="fa-solid fa-chevron-right ps-4"></i>
