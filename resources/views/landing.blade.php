@@ -959,8 +959,8 @@ $shows = explode(',', request('show', '')); // Si no existe, devuelve un array v
         }
     }
         </script>
-        @if(in_array('chatbot', $shows))
-        {{-- @if(true) --}}
+        {{-- @if(in_array('chatbot', $shows)) --}}
+        @if(true)
             <script src='https://cdn.jsdelivr.net/npm/botman-web-widget@0/build/js/widget.js'></script>
         @endif
 </body>
