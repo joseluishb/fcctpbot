@@ -772,8 +772,8 @@ $shows = explode(',', request('show', '')); // Si no existe, devuelve un array v
             </div>
         </div>
     </div>
-
-    <div id="modal" class="fixed inset-0 flex items-center justify-center bg-gray-500 bg-opacity-75 {{ in_array('turno', $shows) ? '' : 'hidden' }}">
+    <!-- <div id="modal" class="fixed inset-0 flex items-center justify-center bg-gray-500 bg-opacity-75 {{ in_array('turno', $shows) ? '' : 'hidden' }}">-->
+    <div id="modal" class="fixed inset-0 flex items-center justify-center bg-gray-500 bg-opacity-75">
         <div class="bg-white w-full max-w-md mx-4 mx-auto rounded-lg shadow-lg">
             <div class="flex flex-col h-full">
 
