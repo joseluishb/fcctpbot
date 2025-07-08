@@ -161,8 +161,8 @@
 // Obtener el parámetro `show` como un array
 $shows = explode(',', request('show', '')); // Si no existe, devuelve un array vacío
                         @endphp
-                        @if(in_array('turno', $shows))
-                        {{-- @if(true) --}}
+                        {{-- @if(in_array('turno', $shows)) --}}
+                        @if(true) 
                             <a href="javascript:openModal();"
                                 class="bg-red-700 hover:bg-red-800 py-3 px-4 rounded-md text-center text-white text-base font-light transition-colors duration-300 ease-in-out w-25 cursor-pointer">
                                 Consulta tu turno<i class="fa-solid fa-chevron-right ps-4"></i>
@@ -931,7 +931,7 @@ $shows = explode(',', request('show', '')); // Si no existe, devuelve un array v
 
 
                         }else{
-                            msge.innerHTML = 'Puedes ingresar a nuestro chatbot para resolver tus dudas referente a la matrícula 2024-2';
+                            msge.innerHTML = 'Puedes ingresar a nuestro chatbot para resolver tus dudas referente a la matrícula 2025-2';
 
                         }
                     })
