@@ -350,7 +350,7 @@ $shows = explode(',', request('show', '')); // Si no existe, devuelve un array v
                                     <div>Ingresantes hasta el</div>
                                     <div class="">semestre 2022-I</div>
                                 </div>
-                                <a href="https://fcctp.usmp.edu.pe/pdf/2024/plan-cc-2024-I.pdf" target="_blank">
+                                <a href="https://matricula.fcctp.edu.pe/documentos/20252/plan-cc-Ingresantes-hasta-el-semestre-2022-I.pdf" target="_blank">
                                     <div
                                         class="text-sm border my-2 py-4 px-5 border-gray-300 rounded w-100 text-left bg-white border-l-4 border-l-red-700 hover:bg-red-700 hover:text-white transition-all duration-300 ease-out">
                                         <div class="flex content-center align-center justify-between">
@@ -384,7 +384,7 @@ $shows = explode(',', request('show', '')); // Si no existe, devuelve un array v
                                     <div>Ingresantes a partir del </div>
                                     <div>semestre 2022-II</div>
                                 </div>
-                                <a href="https://fcctp.usmp.edu.pe/pdf/2024/plan-cc-2024-II.pdf" target="_blank">
+                                <a href="https://matricula.fcctp.edu.pe/documentos/20252/plan-cc-Ingresantes-a-partir-del-2022- II.pdf" target="_blank">
                                     <div
                                         class="text-sm border my-2 py-4 px-5 border-gray-300 rounded w-100 text-left bg-white border-l-4 border-l-red-700 hover:bg-red-700 hover:text-white transition-all duration-300 ease-out">
                                         <div class="flex content-center align-center justify-between">
