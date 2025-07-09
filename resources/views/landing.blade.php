@@ -369,7 +369,7 @@ $shows = explode(',', request('show', '')); // Si no existe, devuelve un array v
                                     </div>
                                 </a>
 
-                                <a href="https://fcctp.usmp.edu.pe/pdf/2024/plan-psi-2024-I.pdf" target="_blank">
+                                <a href="https://matricula.fcctp.edu.pe/documentos/20252/plan-ps-Ingresantes-hasta-el-semestre-2022-I.pdf" target="_blank">
                                     <div
                                         class="text-sm border my-2 py-4 px-5 border-gray-300 rounded w-100 text-left bg-white border-l-4 border-l-blue-500 hover:bg-blue-500 hover:text-white transition-all duration-300 ease-out">
                                         <div class="flex content-center align-center justify-between">
@@ -403,7 +403,7 @@ $shows = explode(',', request('show', '')); // Si no existe, devuelve un array v
                                     </div>
                                 </a>
 
-                                <a href="https://fcctp.usmp.edu.pe/pdf/2024/plan-psi-2024-II.pdf" target="_blank">
+                                <a href="https://matricula.fcctp.edu.pe/documentos/20252/plan-ps-Ingresantes-a-partir-del-2022- II.pdf" target="_blank">
                                     <div
                                         class="text-sm border my-2 py-4 px-5 border-gray-300 rounded w-100 text-left bg-white border-l-4 border-l-blue-500 hover:bg-blue-500 hover:text-white transition-all duration-300 ease-out">
                                         <div class="flex content-center align-center justify-between">
