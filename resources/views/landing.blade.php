@@ -639,7 +639,7 @@ $shows = explode(',', request('show', '')); // Si no existe, devuelve un array v
                         </h3>
                         <p><i class="fa-regular fa-envelope pr-2"></i> direccion_comunicaciones@usmp.pe</p>
                         <p><i class="fa-solid fa-square-phone pr-3"></i> 513 6300</p>
-                        <p><i class="fa-regular fa-building pr-2"></i> Anexo: 2005</p>
+                        <p><i class="fa-regular fa-building pr-2"></i> Anexo: 2081</p>
                         <p><i class="fa-regular fa-building pr-2"></i> Anexo de Coordinación Académica: 2036</p>
                     </div>
                 </div>
