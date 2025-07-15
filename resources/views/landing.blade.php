@@ -259,7 +259,7 @@ $shows = explode(',', request('show', '')); // Si no existe, devuelve un array v
                             <h2 class="subtitulo leading-5 pb-2 pe-10">Calendario académico</h2>
                             <p class="text-gray-500">Semestre 2025-II</p>
                             <div class="mt-10 mb-4">
-                                <a href="https://matricula.fcctp.edu.pe/documentos/Calendario-Academico-2025-II.pdf" target="_blank"
+                                <a href="https://matricula.fcctp.edu.pe/documentos/Calendario-Academico-2025-II.pdf?v=2" target="_blank"
                                     class="bg-gray-600 hover:bg-gray-700 text-white border px-4 py-3 rounded-md transition-colors duration-300 ease-in-out">
                                     Ver Documento <i class="pl-1 fa-regular fa-file-lines"></i>
                                 </a>
